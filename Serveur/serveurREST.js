@@ -4,12 +4,8 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var { Soiree } = require('./soiree.js');
 
-app.use(cors());
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodiesvar bodyParser = require('body-parser');
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 
 Array.prototype.remove = function(from, to) {
@@ -18,10 +14,14 @@ Array.prototype.remove = function(from, to) {
   return this.push.apply(this, rest);
 };
 
-
-
-
 exports.lancerServeur=function(){
+
+  app.use(cors());
+  app.use(bodyParser.json()); // support json encoded bodies
+  app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodiesvar bodyParser = require('body-parser');
+  app.use(bodyParser.json()); // support json encoded bodies
+  app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 
   var server = app.listen(3000, function () {
     var host = server.address().address;
@@ -34,14 +34,13 @@ exports.lancerServeur=function(){
     var nom_soiree = req.body.nom_soiree;
     var id_client = req.body.mon_id;
     var participants = req.body.participants;
-    //Creer la soiree et y ajouter les prticipants s'il y en a
-    /*
-      newSoiree(nom_soiree, id_client);
+    var date = rew.body.date;
+  //  var createur = // Recuperer le client correspondant correspondant a id_client //
+    var nouvelleSoiree = new Soiree(nom_soiree,createur,date);
       for(var i=0; i<participants.length; i++){
-        soiree.addParticipant(participants[i]);
+        nouvelleSoiree.addParticipant(participants[i]);
       }
-    */
-    req.status(200).send("Votre soiree a bien ete cree");
+    res.status(200).send("Votre soiree a bien ete cree");
   });
 
   app.post('/FinSoiree',function(req,res){
@@ -55,18 +54,18 @@ exports.lancerServeur=function(){
       io.emit(id_client, data);
     }
     */
+    res.status(200).send("Votre soiree a bien ete signalee comme terminee");
   })
 
-
 //Traitement d'une requete d'actualisation de GPS
-  app.post('/ActualiserGPS', function(req,res){
+  app.post('/ActualiserGPS',function(req,res){
     var coord_recues = req.body.coordonnees;
     var id_recue = req.body.mon_id;
     var id_soiree = req.body.id_soiree;
     var tabCoordonnees = '{"Coordonnees":[]}'; //On cree un nouveau tableau de coordonnees vides a envoyer en reponse
     // On parcourt les participants de la soiree "id_soiree", si on est sur le "id_recue" alors on modifie les coordonnees GPS correspondantes a ce client
     // Sinon on push {"id_client": id_client, "coordonnees":coordonnees} dans tabCoordonnees;
-    req.status(200).send(JSON.stringify(tabCoordonnees));
+    res.status(200).send(JSON.stringify(tabCoordonnees));
   });
 
   app.post('/ChangeStatus', function(req,res){
@@ -80,6 +79,4 @@ exports.lancerServeur=function(){
       io.emit(id_client, data);
     }
   })
-
-
 }

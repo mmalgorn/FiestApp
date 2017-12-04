@@ -8,12 +8,12 @@ Array.prototype.remove = function(from, to) {
 };
 class Soiree{
 
-  constructor(createur,date){
+  constructor(nom, createur, date){
     this.id = 'id';
     this.idCreateur = createur.id;
     this.date = date;
     this.participant = [];
-
+    this.nom_soiree = nom;
     this.participant.push(createur);
 
   }
@@ -36,6 +36,7 @@ class Soiree{
   get date(){
     return this._date;
   }
+
 
   addParticipant(participant){
     this.participant.push(participant);
@@ -65,7 +66,7 @@ var testParticipant = new Participant('testid');
 testParticipant.nom = 'Malgorn';
 testParticipant.prenom = 'Mathieu';
 testParticipant.test();
-var testSoiree = new Soiree(testParticipant,'test');
+var testSoiree = new Soiree("LaSoireeAmbiancee",testParticipant,'test');
 testSoiree.testCreateur();
 var p2 = new Participant('lol');
 p2.nom = "Test";
