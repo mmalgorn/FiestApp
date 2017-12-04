@@ -1,8 +1,6 @@
 "use strict";
 
-console.log("test");
-
-class Participant{
+exports.Participant = class{
 
   constructor(id){
     this.id = id;
@@ -42,10 +40,3 @@ class Participant{
   }
 
 }
-console.log("coucou");
-var testParticipant = new Participant('testid');
-console.log("coucou");
-testParticipant.test();
-testParticipant.nom = 'Malgorn';
-testParticipant.prenom = 'Mathieu';
-testParticipant.test();
