@@ -6,7 +6,7 @@ Array.prototype.remove = function(from, to) {
   this.length = from < 0 ? this.length + from : from;
   return this.push.apply(this, rest);
 };
-class Soiree{
+exports.Soiree = class{
 
   constructor(createur,date){
     this.id = 'id';
@@ -14,7 +14,7 @@ class Soiree{
     this.date = date;
     this.participant = [];
 
-    this.participant.push(createur);
+    this.participant.push(createur.id);
 
   }
 
@@ -38,12 +38,12 @@ class Soiree{
   }
 
   addParticipant(participant){
-    this.participant.push(participant);
+    this.participant.push(participant.id);
   }
 
   removeParticipant(participant){
     for(var i=0;i<this.participant.length;i++){
-      if(this.participant[i].id == participant.id){
+      if(this.participant[i] == participant.id){
         this.participant.remove(i);
       }
     }
@@ -60,7 +60,7 @@ class Soiree{
   }
 
 }
-
+/*
 var testParticipant = new Participant('testid');
 testParticipant.nom = 'Malgorn';
 testParticipant.prenom = 'Mathieu';
@@ -74,3 +74,4 @@ testSoiree.addParticipant(p2);
 testSoiree.afficheParticipant();
 testSoiree.removeParticipant(p2);
 testSoiree.afficheParticipant();
+*/
