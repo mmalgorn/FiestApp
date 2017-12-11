@@ -8,18 +8,13 @@ Array.prototype.remove = function(from, to) {
 };
 exports.Soiree = class{
 
-<<<<<<< HEAD
+
   constructor(createur,date,dateFin,id){
     this.id = id;
-=======
-  constructor(nom, createur, date){
-    this.id = 'id';
->>>>>>> ffe00e2db1329efae17c749055aa8d8ad55ee4e6
     this.idCreateur = createur.id;
     this.date = date;
     this.datefin = dateFin;
     this.participant = [];
-<<<<<<< HEAD
 
     var part = {
       id : createur.id,
@@ -27,10 +22,9 @@ exports.Soiree = class{
     }
     this.participant.push(part);
 
-=======
+
     this.nom_soiree = nom;
     this.participant.push(createur.id);
->>>>>>> ffe00e2db1329efae17c749055aa8d8ad55ee4e6
   }
 
   set id(id){
@@ -58,18 +52,12 @@ exports.Soiree = class{
     return this._dateFin;
   }
 
-<<<<<<< HEAD
   addParticipant(participant,status){
     var part = {
       id : participant.id,
       status : "Preparation"
     }
     this.participant.push(part);
-=======
-
-  addParticipant(participant){
-    this.participant.push(participant.id);
->>>>>>> ffe00e2db1329efae17c749055aa8d8ad55ee4e6
   }
 
   removeParticipant(participant){
@@ -96,11 +84,9 @@ var testParticipant = new Participant('testid');
 testParticipant.nom = 'Malgorn';
 testParticipant.prenom = 'Mathieu';
 testParticipant.test();
-<<<<<<< HEAD
+
 var testSoiree = new Soiree(testParticipant,'test','test','testid');
-=======
-var testSoiree = new Soiree("LaSoireeAmbiancee",testParticipant,'test');
->>>>>>> ffe00e2db1329efae17c749055aa8d8ad55ee4e6
+
 testSoiree.testCreateur();
 var p2 = new Participant('lol');
 p2.nom = "Test";
