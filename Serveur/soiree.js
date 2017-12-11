@@ -24,6 +24,9 @@ exports.Soiree = class{
     this.participant.push(part);
 
 
+
+    this.nom_soiree = nom;
+    this.participant.push(createur.id);
   }
 
   set id(id){
@@ -85,11 +88,9 @@ var testParticipant = new Participant('testid');
 testParticipant.nom = 'Malgorn';
 testParticipant.prenom = 'Mathieu';
 testParticipant.test();
-<<<<<<< HEAD
+
 var testSoiree = new Soiree(testParticipant,'test','test','testid');
-=======
-var testSoiree = new Soiree("LaSoireeAmbiancee",testParticipant,'test');
->>>>>>> ffe00e2db1329efae17c749055aa8d8ad55ee4e6
+
 testSoiree.testCreateur();
 var p2 = new Participant('lol');
 p2.nom = "Test";
