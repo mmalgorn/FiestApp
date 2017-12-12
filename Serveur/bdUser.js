@@ -13,16 +13,6 @@ var userSchema = new Schema({
   prenom : String
 });
 
-var soireeSchema = new Schema({
-
-  idCreateur : {type : ObjectId, ref:'User'},
-  date : Number,
-  datefin : Number,
-  nom_soiree : String,
-  participants : [{type : ObjectId,ref:'User'}]
-});
-
-
 var User = mongoose.model('User',userSchema);
 User.findUser = function(id){
   var deferred = Q.defer();
