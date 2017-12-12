@@ -3,7 +3,7 @@ mongoose.connect('mongodb://localhost/fiestapp', { useMongoClient: true });
 var Schema = mongoose.Schema;
 var Q = require("q");
 var ObjectId = mongoose.Schema.Types.ObjectId;
-
+var User = require('./bdUser.js');
 
 var soireeSchema = new Schema({
 
@@ -11,17 +11,14 @@ var soireeSchema = new Schema({
   date : Number,
   datefin : Number,
   nom_soiree : String,
-  participants : [{type : ObjectId,ref:'User'}]
+  participants : [{type : ObjectId,ref:'User', status:String}]
 });
 
-var USoiree = mongoose.model('Soiree',soireeSchema);
+var Soiree = mongoose.model('Soiree',soireeSchema);
 
-User.findSoiree = function(id){
-
+Soiree.findSoiree = function(id){
   var deferred = Q.defer();
-
   // Find a single department and return in
-
   this.findOne({_id: id}, function(error, user){
     if (error) {
       // Throw an error
@@ -36,31 +33,76 @@ User.findSoiree = function(id){
   return deferred.promise;
 }
 
+Soiree.findSoireeByName = function(soiree){
+  var deferred = Q.defer();
+  // Find a single department and return in
+  this.findOne({nom_soiree: soiree.nom_soiree, date: soiree.date, idCreateur:soiree.idCreateur}, function(error, user){
+    if (error) {
+      // Throw an error
+      deferred.reject(new Error(error));
+    }
+    else {
+      // No error, continue on
+      deferred.resolve(user);
+    }
+  });
+  // Return the promise that we want to use in our chain
+  return deferred.promise;
+}
 
-User.insertSoiree = function(soiree){
+Soiree.insertSoiree = function(soiree){
   console.log("INSERT SOIREE");
   var deferred = Q.defer();
-  var taille = user.participants.length;
-
-  var cursor ="";
-
-  for(var i=0; i<taille; i++){
-    if(soiree.participants[i]!=','){
-      cursor+=user.participants[i];
-    }
-    else if(user.participants[i]==','){
-      cursor = "";
-    }
-  }
 
   var soireeToAdd = new Soiree({
     date : soiree.date,
     datefin : soiree.dateFin,
     nom_soiree : soiree.nom,
+    idCreateur : soiree.idCreateur,
+    participants : []
   });
-  console.log(userToAdd);
 
-  User.findSoireeByName(soireeToAdd)
+//Ajout du createur dans les participants
+  var j=0;
+  var part = {
+    id : soireeToAdd.idCreateur,
+    ref:'User',
+    status : "Preparation"
+  };
+  soireeToAdd.participants[j]=part;
+  j++;
+
+//Recuperation et ajout des participants (IDs) passes dans la requete
+  var taille = soiree.participants.length;
+  var cursor ="";
+  for(var i=0; i<taille; i++){
+    if(soiree.participants[i]==','){
+
+      var part = {
+        id : cursor,
+        ref:'User',
+        status : "Preparation"
+      };
+      soireeToAdd.participants[j]=part;
+
+      j++;
+      cursor = "";
+    }
+    else{
+      cursor+=soiree.participants[i];
+    }
+  }
+  var part = {
+    id : cursor,
+    ref:'User',
+    status : "Preparation"
+  };
+  soireeToAdd.participants[j]=part;
+
+  console.log("soiree a ajouter: ");
+  console.log(soireeToAdd);
+
+  Soiree.findSoireeByName(soireeToAdd)
   .then(function(soiree){
     if(soiree==null){
       soireeToAdd.save(function(err,soiree){
@@ -86,3 +128,5 @@ User.insertSoiree = function(soiree){
   console.log("RETURN");
   return deferred.promise;
 }
+
+module.exports = Soiree;

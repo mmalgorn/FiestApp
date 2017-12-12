@@ -13,6 +13,9 @@ var assert = require('assert');
 var url = 'mongodb://localhost:27017/fiestapp';
 var ObjectId = require('mongodb').ObjectID;
 var User = require('./bdUser.js');
+var Soiree = require('./bdSoiree.js');
+
+
 
 Array.prototype.remove = function(from, to) {
   var rest = this.slice((to || from) + 1 || this.length);
@@ -41,6 +44,19 @@ exports.lancerServeur=function(){
     .then(function(user){
       //console.log(user);
       res.status(200).send("Add User "+ user.prenom +" "+user.nom +" OK");
+    })
+    .catch(function(err){
+      res.status(500).send("Erreur lors de l'insertion \n"+err)
+    })
+    .done();
+  });
+
+
+  app.post('/AddSoiree', function(req, res){
+    Soiree.insertSoiree(req.body)
+    .then(function(soiree){
+      //console.log(user);
+      res.status(200).send("Add soiree "+ soiree.nom_soiree +" OK");
     })
     .catch(function(err){
       res.status(500).send("Erreur lors de l'insertion \n"+err)
