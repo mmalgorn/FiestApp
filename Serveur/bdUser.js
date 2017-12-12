@@ -67,34 +67,52 @@ User.findUserByName = function(user){
 User.insertUser = function(user){
   console.log("INSERT USER");
   var deferred = Q.defer();
+  var taille = user.position.length;
+  var pos = true;
+  var pos1 ="";
+  var pos2="";
+  for(var i=0; i<taille; i++){
+    if(user.position[i]!=',' && pos){
+      pos1+=user.position[i];
+    }
+    else if(user.position[i]==','){
+      pos = false;
+    }
+    else if(user.position[i]!=','){
+      pos2+=user.position[i];
+    }
+  }
   var userToAdd = new User({
     nom: user.nom,
     prenom:user.prenom,
-    position :[user.position[0],user.position[1]]
+
+    position :[pos1,pos2]
   });
   console.log(userToAdd);
+
+
 
   User.findUserByName(userToAdd)
   .then(function(user){
     if(user==null){
-    userToAdd.save(function(err,user){
-      console.log("IN SAVE");
-      if (err) {
-        // Throw an error
-        console.log("ERROR");
-        console.log(err);
-        deferred.reject(new Error(err));
-      }
-      else {
-        // No error, continue on
-        console.log("NO ERROR");
-        deferred.resolve(user);
-      }
-    })
-  }else{
-    deferred.reject(new Error("User déjà présent"));
-  }
-})
+      userToAdd.save(function(err,user){
+        console.log("IN SAVE");
+        if (err) {
+          // Throw an error
+          console.log("ERROR");
+          console.log(err);
+          deferred.reject(new Error(err));
+        }
+        else {
+          // No error, continue on
+          console.log("NO ERROR");
+          deferred.resolve(user);
+        }
+      })
+    }else{
+      deferred.reject(new Error("User déjà présent"));
+    }
+  })
   .catch(console.log)
   .done();
   console.log("RETURN");
@@ -103,20 +121,20 @@ User.insertUser = function(user){
 
 /*
 var userToAdd = {
-  nom : 'TestUser',
-  prenom : 'PrenomTestUSer',
-  position : [10,15]
+nom : 'TestUser',
+prenom : 'PrenomTestUSer',
+position : [10,15]
 };
 
 
 console.log("Insert User");
 User.insertUser(userToAdd)
 .then(function(user){
-  //console.log(user);
-  return User.findUser(user.id);
+//console.log(user);
+return User.findUser(user.id);
 })
 .then(function(user){
-  console.log(user);
+console.log(user);
 })
 .catch(console.log)
 .done();
@@ -124,12 +142,12 @@ User.insertUser(userToAdd)
 
 console.log("FindUserbyName")
 User.findUserByName(userToAdd)
-  .then(function(user){
-    console.log("FindUserbyName");
-    console.log(user);
-  })
-  .catch(console.log)
-  .done();
+.then(function(user){
+console.log("FindUserbyName");
+console.log(user);
+})
+.catch(console.log)
+.done();
 
 */
 module.exports = User;

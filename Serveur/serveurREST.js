@@ -40,14 +40,12 @@ exports.lancerServeur=function(){
     User.insertUser(req.body)
     .then(function(user){
       //console.log(user);
-      res.status(200).send("Add User OK");
+      res.status(200).send("Add User "+ user.prenom +" "+user.nom +" OK");
     })
     .catch(function(err){
       res.status(500).send("Erreur lors de l'insertion \n"+err)
     })
     .done();
-
   });
-
 
 };
