@@ -1,5 +1,5 @@
 var restServ = require('./serveurREST.js');
-var dataBase = require('./bd.js');
+//var dataBase = require('./bd.js');
 /*var MongoClient = require("mongodb").MongoClient;
 var { Participant } = require('./participant.js');
 var { Soiree } = require('./soiree.js');
@@ -8,7 +8,7 @@ var url = 'mongodb://localhost:27017/fiestapp';
 var ObjectId = require('mongodb').ObjectID;
 */
 
-restServ.lancerServeur(dataBase);
+restServ.lancerServeur();
 
 /*
 MongoClient.connect(url, function(err, db) {

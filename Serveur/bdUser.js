@@ -88,7 +88,6 @@ User.insertUser = function(user){
       else {
         // No error, continue on
         console.log("NO ERROR");
-        console.log(user);
         deferred.resolve(user);
       }
     })
@@ -102,7 +101,7 @@ User.insertUser = function(user){
   return deferred.promise;
 }
 
-
+/*
 var userToAdd = {
   nom : 'TestUser',
   prenom : 'PrenomTestUSer',
@@ -131,3 +130,6 @@ User.findUserByName(userToAdd)
   })
   .catch(console.log)
   .done();
+
+*/
+module.exports = User;
