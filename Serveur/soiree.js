@@ -11,6 +11,7 @@ exports.Soiree = class{
 
   constructor(id_createur,date,dateFin,id,nom){
     this.id = id;
+
     this.idCreateur = id_createur;
     this.date = date;
     this.datefin = dateFin;
@@ -62,6 +63,7 @@ exports.Soiree = class{
       status : "Preparation"
     }
     this.participant.push(part);
+
   }
 
   removeParticipant(participant){
