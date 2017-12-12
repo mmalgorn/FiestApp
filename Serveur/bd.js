@@ -1,140 +1,133 @@
-"use strict";
+var mongoose = require("mongoose");
+mongoose.connect('mongodb://localhost/fiestapp', { useMongoClient: true });
+var Schema = mongoose.Schema;
+var Q = require("q");
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
-exports.insertSoiree = function(db,obj, callback) {
-  db.collection('soiree').insertOne( {
-    _id : obj._id,
-    obj
-  }, function(err, result) {
-    //assert.equal(err, null);
-    console.log("Soiree "+ obj.id +" bien inseree");
-    callback(err);
+
+
+var userSchema = new Schema({
+
+  nom : String,
+  position : [[Number]],
+  prenom : String
+});
+
+var soireeSchema = new Schema({
+
+  idCreateur : {type : ObjectId, ref:'User'},
+  date : Number,
+  datefin : Number,
+  nom_soiree : String,
+  participants : [{type : ObjectId,ref:'User'}]
+});
+
+
+var User = mongoose.model('User',userSchema);
+User.findUser = function(id){
+  var deferred = Q.defer();
+
+  // Find a single department and return in
+  this.findOne({_id: id}, function(error, user){
+
+    if (error) {
+      // Throw an error
+      deferred.reject(new Error(error));
+    }
+    else {
+      // No error, continue on
+      deferred.resolve(user);
+    }
   });
+
+  // Return the promise that we want to use in our chain
+  return deferred.promise;
+}
+User.findUserByName = function(user){
+  var deferred = Q.defer();
+
+  // Find a single department and return in
+  this.findOne({nom: user.nom,prenom: user.prenom}, function(error, user){
+
+    if (error) {
+      // Throw an error
+      deferred.reject(new Error(error));
+    }
+    else {
+      // No error, continue on
+      deferred.resolve(user);
+    }
+  });
+
+  // Return the promise that we want to use in our chain
+  return deferred.promise;
+}
+
+
+User.insertUser = function(user){
+  console.log("INSERT USER");
+  var deferred = Q.defer();
+  var userToAdd = new User({
+    nom: user.nom,
+    prenom:user.prenom,
+    position :[user.position[0],user.position[1]]
+  });
+  console.log(userToAdd);
+
+  User.findUserByName(userToAdd)
+  .then(function(user){
+    if(user==null){
+    userToAdd.save(function(err,user){
+      console.log("IN SAVE");
+      if (err) {
+        // Throw an error
+        console.log("ERROR");
+        console.log(err);
+        deferred.reject(new Error(err));
+      }
+      else {
+        // No error, continue on
+        console.log("NO ERROR");
+        console.log(user);
+        deferred.resolve(user);
+      }
+    })
+  }else{
+    deferred.reject(new Error("User déjà présent"));
+  }
+})
+  .catch(console.log)
+  .done();
+  console.log("RETURN");
+  return deferred.promise;
+}
+
+
+var userToAdd = {
+  nom : 'TestUser',
+  prenom : 'PrenomTestUSer',
+  position : [10,15]
 };
 
-exports.insertParticipantSoiree = function(db,idSoiree,idPart,callback){
-  var cursor = db.collection('soiree').find({_id:idSoiree});
-  cursor.each(function(err,doc){
-    if(doc!= null){
-      if(doc._id == idSoiree){
-        var present = false;
-        doc.obj.participant.forEach(function(p,i){
-          if(p.id==idPart){
-            present = true;
-          }
-        })
-        if(!present){
-          doc.obj.participant.push({id:idPart,status:"Preparation"});
-          var query = {_id:idSoiree};
-          var newValues = {obj:{participant:doc.obj.participant}};
-          db.collection('soiree').updateOne(query,newValues,function(err,res){
-            if (err) throw err;
-            console.log("Participant inseré");
-          })
 
-        }
-      }
-    }
+console.log("Insert User");
+User.insertUser(userToAdd)
+.then(function(user){
+  //console.log(user);
+  return User.findUser(user.id);
+})
+.then(function(user){
+  console.log(user);
+})
+.catch(console.log)
+.done();
+
+
+console.log("FindUserbyName")
+User.findUserByName(userToAdd)
+  .then(function(user){
+    console.log("FindUserbyName");
+    console.log(user);
   })
-};
-
-exports.deleteParticipantSoiree = function(db,idSoiree,idPart,callback){
-  var cursor = db.collection('soiree').find({_id:idSoiree});
-  cursor.each(function(err,doc){
-    if(doc!= null){
-      if(doc._id == idSoiree){
-        var present = false;
-        doc.obj.participant.forEach(function(p,i){
-          if(p.id==idPart){
-            present = true;
-          }
-        })
-        if(present){
-          doc.obj.participant = doc.obj.participant.filter(item => item.id !== idPart);
-          var query = {_id:idSoiree};
-          var newValues = {obj:{participant:doc.obj.participant}};
-          console.log("NEW VALUES");
-          console.log(newValues);
-          db.collection('soiree').updateOne(query,newValues,function(err,res){
-            if (err) throw err;
-            console.log("Participant Suprimé");
-          })
-
-        }
-      }
-    }
-  })
-};
-
-exports.updateStatusSoiree = function(db,idSoiree,idPart,status,callback){
-  var cursor = db.collection('soiree').find({_id:idSoiree});
-  cursor.each(function(err,doc){
-    if(doc!=null){
-      if(doc._id == idSoiree){
-        doc.obj.participant.forEach(function(p,i){
-          if(p.id==idPart){
-            doc.obj.participant[i].status = status;
-          }
-        })
-        var query = {_id:idSoiree};
-        var newValues = {obj:{participant:doc.obj.participant}};
-        console.log("NEW VALUES");
-        console.log(newValues);
-        db.collection('soiree').updateOne(query,newValues,function(err,res){
-          if (err) throw err;
-          console.log("Participant Modifiée");
-        })
-      }
-    }
-  });
-
-};
-
-
-
-exports.findSoiree = function(db,id, callback) {
-  var cursor =db.collection('soiree').find({_id:id} );
-  cursor.each(function(err, doc) {
-    //assert.equal(err, null);
-    if (doc != null) {
-      //console.dir(doc);
-      //console.dir(doc._id.id);
-      if(doc._id ==id){
-        //   console.log("find doc");
-        //  console.log(doc);
-        callback(doc);
-      }
-
-    } else {
-      callback(err);
-    }
-  });
-};
-
-exports.insertUser = function(db,obj,callback){
-  db.collection('user').insertOne( {
-    _id : obj._id,
-    obj
-  }, function(err, result) {
-    //assert.equal(err, null);
-    console.log(obj);
-    console.log("Utilisateur ajoute a la base de donnee");
-    callback(err);
-  });
-};
-
-
-exports.findUser = function(db,id,callback){
-  var cursor =db.collection('user').find({_id:id} );
-  cursor.each(function(err, doc) {
-    //assert.equal(err, null);
-    if (doc != null) {
-      console.dir(doc);
-      //console.dir(doc._id.id);
-      if(doc._id ==id){
-        callback(doc);
-      }
-    } else {
-      callback(err);
-    }
-  });
-};
+  .catch(console.log)
+  .done();
