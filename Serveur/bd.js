@@ -1,23 +1,17 @@
-var MongoClient = require("mongodb").MongoClient;
-var { Participant } = require('./participant.js');
-var { Soiree } = require('./soiree.js');
-var assert = require('assert');
-var url = 'mongodb://localhost:27017/fiestapp';
-var ObjectId = require('mongodb').ObjectID;
+"use strict";
 
-
-var insertSoiree = function(db,obj, callback) {
+exports.insertSoiree = function(db,obj, callback) {
   db.collection('soiree').insertOne( {
     _id : obj._id,
     obj
   }, function(err, result) {
     //assert.equal(err, null);
-    console.log("Inserted a document into the restaurants collection.");
+    console.log("Soiree "+ obj.id +" bien inseree");
     callback(err);
   });
 };
 
-var insertParticipantSoiree = function(db,idSoiree,idPart,callback){
+exports.insertParticipantSoiree = function(db,idSoiree,idPart,callback){
   var cursor = db.collection('soiree').find({_id:idSoiree});
   cursor.each(function(err,doc){
     if(doc!= null){
@@ -43,7 +37,7 @@ var insertParticipantSoiree = function(db,idSoiree,idPart,callback){
   })
 };
 
-var deleteParticipantSoiree = function(db,idSoiree,idPart,callback){
+exports.deleteParticipantSoiree = function(db,idSoiree,idPart,callback){
   var cursor = db.collection('soiree').find({_id:idSoiree});
   cursor.each(function(err,doc){
     if(doc!= null){
@@ -71,7 +65,7 @@ var deleteParticipantSoiree = function(db,idSoiree,idPart,callback){
   })
 };
 
-var updateStatusSoiree = function(db,idSoiree,idPart,status,callback){
+exports.updateStatusSoiree = function(db,idSoiree,idPart,status,callback){
   var cursor = db.collection('soiree').find({_id:idSoiree});
   cursor.each(function(err,doc){
     if(doc!=null){
@@ -97,7 +91,7 @@ var updateStatusSoiree = function(db,idSoiree,idPart,status,callback){
 
 
 
-var findSoiree = function(db,id, callback) {
+exports.findSoiree = function(db,id, callback) {
   var cursor =db.collection('soiree').find({_id:id} );
   cursor.each(function(err, doc) {
     //assert.equal(err, null);
@@ -116,24 +110,25 @@ var findSoiree = function(db,id, callback) {
   });
 };
 
-var insertUser = function(db,obj,callback){
+exports.insertUser = function(db,obj,callback){
   db.collection('user').insertOne( {
     _id : obj._id,
     obj
   }, function(err, result) {
     //assert.equal(err, null);
-    console.log("Inserted a document into the restaurants collection.");
+    console.log(obj);
+    console.log("Utilisateur ajoute a la base de donnee");
     callback(err);
   });
 };
 
 
-var findUser = function(db,id,callback){
-  var cursor =db.collection('user').find({},{_id:id} );
+exports.findUser = function(db,id,callback){
+  var cursor =db.collection('user').find({_id:id} );
   cursor.each(function(err, doc) {
     //assert.equal(err, null);
     if (doc != null) {
-      //console.dir(doc);
+      console.dir(doc);
       //console.dir(doc._id.id);
       if(doc._id ==id){
         callback(doc);
@@ -143,82 +138,3 @@ var findUser = function(db,id,callback){
     }
   });
 };
-
-MongoClient.connect(url, function(err, db) {
-  //  db.dropDatabase();
-  assert.equal(null, err);
-  var testParticipant = new Participant('testid');
-  testParticipant.nom = 'Malgorn';
-  testParticipant.prenom = 'Mathieu';
-  //testParticipant.test();
-  var testSoiree = new Soiree(testParticipant,'test','test','idTest');
-  //testSoiree.testCreateur();
-  var p2 = new Participant('lol');
-  p2.nom = "Test";
-  //testSoiree.afficheParticipant();
-  testSoiree.addParticipant(p2);
-  //testSoiree.afficheParticipant();
-
-  console.log("Connected correctly to server.");
-  insertSoiree(db,testSoiree, function(err) {
-    //db.close();
-    console.log(err);
-  });
-
-  findSoiree(db,'idTest', function(err) {
-    console.log(err);
-    if(err!= null && typeof err.obj !== 'undefined'){
-      console.log("Before each");
-      console.log(err.obj.participant);
-      err.obj.participant.forEach(function(p,i){
-        console.log(p);
-      });
-    }
-  });
-
-  insertUser(db,testParticipant, function(err) {
-    console.log(err);
-  });
-
-  insertParticipantSoiree(db,'idTest','TestInsert',function(err){
-    console.log(err);
-  });
-
-  findSoiree(db,'idTest', function(err) {
-    console.log("In insert");
-    console.log(err);
-    if(err!= null && typeof err.obj !== 'undefined'){
-      console.log("Before each");
-      console.log(err.obj.participant);
-      err.obj.participant.forEach(function(p,i){
-        console.log(p);
-      });
-    }
-  });
-
-  deleteParticipantSoiree(db,'idTest','TestInsert',function(err){
-
-    console.log(err);
-  });
-
-  findSoiree(db,'idTest', function(err) {
-    console.log(err);
-    if(err!= null && typeof err.obj !== 'undefined'){
-      console.log("Before each");
-      console.log(err.obj.participant);
-      err.obj.participant.forEach(function(p,i){
-        console.log(p);
-      });
-    }
-  });
-
-  updateStatusSoiree(db,'idTest','lol',"Glandage",function(err){
-    console.log(err);
-  })
-
-  findUser(db,'testid', function(err) {
-    console.log(err);
-  });
-
-  //    db.close();
-});

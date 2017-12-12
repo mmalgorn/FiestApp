@@ -9,22 +9,19 @@ Array.prototype.remove = function(from, to) {
 exports.Soiree = class{
 
 
-  constructor(createur,date,dateFin,id){
+  constructor(id_createur,date,dateFin,id,nom){
     this.id = id;
-    this.idCreateur = createur.id;
+    this.idCreateur = id_createur;
     this.date = date;
     this.datefin = dateFin;
+    this.nom_soiree = nom;
     this.participant = [];
 
     var part = {
-      id : createur.id,
+      id : id_createur,
       status : "Preparation"
     }
     this.participant.push(part);
-
-
-    this.nom_soiree = nom;
-    this.participant.push(createur.id);
   }
 
   set id(id){
@@ -39,6 +36,9 @@ exports.Soiree = class{
   set dateFin(date){
     this._dateFin = date;
   }
+  set nom_soiree(nom){
+    this._nom_soiree=nom;
+  }
   get id(){
     return this._id;
   }
@@ -51,10 +51,14 @@ exports.Soiree = class{
   get dateFin(){
     return this._dateFin;
   }
+  get nom_soiree(){
+    return this._nom_soiree;
+  }
 
-  addParticipant(participant,status){
+
+  addParticipant(id_part,status){
     var part = {
-      id : participant.id,
+      id : id_part,
       status : "Preparation"
     }
     this.participant.push(part);
@@ -62,7 +66,7 @@ exports.Soiree = class{
 
   removeParticipant(participant){
     for(var i=0;i<this.participant.length;i++){
-      if(this.participant[i].id == participant.id){
+      if(this.participant[i].id == participant){
         this.participant.remove(i);
       }
     }
