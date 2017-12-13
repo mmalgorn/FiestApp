@@ -4,13 +4,18 @@ package com.example.mathieu.fiestapp;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -48,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private CallbackManager callbackManager;
     public static final String TAG = "MainActivity";
+
+    private TextView textFavorites;
+    private TextView textSchedules;
+    private TextView textMusic;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +157,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 }
         ).executeAsync();
+
+        textFavorites = (TextView) findViewById(R.id.text_favorites);
+        textSchedules = (TextView) findViewById(R.id.text_schedules);
+        textMusic = (TextView) findViewById(R.id.text_music);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_favorites:
+                                textFavorites.setVisibility(View.VISIBLE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.GONE);
+                                break;
+                            case R.id.action_schedules:
+                                textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.VISIBLE);
+                                textMusic.setVisibility(View.GONE);
+                                break;
+                            case R.id.action_music:
+                                textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);
+                                break;
+                        }
+                        return false;
+                    }
+                });
     }
 
     @Override

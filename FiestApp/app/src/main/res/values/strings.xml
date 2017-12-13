@@ -3,6 +3,7 @@
     <string name="facebook_app_id">569570153381219</string>
     <string name="fb_login_protocol_scheme">fb569570153381219</string>
 
-
-
+    <string name="text_favorites">Favorites</string>
+    <string name="text_schedules">Schedules</string>
+    <string name="text_music">Music</string>
 </resources>
