@@ -14,12 +14,12 @@ var userSchema = new Schema({
 });
 
 var User = mongoose.model('User',userSchema);
+
 User.findUser = function(id){
   var deferred = Q.defer();
 
   // Find a single department and return in
   this.findOne({_id: id}, function(error, user){
-
     if (error) {
       // Throw an error
       deferred.reject(new Error(error));
@@ -29,18 +29,16 @@ User.findUser = function(id){
       deferred.resolve(user);
     }
   });
-
   // Return the promise that we want to use in our chain
   return deferred.promise;
 }
+
+
 User.findUserByName = function(user){
   var deferred = Q.defer();
-
   // Find a single department and return in
   this.findOne({nom: user.nom,prenom: user.prenom}, function(error, user){
-
     if (error) {
-      // Throw an error
       deferred.reject(new Error(error));
     }
     else {
@@ -48,7 +46,6 @@ User.findUserByName = function(user){
       deferred.resolve(user);
     }
   });
-
   // Return the promise that we want to use in our chain
   return deferred.promise;
 }
@@ -78,9 +75,8 @@ User.insertUser = function(user){
 
     position :[pos1,pos2]
   });
+  console.log("user a ajouter: ");
   console.log(userToAdd);
-
-
 
   User.findUserByName(userToAdd)
   .then(function(user){
@@ -109,35 +105,43 @@ User.insertUser = function(user){
   return deferred.promise;
 }
 
-/*
-var userToAdd = {
-nom : 'TestUser',
-prenom : 'PrenomTestUSer',
-position : [10,15]
-};
+
+User.UpdateGPS=function(user){
+  console.log("MISE A JOUR POSITION USER");
+  var deferred = Q.defer();
+
+  var taille = user.position.length;
+  var pos = true;
+  var pos1 ="";
+  var pos2="";
+  for(var i=0; i<taille; i++){
+    if(user.position[i]!=',' && pos){
+      pos1+=user.position[i];
+    }
+    else if(user.position[i]==','){
+      pos = false;
+    }
+    else if(user.position[i]!=','){
+      pos2+=user.position[i];
+    }
+  }
+
+  var query = { name: user.nom, prenom:user.prenom };
+  User.findOneAndUpdate(query, {$set:{position:[pos1,pos2]}}, {new: true}, function(error, doc){
+    if(error){
+      console.log("ERROR");
+      console.log(err);
+      deferred.reject(new Error(err));
+    }
+    else{
+      console.log(doc);
+      console.log("NO ERROR");
+      deferred.resolve(doc);
+    }
+  });
+  return deferred.promise;
+}
 
 
-console.log("Insert User");
-User.insertUser(userToAdd)
-.then(function(user){
-//console.log(user);
-return User.findUser(user.id);
-})
-.then(function(user){
-console.log(user);
-})
-.catch(console.log)
-.done();
 
-
-console.log("FindUserbyName")
-User.findUserByName(userToAdd)
-.then(function(user){
-console.log("FindUserbyName");
-console.log(user);
-})
-.catch(console.log)
-.done();
-
-*/
 module.exports = User;

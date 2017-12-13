@@ -36,14 +36,14 @@ Soiree.findSoiree = function(id){
 Soiree.findSoireeByName = function(soiree){
   var deferred = Q.defer();
   // Find a single department and return in
-  this.findOne({nom_soiree: soiree.nom_soiree, date: soiree.date, idCreateur:soiree.idCreateur}, function(error, user){
+  this.findOne({nom_soiree: soiree.nom_soiree, date: soiree.date, idCreateur:soiree.idCreateur}, function(error, soiree){
     if (error) {
       // Throw an error
       deferred.reject(new Error(error));
     }
     else {
       // No error, continue on
-      deferred.resolve(user);
+      deferred.resolve(soiree);
     }
   });
   // Return the promise that we want to use in our chain
@@ -62,7 +62,7 @@ Soiree.insertSoiree = function(soiree){
     participants : []
   });
 
-//Ajout du createur dans les participants
+  //Ajout du createur dans les participants
   var j=0;
   var part = {
     id : soireeToAdd.idCreateur,
@@ -72,7 +72,7 @@ Soiree.insertSoiree = function(soiree){
   soireeToAdd.participants[j]=part;
   j++;
 
-//Recuperation et ajout des participants (IDs) passes dans la requete
+  //Recuperation et ajout des participants (IDs) passes dans la requete
   var taille = soiree.participants.length;
   var cursor ="";
   for(var i=0; i<taille; i++){
@@ -128,5 +128,26 @@ Soiree.insertSoiree = function(soiree){
   console.log("RETURN");
   return deferred.promise;
 }
+
+
+Soiree.removeSoiree = function(soiree){
+  console.log("TRYING TO DELETE A SOIREE");
+  var deferred = Q.defer();
+  console.log(soiree);
+
+  Soiree.findOneAndRemove({nom_soiree: soiree.nom, date: soiree.date, idCreateur:soiree.idCreateur}, function(error, soiree){
+    if (error) {
+      console.log("ERROR");
+      deferred.reject(new Error("Cette soiree n'existe pas dans notre base de donnees"));
+    }
+    else {
+      console.log("NO ERROR");
+      deferred.resolve(soiree);
+    }
+  });
+  // Return the promise that we want to use in our chain
+  return deferred.promise;
+};
+
 
 module.exports = Soiree;

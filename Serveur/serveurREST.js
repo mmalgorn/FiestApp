@@ -39,6 +39,8 @@ exports.lancerServeur=function(){
     console.log("Serveur en ecoute sur http://%s:%s", host, port);
   });
 
+
+//INSCRIPTION USAGER
   app.post('/AddUser', function(req, res){
     User.insertUser(req.body)
     .then(function(user){
@@ -51,7 +53,7 @@ exports.lancerServeur=function(){
     .done();
   });
 
-
+//CREATION DE SOIREE
   app.post('/AddSoiree', function(req, res){
     Soiree.insertSoiree(req.body)
     .then(function(soiree){
@@ -63,5 +65,75 @@ exports.lancerServeur=function(){
     })
     .done();
   });
+
+//FIN DE SOIREE
+  app.post('/FinSoiree',function(req,res){
+    Soiree.removeSoiree(req.body)
+    .then(function(soiree){
+      //console.log(user);
+      res.status(200).send("Votre soiree "+ soiree.nom_soiree +" a bien ete annulee ou supprimee");
+    })
+    .catch(function(err){
+      res.status(500).send("Erreur lors de la suppression de la soiree: \n"+err)
+    })
+    .done();
+});
+
+//ACTUALISATION GPS
+app.post('/UpdatePosition', function(req,res){
+  User.UpdateGPS(req.body)
+  .then(function(user){
+    //console.log(user);
+    res.status(200).send("Votre position a bien ete actualisee");
+  })
+  .catch(function(err){
+    res.status(500).send("Erreur lors de l'actualisation: \n"+err)
+  })
+  .done();
+});
+
+
+app.post('/PosParticipants', function(req,res){
+
+});
+
+//AJOUT PARTICIPANT A UNE SOIREE
+app.post('/NewPart', function(req,res){
+  Soiree.addPart(req.body)
+  .then(function(soiree){
+    //console.log(user);
+    res.status(200).send("Votre soiree "+ soiree.nom_soiree +" a bien ete annulee ou supprimee");
+  })
+  .catch(function(err){
+    res.status(500).send("Erreur lors de la suppression de la soiree: \n"+err)
+  })
+  .done();
+});
+
+//RETRAIT PARTICIPANT D'UNE SOIREE
+app.post('/DeadFriend', function(req,res){
+  Soiree.removePart(req.body)
+  .then(function(soiree){
+    //console.log(user);
+    res.status(200).send("Votre soiree "+ soiree.nom_soiree +" a bien ete annulee ou supprimee");
+  })
+  .catch(function(err){
+    res.status(500).send("Erreur lors de la suppression de la soiree: \n"+err)
+  })
+  .done();
+});
+
+//ACTUALISATION STATUT PARTICIPANT D'UNE SOIREE
+app.post('/UpdateStatus', function(req,res){
+  Soiree.updateStatusPart(req.body)
+  .then(function(soiree){
+    //console.log(user);
+    res.status(200).send("Votre soiree "+ soiree.nom_soiree +" a bien ete annulee ou supprimee");
+  })
+  .catch(function(err){
+    res.status(500).send("Erreur lors de la suppression de la soiree: \n"+err)
+  })
+  .done();
+});
 
 };
