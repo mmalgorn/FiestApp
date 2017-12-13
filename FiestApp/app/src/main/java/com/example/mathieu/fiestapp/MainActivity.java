@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(45.386482, -71.93042700000001);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("UN PD VIT ICI ET NOUS FAIT A BOUFFER TOUS LES JOURS"));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Thomas t'es PD"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
     @Override
