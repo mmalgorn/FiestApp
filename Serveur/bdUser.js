@@ -126,17 +126,18 @@ User.UpdateGPS=function(user){
     }
   }
 
-  var query = { name: user.nom, prenom:user.prenom };
-  User.findOneAndUpdate(query, {$set:{position:[pos1,pos2]}}, {new: true}, function(error, doc){
-    if(error){
+  console.log("Nouvelle position: "+[pos1,pos2]);
+  var conditions = { nom: user.nom }
+  , update = { $set: { position: [pos1,pos2] }}
+  , options = { multi: true };
+    User.update(conditions, update, options, function(err) {
+    if(err){
       console.log("ERROR");
       console.log(err);
       deferred.reject(new Error(err));
     }
     else{
-      console.log(doc);
       console.log("NO ERROR");
-      deferred.resolve(doc);
     }
   });
   return deferred.promise;

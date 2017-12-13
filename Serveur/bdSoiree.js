@@ -150,4 +150,24 @@ Soiree.removeSoiree = function(soiree){
 };
 
 
+Soiree.getPositions=function(soiree){
+  console.log("RECHERCHE DES POSITIONS DES PARTICIPANTS");
+  var deferred = Q.defer();
+  var positions = [];
+  var j =0;
+  for(var i=0; i<soiree.participants.length; i++){
+     User.findUser(soiree.participants[i].id)
+     .then(function(user){
+  //     var newPos={user.prenom,user.position};
+  //     positions[j]=newPos;
+      console.log(user);
+     })
+     j++;
+   }
+  deferred.resolve(positions);
+  console.log(positions);
+  return deferred.promise;
+}
+
+
 module.exports = Soiree;
