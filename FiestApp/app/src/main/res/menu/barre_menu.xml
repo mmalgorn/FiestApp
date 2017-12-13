@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/etat"
+        android:icon="@drawable/ic_poll_white_24dp"
+        android:title="etat"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/soirees"
+        android:icon="@drawable/ic_whatshot_white_24dp"
+        android:title="soirees"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/amis"
+        android:icon="@drawable/ic_people_white_24dp"
+        android:title="amis"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/notifications"
+        android:icon="@drawable/ic_notifications_white_24dp"
+        android:title="notifications"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/reglages"
+        android:icon="@drawable/ic_settings_white_24dp"
+        android:title="reglages"
+        app:showAsAction="always" />
+</menu>
