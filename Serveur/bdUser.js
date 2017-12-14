@@ -7,7 +7,6 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 var userSchema = new Schema({
-
   nom : String,
   position : [[Number]],
   prenom : String
