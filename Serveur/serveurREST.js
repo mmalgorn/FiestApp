@@ -78,6 +78,9 @@ exports.lancerServeur=function(){
   app.post('/GetSoiree', function(req, res){
     Soiree.findSoireeByName(req.body)
     .then(function(soiree){
+      // var newSoiree = soiree;
+      // newSoiree.participants = JSON.parse(soiree.participants);
+      // res.status(200).send(newSoiree);
       res.status(200).send(soiree);
     })
     .catch(function(err){
@@ -147,7 +150,7 @@ exports.lancerServeur=function(){
 
   //AJOUT PARTICIPANT A UNE SOIREE
   app.post('/NewPart', function(req,res){
-    Soiree.addPart(req.body)
+    Soiree.updateParts(req.body,0)
     .then(function(soiree){
       res.status(200).send({result:"OK"});
     })
@@ -159,7 +162,7 @@ exports.lancerServeur=function(){
 
   //RETRAIT PARTICIPANT D'UNE SOIREE
   app.post('/DeadFriend', function(req,res){
-    Soiree.removePart(req.body)
+    Soiree.updateParts(req.body,1)
     .then(function(soiree){
       res.status(200).send({result:"OK"});
     })
