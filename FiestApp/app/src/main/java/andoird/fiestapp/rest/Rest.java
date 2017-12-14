@@ -10,7 +10,9 @@ import android.util.Log;
 
 import com.goebl.david.Response;
 import com.goebl.david.Webb;
+import com.goebl.david.WebbException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import andoird.fiestapp.Object.ParticipantSoiree;
+import andoird.fiestapp.Object.Soiree;
 import andoird.fiestapp.Object.User;
 
 public class Rest extends AsyncTask {
@@ -92,12 +95,31 @@ public class Rest extends AsyncTask {
 
         JSONObject apiResult = response.getBody();
         try {
-            ArrayList<ParticipantSoiree> part = new ArrayList<>();
-            JSONObject partJSON =new JSONObject(apiResult.getString("participants"));
-            Log.d(TAG,partJSON.toString());
-            //Soiree soiree = new Soiree();
             Log.d(TAG,apiResult.toString());
-            //return soiree;
+            ArrayList<ParticipantSoiree> part = new ArrayList<>();
+            JSONArray partJSON =new JSONArray(apiResult.getString("participants"));
+            ParticipantSoiree ps;
+            for(int i=0;i<partJSON.length();i++){
+                ps = new ParticipantSoiree(
+                        partJSON.getJSONObject(i).getString("id"),
+                        partJSON.getJSONObject(i).getString("status"));
+                part.add(ps);
+            }
+            int[] position = new int[2];
+            position[0] = apiResult.getJSONArray("position").getJSONArray(0).getInt(0);
+            position[1] = apiResult.getJSONArray("position").getJSONArray(1).getInt(0);
+            Log.d(TAG,partJSON.toString());
+            Soiree soiree = new Soiree(
+                    apiResult.getString("idCreateur"),
+                    apiResult.getInt("date"),
+                    apiResult.getInt("dateFin"),
+                    apiResult.getString("nom_soiree"),
+                    part,
+                    position
+
+            );
+            Log.d(TAG,apiResult.toString());
+            return soiree;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -122,19 +144,22 @@ public class Rest extends AsyncTask {
                     .ensureSuccess()
                     .asJsonObject();
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d(TAG,"Erreur Json");
+        }catch (WebbException e){
+            Log.d(TAG,"Erreur com");
         }
 
-        JSONObject apiResult = response.getBody();
-        try {
+        if(response!=null) {
+            JSONObject apiResult = response.getBody();
+            try {
 
-            Log.d(TAG,apiResult.toString());
-            return apiResult.getString("result");
-        } catch (JSONException e) {
-            e.printStackTrace();
+                Log.d(TAG, apiResult.toString());
+                return apiResult.getString("result");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "Erreur Find USer");
         }
-        Log.d(TAG,"Erreur Find USer");
-
         return null;
     }
 

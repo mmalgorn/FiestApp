@@ -207,8 +207,8 @@ public class MainActivityTest extends AppCompatActivity implements OnMapReadyCal
         }
         JSONObject obj = new JSONObject();
         try {
-            obj.put("nom", "Mathieu");
-            obj.put("prenom","Malgorn");
+            obj.put("prenom", "Mathieu");
+            obj.put("nom","Malgorn");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -228,6 +228,7 @@ public class MainActivityTest extends AppCompatActivity implements OnMapReadyCal
             Log.d(TAG,usertoAdd.toJSONObject().toString());
             Object ret = rest.execute("/AddUser",usertoAdd.toJSONObject());
 
+            rest = new Rest();
             JSONObject obj1 = new JSONObject();
             obj1.put("nom_soiree","test");
             obj1.put("date","10");
