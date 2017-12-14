@@ -1,14 +1,9 @@
-package com.example.mathieu.fiestapp.Object;
+package andoird.fiestapp.Object;
 
-import android.os.Build;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by mathieu on 14/12/2017.

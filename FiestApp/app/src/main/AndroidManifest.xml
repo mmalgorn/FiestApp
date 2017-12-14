@@ -18,23 +18,31 @@
 
 
 
-
-        <activity android:name=".Activity_MainActivity2">
+        <activity android:name=".MainActivityTest">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".activity_soiree_detail">
-            <!--android:label="@string/title_activity_maps">-->
-            <intent-filter>
+        <activity android:name=".Activity_MainActivity2">
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        -->
+        </activity>
+
+        <activity
+            android:name=".activity_soiree_detail">
+            <!--android:label="@string/title_activity_maps">-->
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
         <activity android:name=".ActivityEtat" />
         <activity android:name=".ActivitySoirees" />
