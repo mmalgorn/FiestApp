@@ -80,7 +80,7 @@ Soiree.insertSoiree = function(soiree){
   participants[j]=part;
   j++;
 
-  if(soiree.participants.length>0){
+  if(soiree.participants != null &&soiree.participants.length>0){
   //Recuperation et ajout des participants (IDs) passes dans la requete
   var taille = soiree.participants.length;
   var cursor ="";
@@ -234,7 +234,7 @@ Soiree.updateStatusPart=function(block){
       if(jsonParts[j].id.equals(block.idUser)){
         array[j].status=block.status;
       }
-      else
+      else{}
 
     }
 

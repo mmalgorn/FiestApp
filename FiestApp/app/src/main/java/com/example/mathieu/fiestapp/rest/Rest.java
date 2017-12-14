@@ -14,12 +14,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 
+import com.example.mathieu.fiestapp.Object.ParticipantSoiree;
 import com.example.mathieu.fiestapp.Object.User;
 import com.goebl.david.Response;
 import com.goebl.david.Webb;
@@ -71,7 +73,10 @@ public class Rest extends AsyncTask {
                 this.path+=objects[0].toString();
                 retour = AddUser((JSONObject) objects[1]);
                 break;
-            //case "/FindSoiree"
+            case "/GetSoiree":
+                this.path+=objects[0].toString();
+                retour = GetSoiree((JSONObject) objects[1]);
+                break;
         }
 // later we authenticate
 
@@ -79,6 +84,39 @@ public class Rest extends AsyncTask {
 
 //        webb.delete("/session").asVoid();
         return retour;
+    }
+
+    private Object GetSoiree(JSONObject obj) {
+        Webb webb = Webb.create();
+        Response<JSONObject> response = null;
+        try {
+            response = webb
+                    .post(this.path)
+                    .param("nom_soiree", obj.get("nom_soiree").toString())
+                    .param("date", obj.get("date").toString())
+                    .param("date",obj.get("idCreateur").toString())
+
+                    .ensureSuccess()
+                    .asJsonObject();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject apiResult = response.getBody();
+        try {
+            ArrayList<ParticipantSoiree> part = new ArrayList<>();
+            part = apiResult.getJSONArray("position").getJSONArray(0).getInt(0);
+            User user = new User(apiResult.getString("_id"),apiResult.getString("nom"),apiResult.getString("prenom"),position);
+            Log.d(TAG,apiResult.toString());
+            return user;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG,"Erreur Find USer");
+
+        return null;
+
+
     }
 
     private Object AddUser(JSONObject obj) {
