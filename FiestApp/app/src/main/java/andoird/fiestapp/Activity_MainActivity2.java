@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -26,6 +27,12 @@ import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import andoird.fiestapp.Object.ParticipantSoiree;
+import andoird.fiestapp.Object.Soiree;
 
 import static android.view.View.*;
 
@@ -50,39 +57,48 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
 
 
-        SoireePourClient soiree1= new SoireePourClient(1,"Soiree de Mathieu", 16, 47100,"Descritpion d'une soiree sympa");
-        SoireePourClient soiree2= new SoireePourClient(2,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree3= new SoireePourClient(3,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree4= new SoireePourClient(4,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree5= new SoireePourClient(5,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree6= new SoireePourClient(6,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree7= new SoireePourClient(7,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree8= new SoireePourClient(8,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree9= new SoireePourClient(9,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree10= new SoireePourClient(10,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree11= new SoireePourClient(11,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree12= new SoireePourClient(12,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree13= new SoireePourClient(13,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        ParticipantSoiree personne1=new ParticipantSoiree("mathieu","pas_parti");
+        ParticipantSoiree personne2=new ParticipantSoiree("sebastien","pas_parti");
+        ParticipantSoiree personne3=new ParticipantSoiree("nicolas","pas_parti");
+
+        int[] la_position={0,20};
+        Soiree soiree1= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree",la_position);
+        Soiree soiree2= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree2",la_position);
+        Soiree soiree3= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree3",la_position);
+        Soiree soiree4= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree4",la_position);
+        Soiree soiree5= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree5",la_position);
+        Soiree soiree6= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree6",la_position);
+
+        soiree1.addParticipant(personne1);
+        soiree1.addParticipant(personne2);
+        soiree1.addParticipant(personne3);
+        soiree2.addParticipant(personne1);
+        soiree2.addParticipant(personne2);
+        soiree2.addParticipant(personne3);
+        soiree3.addParticipant(personne1);
+        soiree3.addParticipant(personne2);
+        soiree3.addParticipant(personne3);
+        soiree4.addParticipant(personne1);
+        soiree4.addParticipant(personne2);
+        soiree4.addParticipant(personne3);
+        soiree5.addParticipant(personne1);
+        soiree5.addParticipant(personne2);
+        soiree5.addParticipant(personne3);
+        soiree6.addParticipant(personne1);
+        soiree6.addParticipant(personne2);
+        soiree6.addParticipant(personne3);
 
 
 
-        listeSoiree.add(soiree1);
-        listeSoiree.add(soiree2);
-        listeSoiree.add(soiree3);
-        listeSoiree.add(soiree4);
-        listeSoiree.add(soiree5);
-        listeSoiree.add(soiree6);
-        listeSoiree.add(soiree7);
-        listeSoiree.add(soiree8);
-        listeSoiree.add(soiree9);
-        listeSoiree.add(soiree10);
-        listeSoiree.add(soiree11);
-        listeSoiree.add(soiree12);
-        listeSoiree.add(soiree13);
 
+        app.listeSoirees.add(soiree1);
+        app.listeSoirees.add(soiree2);
+        app.listeSoirees.add(soiree3);
+        app.listeSoirees.add(soiree4);
+        app.listeSoirees.add(soiree5);
+        app.listeSoirees.add(soiree6);
 
-        app.setListeSoiree(listeSoiree);
-        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this,listeSoiree, app);
+        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, app.listeSoirees, app);
         listView.setAdapter(adapter);
 
         /*Le listener de quand on clique sur un item*/
@@ -90,9 +106,19 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MyApplication app = (MyApplication) getApplicationContext();
-                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.id_soiree)).getText().toString();
-                int idSoireeADetailler = Integer.parseInt(sIdSoireeADetailler);
-                app.setSoireeEnDetail(app.getListeSoiree().get(idSoireeADetailler));
+                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.localisation)).getText().toString();
+
+
+                int idSoireeADetailler=0;
+                for(int a=0;a<app.listeSoirees.size();a++){
+                    int[] pos= app.listeSoirees.get(a).getPosition();
+                    String chaine=String.valueOf(pos[0])+String.valueOf(pos[1]);
+                    if(chaine.equals(sIdSoireeADetailler)){
+                        idSoireeADetailler=a;
+                    }
+                }
+                //idSoireeADetailler = Integer.parseInt(sIdSoireeADetailler);
+                app.laSoiree=app.listeSoirees.get(idSoireeADetailler);
                 Intent intent = new Intent(Activity_MainActivity2.this, activity_soiree_detail.class);
                 startActivity(intent);
             }
@@ -155,7 +181,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
                 activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(activite_a_lancer);
                 return true;
-            case R.id.reglages:
+            case R.id.ajouter_soiree:
                 activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityReglages.class);
                 activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(activite_a_lancer);

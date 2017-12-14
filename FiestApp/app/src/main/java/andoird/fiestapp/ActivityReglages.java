@@ -43,7 +43,7 @@ public class ActivityReglages extends AppCompatActivity {
                 activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(activite_a_lancer);
                 return true;
-            case R.id.reglages:
+            case R.id.ajouter_soiree:
                 activite_a_lancer = new Intent(ActivityReglages.this, ActivityReglages.class);
                 activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(activite_a_lancer);

@@ -3,21 +3,27 @@ package andoird.fiestapp;
 
 import android.app.Application;
 
+
+import java.util.LinkedList;
+import java.util.List;
+
+import andoird.fiestapp.Object.Soiree;
+
 /**
  * Created by nicod on 12/12/2017.
  */
 
 public class MyApplication extends Application {
-    private ListeDeSoireesPourClient listeSoirees;
-    private SoireePourClient SoireeEnDetail;
+    public List<Soiree> listeSoirees;
+    public Soiree laSoiree;
 
-    public ListeDeSoireesPourClient getListeSoiree(){return listeSoirees;}
-    public SoireePourClient getSoireeEnDetail(){return SoireeEnDetail;}
 
-    public void setListeSoiree(ListeDeSoireesPourClient liste){
-        this.listeSoirees = liste;
+    public MyApplication(){
+        this.listeSoirees=new LinkedList();
     }
-    public void setSoireeEnDetail(SoireePourClient soiree) {
-        this.SoireeEnDetail = soiree;
-    }
+//    public List<Soiree> getListeSoiree(){return listeSoirees;}
+//
+//    public void setListeSoiree(List<Soiree> liste){
+//        this.listeSoirees = liste;
+//    }
 }

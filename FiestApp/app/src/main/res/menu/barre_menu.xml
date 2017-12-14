@@ -23,8 +23,8 @@
         android:title="notifications"
         app:showAsAction="always" />
     <item
-        android:id="@+id/reglages"
-        android:icon="@drawable/ic_settings_white_24dp"
+        android:id="@+id/ajouter_soiree"
+        android:icon="@drawable/ic_add_white_24dp"
         android:title="reglages"
         app:showAsAction="always" />
 </menu>
