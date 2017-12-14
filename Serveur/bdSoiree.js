@@ -95,12 +95,13 @@ Soiree.insertSoiree = function(soiree){
   };
   participants[j]=part;
 
-  if(soiree.participants.length>0){
-    //Recuperation et ajout des participants (IDs) passes dans la requete
-    var taille = soiree.participants.length;
-    var cursor ="";
-    for(var i=0; i<taille; i++){
-      if(soiree.participants[i]==','){
+
+  if(soiree.participants != null &&soiree.participants.length>0){
+  //Recuperation et ajout des participants (IDs) passes dans la requete
+  var taille = soiree.participants.length;
+  var cursor ="";
+  for(var i=0; i<taille; i++){
+    if(soiree.participants[i]==','){
         var part = {
           id : cursor,
           status : "Preparation"

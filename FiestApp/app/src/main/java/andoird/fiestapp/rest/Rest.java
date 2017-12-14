@@ -1,34 +1,24 @@
-package com.example.mathieu.fiestapp.rest;
+package andoird.fiestapp.rest;
 
 /**
  * Created by mathieu on 13/12/2017.
  */
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 
-import com.example.mathieu.fiestapp.Object.User;
 import com.goebl.david.Response;
 import com.goebl.david.Webb;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.net.ssl.HttpsURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
+import andoird.fiestapp.Object.ParticipantSoiree;
+import andoird.fiestapp.Object.User;
 
 public class Rest extends AsyncTask {
 
@@ -71,7 +61,10 @@ public class Rest extends AsyncTask {
                 this.path+=objects[0].toString();
                 retour = AddUser((JSONObject) objects[1]);
                 break;
-            //case "/FindSoiree"
+            case "/GetSoiree":
+                this.path+=objects[0].toString();
+                retour = GetSoiree((JSONObject) objects[1]);
+                break;
         }
 // later we authenticate
 
@@ -79,6 +72,40 @@ public class Rest extends AsyncTask {
 
 //        webb.delete("/session").asVoid();
         return retour;
+    }
+
+    private Object GetSoiree(JSONObject obj) {
+        Webb webb = Webb.create();
+        Response<JSONObject> response = null;
+        try {
+            response = webb
+                    .post(this.path)
+                    .param("nom_soiree", obj.get("nom_soiree").toString())
+                    .param("date", obj.get("date").toString())
+                    .param("idCreateur",obj.get("idCreateur").toString())
+
+                    .ensureSuccess()
+                    .asJsonObject();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject apiResult = response.getBody();
+        try {
+            ArrayList<ParticipantSoiree> part = new ArrayList<>();
+            JSONObject partJSON =new JSONObject(apiResult.getString("participants"));
+            Log.d(TAG,partJSON.toString());
+            //Soiree soiree = new Soiree();
+            Log.d(TAG,apiResult.toString());
+            //return soiree;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG,"Erreur Find USer");
+
+        return null;
+
+
     }
 
     private Object AddUser(JSONObject obj) {

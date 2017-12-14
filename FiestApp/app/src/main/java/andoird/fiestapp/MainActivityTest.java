@@ -1,4 +1,4 @@
-package com.example.mathieu.fiestapp;
+package andoird.fiestapp;
 
 
 import android.content.Intent;
@@ -17,8 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.mathieu.fiestapp.Object.User;
-import com.example.mathieu.fiestapp.rest.Rest;
+import andoird.fiestapp.Object.User;
+import andoird.fiestapp.rest.Rest;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -58,7 +58,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivityTest extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private CallbackManager callbackManager;
@@ -80,10 +80,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mainFragment = (MainFragment) getSupportFragmentManager()
                     .findFragmentById(android.R.id.content);
         }*/
-        setContentView(R.layout.activity_main);
+        setContentView(andoird.fiestapp.R.layout.activity_maintest);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(andoird.fiestapp.R.id.map);
         mapFragment.getMapAsync(this);
 
        /* try {
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.d(TAG,"BeforeLogin");
 
         // Register your callback//
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        LoginButton loginButton = (LoginButton) findViewById(andoird.fiestapp.R.id.login_button);
         loginButton.setReadPermissions("user_friends");
 
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
             ).executeAsync();
         }
-        textFavorites = (TextView) findViewById(R.id.text_favorites);
+        /*textFavorites = (TextView) findViewById(R.id.text_favorites);
         textSchedules = (TextView) findViewById(R.id.text_schedules);
         textMusic = (TextView) findViewById(R.id.text_music);
 
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         return false;
                     }
                 });
-
+*/
         Rest rest = null;
         try {
             rest = new Rest();
@@ -227,6 +227,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             rest = new Rest();
             Log.d(TAG,usertoAdd.toJSONObject().toString());
             Object ret = rest.execute("/AddUser",usertoAdd.toJSONObject());
+
+            JSONObject obj1 = new JSONObject();
+            obj1.put("nom_soiree","test");
+            obj1.put("date","10");
+            obj1.put("idCreateur","5a32e3eee94a48ff1c722f5b");
+            rest.execute("/GetSoiree",obj1);
+
 
             Log.d(TAG,ret.toString());
         } catch (InterruptedException e) {

@@ -6,80 +6,99 @@
     android:layout_height="match_parent"
     tools:context="andoird.fiestapp.ActivityEtat">
 
-    <RadioGroup
-        android:layout_width="294dp"
-        android:layout_height="490dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_goneMarginTop="4dp"
-        app:layout_constraintHorizontal_bias="0.494">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RadioButton
-            android:id="@+id/pas_parti"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/holo_orange_light"
-            android:text="Pas parti de chez moi"
-            android:textAlignment="center" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-        <RadioButton
-            android:id="@+id/en_route"
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/holo_orange_light"
-            android:backgroundTint="@android:color/holo_orange_light"
-            android:text="En route pour la soirée"
-            android:textAlignment="center" />
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginTop="4dp">
 
-        <RadioButton
-            android:id="@+id/a_la_soiree"
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/holo_orange_light"
-            android:text="à la soirée"
-            android:textAlignment="center" />
+                <RadioButton
+                    android:id="@+id/pas_parti"
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/holo_orange_light"
+                    android:text="Pas parti de chez moi"
+                    android:textAlignment="center" />
 
-        <RadioButton
-            android:id="@+id/arrivee_chez_moi"
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/holo_orange_light"
-            android:text="Arrivé chez moi"
-            android:textAlignment="center" />
+                <RadioButton
+                    android:id="@+id/en_route"
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/holo_orange_light"
+                    android:backgroundTint="@android:color/holo_orange_light"
+                    android:text="En route pour la soirée"
+                    android:textAlignment="center" />
 
-        <RadioButton
-            android:id="@+id/parti_de_la_soiree"
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/holo_orange_light"
-            android:text="Parti(e) de la soirée"
-            android:textAlignment="center"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="-47dp" />
+                <RadioButton
+                    android:id="@+id/a_la_soiree"
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/holo_orange_light"
+                    android:text="à la soirée"
+                    android:textAlignment="center" />
 
-        <RadioButton
-            android:id="@+id/aidez_moi"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/holo_orange_light"
-            android:text="à l'aide !"
-            android:textAlignment="center" />
+                <RadioButton
+                    android:id="@+id/arrivee_chez_moi"
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/holo_orange_light"
+                    android:text="Arrivé chez moi"
+                    android:textAlignment="center" />
 
-    </RadioGroup>
+                <RadioButton
+                    android:id="@+id/parti_de_la_soiree"
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/holo_orange_light"
+                    android:text="Parti(e) de la soirée"
+                    android:textAlignment="center"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="-47dp" />
+
+                <RadioButton
+                    android:id="@+id/aidez_moi"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/holo_orange_light"
+                    android:text="à l'aide !"
+                    android:textAlignment="center" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/bouton_ok"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Valider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

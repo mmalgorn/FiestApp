@@ -6,7 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -17,9 +21,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class activity_soiree_detail extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        MyApplication app = (MyApplication) getApplicationContext();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_soiree_detail);
 
@@ -27,6 +33,19 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
+        Button logout = (Button)findViewById(R.id.changer_etat);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginManager.getInstance().logOut();
+                Intent login = new Intent(activity_soiree_detail.this, ActivityEtat.class);
+                startActivity(login);
+                finish();
+            }
+        });
 
     }
 
@@ -71,7 +90,7 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
 //                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //                startActivity(activite_a_lancer);
 //                return true;
-//            case R.id.reglages:
+//            case R.id.ajouter_soiree:
 //                activite_a_lancer = new Intent(activity_soiree_detail.this, ActivityReglages.class);
 //                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //                startActivity(activite_a_lancer);
