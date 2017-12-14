@@ -74,11 +74,11 @@ Soiree.insertSoiree = function(soiree){
   var j=0;
   var part = {
     id : soireeToAdd.idCreateur,
-    ref:'User',
     status : "Preparation"
   };
   participants[j]=part;
   j++;
+
 
   if(soiree.participants != null &&soiree.participants.length>0){
   //Recuperation et ajout des participants (IDs) passes dans la requete
@@ -88,7 +88,6 @@ Soiree.insertSoiree = function(soiree){
     if(soiree.participants[i]==','){
         var part = {
           id : cursor,
-          ref:'User',
           status : "Preparation"
         };
         participants[j]=part;
@@ -102,15 +101,15 @@ Soiree.insertSoiree = function(soiree){
     }
     var part = {
       id : cursor,
-      ref:'User',
       status : "Preparation"
     };
-    participants[j]=part;
-    var stringParts = JSON.stringify(participants);
-    console.log("ARTICIPANTS A AJOUTER:");
-    console.log(stringParts);
-    soireeToAdd.participants = stringParts;
   }
+  participants[j]=part;
+  var stringParts = JSON.stringify(participants);
+  console.log("ARTICIPANTS A AJOUTER:");
+  console.log(stringParts);
+  soireeToAdd.participants = stringParts;
+
   console.log("soiree a ajouter: ");
   console.log(soireeToAdd);
 
@@ -231,19 +230,20 @@ Soiree.updateStatusPart=function(block){
     var array = [];
     for(var j=0; j<jsonParts.length; j++){
       array[j]=jsonParts[j]
-      if(jsonParts[j].id.equals(block.idUser)){
+      var chaine = jsonParts[j].id.toString();
+      if(chaine.equals(block.idUser)){
         array[j].status=block.status;
       }
       else{}
 
     }
-
-
-    console.log(newStatus);
+    console.log("NOUVEAUX STATUTS:");
+    console.log(array);
     var conditions = { _id: block.idSoiree }
-    , update = { $set: { participants: newStatus }}
+    , update = { $set: { participants:JSON.stringify(array) }}
     , options = { multi: true };
     Soiree.update(conditions, update, options, function(err) {
+      console.log("MISE A JOUR SOIREE");
       if(err){
         console.log("ERROR");
         console.log(err);

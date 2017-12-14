@@ -55,6 +55,8 @@ exports.lancerServeur=function(){
     .done();
   });
 
+  //TROUVER USAGER PAR SON ET NOM PRENOM
+  // OK
   app.post('/FindUser', function(req, res){
     console.log("FIND USER");
     console.log(req.body);
@@ -70,8 +72,9 @@ exports.lancerServeur=function(){
     .done();
   });
 
-  
 
+  //TROUVER UNE SOIREE PAR SES NOM, DATE, IDCREATEUR
+  // OK
   app.post('/GetSoiree', function(req, res){
     Soiree.findSoireeByName(req.body)
     .then(function(soiree){
@@ -84,9 +87,8 @@ exports.lancerServeur=function(){
     .done();
   });
 
-
-
-
+  //TROUVER USAGER PAR SON ID
+  // OK
   app.post('/FindUserById', function(req, res){
     console.log("FIND USER");
     console.log(req.body);
@@ -146,12 +148,11 @@ exports.lancerServeur=function(){
   //AJOUT PARTICIPANT A UNE SOIREE
   app.post('/NewPart', function(req,res){
     Soiree.addPart(req.body)
-    .then(function(user){
-      //console.log(user);
-      res.status(200).send("Le participant"+user.prenom+" "+user.nom+" a bien ete ajoute a la soiree");
+    .then(function(soiree){
+      res.status(200).send({result:"OK"});
     })
     .catch(function(err){
-      res.status(500).send("Erreur lors de l'ajout de participant: \n"+err)
+      res.status(500).send({result:"NOK"})
     })
     .done();
   });
@@ -159,11 +160,11 @@ exports.lancerServeur=function(){
   //RETRAIT PARTICIPANT D'UNE SOIREE
   app.post('/DeadFriend', function(req,res){
     Soiree.removePart(req.body)
-    .then(function(user){
-      res.status(200).send("Le participant"+user.prenom+" "+user.nom+" a bien ete supprime de la soiree");
+    .then(function(soiree){
+      res.status(200).send({result:"OK"});
     })
     .catch(function(err){
-      res.status(500).send("Erreur lors de la suppression du participant: \n"+err)
+      res.status(500).send({result:"NOK"})
     })
     .done();
   });
@@ -172,10 +173,10 @@ exports.lancerServeur=function(){
   app.post('/UpdateStatus', function(req,res){
     Soiree.updateStatusPart(req.body)
     .then(function(soiree){
-      res.status(200).send("Votre statut a bien ete actualise: "+soiree);
+      res.status(200).send({result:"OK"});
     })
     .catch(function(err){
-      res.status(500).send("Erreur lors de la suppression de la soiree: \n"+err)
+      res.status(500).send({result:"NOK"})
     })
     .done();
   });
