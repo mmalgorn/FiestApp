@@ -27,6 +27,9 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static android.view.View.*;
 
 
@@ -49,20 +52,28 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
 
+        List<String> invitation= new LinkedList();
+        invitation.add("Sebastien");
+        invitation.add("jacky");
+        invitation.add("Nico");
+        invitation.add("Pedro");
+        invitation.add("Marco");
 
-        SoireePourClient soiree1= new SoireePourClient(1,"Soiree de Mathieu", 16, 47100,"Descritpion d'une soiree sympa");
-        SoireePourClient soiree2= new SoireePourClient(2,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree3= new SoireePourClient(3,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree4= new SoireePourClient(4,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree5= new SoireePourClient(5,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree6= new SoireePourClient(6,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree7= new SoireePourClient(7,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree8= new SoireePourClient(8,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree9= new SoireePourClient(9,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree10= new SoireePourClient(10,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree11= new SoireePourClient(11,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree12= new SoireePourClient(12,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree13= new SoireePourClient(13,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+
+
+        SoireePourClient soiree1= new SoireePourClient(1,"Soiree de Mathieu", 16, 9061995,47100,"Descritpion d'une soiree sympa","mathieu",invitation);
+        SoireePourClient soiree2= new SoireePourClient(2,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree3= new SoireePourClient(3,"Soiree de Nico", 22, 9061995,58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree4= new SoireePourClient(4,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree5= new SoireePourClient(5,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree6= new SoireePourClient(6,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree7= new SoireePourClient(7,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree8= new SoireePourClient(8,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree9= new SoireePourClient(9,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree10= new SoireePourClient(10,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree11= new SoireePourClient(11,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree12= new SoireePourClient(12,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
+        SoireePourClient soiree13= new SoireePourClient(13,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
 
 
 
@@ -155,7 +166,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
                 activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(activite_a_lancer);
                 return true;
-            case R.id.reglages:
+            case R.id.ajouter_soiree:
                 activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityReglages.class);
                 activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(activite_a_lancer);
