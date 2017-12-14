@@ -1,9 +1,10 @@
-package com.example.mathieu.fiestapp.Object;
+package andoird.fiestapp.Object;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by mathieu on 14/12/2017.
@@ -16,13 +17,17 @@ public class Soiree {
     private int dateFin;
     private String nom_soiree;
     private ArrayList<ParticipantSoiree> participants;
+    private int[] position;
 
-    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, String participants) {
+
+
+    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, int[] position) {
         this.idCreateur = idCreateur;
         this.date = date;
         this.dateFin = dateFin;
         this.nom_soiree = nom_soiree;
         this.participants = new ArrayList<ParticipantSoiree>();
+        this.position = position;
     }
 
     public void addParticipant(ParticipantSoiree participantSoiree){
@@ -85,6 +90,14 @@ public class Soiree {
         this.participants = participants;
     }
 
+    public int[] getPosition() {
+        return position;
+    }
+
+    public void setPosition(int[] position) {
+        this.position = position;
+    }
+
     @Override
     public String toString() {
         return "Soiree{" +
@@ -93,6 +106,7 @@ public class Soiree {
                 ", dateFin=" + dateFin +
                 ", nom_soiree='" + nom_soiree + '\'' +
                 ", participants=" + participants +
+                ", position=" + Arrays.toString(position) +
                 '}';
     }
 

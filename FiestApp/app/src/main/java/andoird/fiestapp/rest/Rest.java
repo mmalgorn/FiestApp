@@ -1,36 +1,24 @@
-package com.example.mathieu.fiestapp.rest;
+package andoird.fiestapp.rest;
 
 /**
  * Created by mathieu on 13/12/2017.
  */
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.ArrayList;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 
-import com.example.mathieu.fiestapp.Object.ParticipantSoiree;
-import com.example.mathieu.fiestapp.Object.User;
 import com.goebl.david.Response;
 import com.goebl.david.Webb;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.net.ssl.HttpsURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
+import andoird.fiestapp.Object.ParticipantSoiree;
+import andoird.fiestapp.Object.User;
 
 public class Rest extends AsyncTask {
 
@@ -94,7 +82,7 @@ public class Rest extends AsyncTask {
                     .post(this.path)
                     .param("nom_soiree", obj.get("nom_soiree").toString())
                     .param("date", obj.get("date").toString())
-                    .param("date",obj.get("idCreateur").toString())
+                    .param("idCreateur",obj.get("idCreateur").toString())
 
                     .ensureSuccess()
                     .asJsonObject();
@@ -105,10 +93,11 @@ public class Rest extends AsyncTask {
         JSONObject apiResult = response.getBody();
         try {
             ArrayList<ParticipantSoiree> part = new ArrayList<>();
-            part = apiResult.getJSONArray("position").getJSONArray(0).getInt(0);
-            User user = new User(apiResult.getString("_id"),apiResult.getString("nom"),apiResult.getString("prenom"),position);
+            JSONObject partJSON =new JSONObject(apiResult.getString("participants"));
+            Log.d(TAG,partJSON.toString());
+            //Soiree soiree = new Soiree();
             Log.d(TAG,apiResult.toString());
-            return user;
+            //return soiree;
         } catch (JSONException e) {
             e.printStackTrace();
         }
