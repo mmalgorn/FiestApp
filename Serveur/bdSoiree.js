@@ -80,11 +80,11 @@ Soiree.insertSoiree = function(soiree){
   j++;
 
   if(soiree.participants.length>0){
-  //Recuperation et ajout des participants (IDs) passes dans la requete
-  var taille = soiree.participants.length;
-  var cursor ="";
-  for(var i=0; i<taille; i++){
-    if(soiree.participants[i]==','){
+    //Recuperation et ajout des participants (IDs) passes dans la requete
+    var taille = soiree.participants.length;
+    var cursor ="";
+    for(var i=0; i<taille; i++){
+      if(soiree.participants[i]==','){
         var part = {
           id : cursor,
           status : "Preparation"
@@ -102,12 +102,13 @@ Soiree.insertSoiree = function(soiree){
       id : cursor,
       status : "Preparation"
     };
-    participants[j]=part;
-    var stringParts = JSON.stringify(participants);
-    console.log("ARTICIPANTS A AJOUTER:");
-    console.log(stringParts);
-    soireeToAdd.participants = stringParts;
   }
+  participants[j]=part;
+  var stringParts = JSON.stringify(participants);
+  console.log("ARTICIPANTS A AJOUTER:");
+  console.log(stringParts);
+  soireeToAdd.participants = stringParts;
+
   console.log("soiree a ajouter: ");
   console.log(soireeToAdd);
 
@@ -228,12 +229,13 @@ Soiree.updateStatusPart=function(block){
     var array = [];
     for(var j=0; j<jsonParts.length; j++){
       array[j]=jsonParts[j]
-      if(JSON.stringify(jsonParts[j].id).equals(block.idUser)){
+      var chaine = jsonParts[j].id.toString();
+      if(chaine.equals(block.idUser)){
         array[j].status=block.status;
       }
       else{}
     }
-    console.log("NOUVEAUX STATUS:");
+    console.log("NOUVEAUX STATUTS:");
     console.log(array);
     var conditions = { _id: block.idSoiree }
     , update = { $set: { participants:JSON.stringify(array) }}
