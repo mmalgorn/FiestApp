@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mathieu.fiestapp.Object.User;
+import com.example.mathieu.fiestapp.rest.Rest;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -41,11 +43,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -132,32 +142,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if(Profile.getCurrentProfile()!=null) {
             Log.d(TAG, Profile.getCurrentProfile().getFirstName());
 
-        }
-        new GraphRequest(
-                AccessToken.getCurrentAccessToken(),
-                "/"+Profile.getCurrentProfile().getId()+"/taggable_friends?limit=500",
-                null,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-            /* handle the result */
-                if(response!=null) {
-                    Log.d(TAG, response.getJSONObject().toString());
-                    try {
-                        JSONArray amis = response.getJSONObject().getJSONArray("data");
-                        Log.d(TAG,"nb Amis"+amis.length());
-                        for(int i =0;i<amis.length();i++){
-                            Log.d(TAG,amis.get(i).toString() );
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else Log.d(TAG,"No response");
-                    }
-                }
-        ).executeAsync();
 
+            new GraphRequest(
+                    AccessToken.getCurrentAccessToken(),
+                    "/" + Profile.getCurrentProfile().getId() + "/taggable_friends?limit=500",
+                    null,
+                    HttpMethod.GET,
+                    new GraphRequest.Callback() {
+                        public void onCompleted(GraphResponse response) {
+            /* handle the result */
+    /*                        if (response != null) {
+                                Log.d(TAG, response.getJSONObject().toString());
+                                try {
+                                    JSONArray amis = response.getJSONObject().getJSONArray("data");
+                                    Log.d(TAG, "nb Amis" + amis.length());
+                                    for (int i = 0; i < amis.length(); i++) {
+                                        Log.d(TAG, amis.get(i).toString());
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else Log.d(TAG, "No response");
+                        */}
+                    }
+            ).executeAsync();
+        }
         textFavorites = (TextView) findViewById(R.id.text_favorites);
         textSchedules = (TextView) findViewById(R.id.text_schedules);
         textMusic = (TextView) findViewById(R.id.text_music);
@@ -189,6 +198,44 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         return false;
                     }
                 });
+
+        Rest rest = null;
+        try {
+            rest = new Rest();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("nom", "Mathieu");
+            obj.put("prenom","Malgorn");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            User user = (User) rest.execute("/FindUser",obj).get();
+            Log.d(TAG, user.toString());
+            obj.put("id",user.getId());
+            rest = new Rest();
+            user = (User) rest.execute("/FindUserById",obj).get();
+            Log.d(TAG,user.toString());
+            int[] pos = new int[2];
+            pos[0] = 35;
+            pos[1] = 45;
+            User usertoAdd = new User("Test","Test",pos);
+            rest = new Rest();
+            Log.d(TAG,usertoAdd.toJSONObject().toString());
+            Object ret = rest.execute("/AddUser",usertoAdd.toJSONObject());
+
+            Log.d(TAG,ret.toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
