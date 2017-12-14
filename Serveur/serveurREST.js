@@ -40,21 +40,23 @@ exports.lancerServeur=function(){
   });
 
 
-//INSCRIPTION USAGER
-// OK
+  //INSCRIPTION USAGER
+  // OK
   app.post('/AddUser', function(req, res){
     console.log("ADD USER");
     User.insertUser(req.body)
     .then(function(user){
       //console.log(user);
-      res.status(200).send({result : "OK"});
+      res.status(200).send({result:"OK"});
     })
     .catch(function(err){
-      res.status(500).send({result : "NOK"});
+      res.status(500).send({result:"NOK"})
     })
     .done();
   });
 
+  //TROUVER USAGER PAR SON ET NOM PRENOM
+  // OK
   app.post('/FindUser', function(req, res){
     console.log("FIND USER");
     console.log(req.body);
@@ -70,6 +72,23 @@ exports.lancerServeur=function(){
     .done();
   });
 
+
+  //TROUVER UNE SOIREE PAR SES NOM, DATE, IDCREATEUR
+  // OK
+  app.post('/GetSoiree', function(req, res){
+    Soiree.findSoireeByName(req.body)
+    .then(function(soiree){
+      res.status(200).send(soiree);
+    })
+    .catch(function(err){
+      console.log(err);
+      res.status(500).send({result:"NOK"});
+    })
+    .done();
+  });
+
+  //TROUVER USAGER PAR SON ID
+  // OK
   app.post('/FindUserById', function(req, res){
     console.log("FIND USER");
     console.log(req.body);
@@ -80,105 +99,86 @@ exports.lancerServeur=function(){
     })
     .catch(function(err){
       console.log(err);
-      res.status(500).send("Erreur lors de la recherche: \n"+err)
+      res.status(500).send({result:"NOK"});
     })
     .done();
   });
 
 
-// CREATION DE SOIREE
-// OK
+  // CREATION DE SOIREE
+  // OK
   app.post('/AddSoiree', function(req, res){
     Soiree.insertSoiree(req.body)
     .then(function(soiree){
       //console.log(user);
-      res.status(200).send("Add soiree "+ soiree.nom_soiree +" OK");
+      res.status(200).send({result:"OK"});
     })
     .catch(function(err){
-      res.status(500).send("Erreur lors de l'insertion \n"+err)
+      res.status(500).send({result:"NOK"})
     })
     .done();
   });
 
-// FIN DE SOIREE
-// OK
+  // FIN DE SOIREE
+  // OK
   app.post('/FinSoiree',function(req,res){
     Soiree.removeSoiree(req.body)
     .then(function(soiree){
-      res.status(200).send("Votre soiree "+ soiree.nom_soiree +" a bien ete annulee ou supprimee");
+      res.status(200).send({result:"OK"});
     })
     .catch(function(err){
-      res.status(500).send("Erreur lors de la suppression de la soiree: \n"+err)
+      res.status(500).send({result:"NOK"})
     })
     .done();
-});
+  });
 
-// ACTUALISATION GPS
-// OK
-app.post('/UpdatePosition', function(req,res){
-  User.UpdateGPS(req.body)
-  .then(function(user){
-    res.status(200).send("Votre position a bien ete actualisee");
-  })
-  .catch(function(err){
-    res.status(500).send("Erreur lors de l'actualisation: \n"+err)
-  })
-  .done();
-});
+  // ACTUALISATION GPS
+  // OK
+  app.post('/UpdatePosition', function(req,res){
+    User.UpdateGPS(req.body)
+    .then(function(user){
+      res.status(200).send({result:"OK"});
+    })
+    .catch(function(err){
+      res.status(400).send({result:"NOK"})
+    })
+    .done();
+  });
 
+  //AJOUT PARTICIPANT A UNE SOIREE
+  app.post('/NewPart', function(req,res){
+    Soiree.addPart(req.body)
+    .then(function(soiree){
+      res.status(200).send({result:"OK"});
+    })
+    .catch(function(err){
+      res.status(500).send({result:"NOK"})
+    })
+    .done();
+  });
 
-app.post('/PosParticipants', function(req,res){
+  //RETRAIT PARTICIPANT D'UNE SOIREE
+  app.post('/DeadFriend', function(req,res){
+    Soiree.removePart(req.body)
+    .then(function(soiree){
+      res.status(200).send({result:"OK"});
+    })
+    .catch(function(err){
+      res.status(500).send({result:"NOK"})
+    })
+    .done();
+  });
 
-});
-
-//AJOUT PARTICIPANT A UNE SOIREE
-app.post('/NewPart', function(req,res){
-  Soiree.addPart(req.body)
-  .then(function(user){
-    //console.log(user);
-    res.status(200).send("Le participant"+user.prenom+" "+user.nom+" a bien ete ajoute a la soiree");
-  })
-  .catch(function(err){
-    res.status(500).send("Erreur lors de l'ajout de participant: \n"+err)
-  })
-  .done();
-});
-
-//RETRAIT PARTICIPANT D'UNE SOIREE
-app.post('/DeadFriend', function(req,res){
-  Soiree.removePart(req.body)
-  .then(function(user){
-    res.status(200).send("Le participant"+user.prenom+" "+user.nom+" a bien ete supprime de la soiree");
-  })
-  .catch(function(err){
-    res.status(500).send("Erreur lors de la suppression du participant: \n"+err)
-  })
-  .done();
-});
-
-//ACTUALISATION STATUT PARTICIPANT D'UNE SOIREE
-app.post('/UpdateStatus', function(req,res){
-  Soiree.updateStatusPart(req.body)
-  .then(function(soiree){
-    res.status(200).send("Votre statut a bien ete actualise");
-  })
-  .catch(function(err){
-    res.status(500).send("Erreur lors de la suppression de la soiree: \n"+err)
-  })
-  .done();
-});
-
-//ACQUISITION DE TOUTES LES POSITIONS DES PARTICIPANTS D'UNE SOIREE
-app.post('/GetPositions',function(req,res){
-  Soiree.getPositions(req.body)
-  .then(function(positions){
-    res.status(200).send(positions);
-  })
-  .catch(function(err){
-    res.status(500).send("Erreur lors de la recherche des positions: \n"+err)
-  })
-  .done();
-});
-
+  //ACTUALISATION STATUT PARTICIPANT D'UNE SOIREE
+  app.post('/UpdateStatus', function(req,res){
+    Soiree.updateStatusPart(req.body)
+    .then(function(soiree){
+      res.status(200).send({result:"OK"});
+    })
+    .catch(function(err){
+      res.status(500).send({result:"NOK"})
+    })
+    .done();
+  });
 
 };
