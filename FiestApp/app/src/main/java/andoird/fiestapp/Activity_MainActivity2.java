@@ -51,18 +51,18 @@ public class Activity_MainActivity2 extends AppCompatActivity {
 
 
         SoireePourClient soiree1= new SoireePourClient(1,"Soiree de Mathieu", 16, 47100,"Descritpion d'une soiree sympa");
-        SoireePourClient soiree2= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree3= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree4= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree5= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree6= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree7= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree8= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree9= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree10= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree11= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree12= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
-        SoireePourClient soiree13= new SoireePourClient(48,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree2= new SoireePourClient(2,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree3= new SoireePourClient(3,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree4= new SoireePourClient(4,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree5= new SoireePourClient(5,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree6= new SoireePourClient(6,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree7= new SoireePourClient(7,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree8= new SoireePourClient(8,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree9= new SoireePourClient(9,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree10= new SoireePourClient(10,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree11= new SoireePourClient(11,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree12= new SoireePourClient(12,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
+        SoireePourClient soiree13= new SoireePourClient(13,"Soiree de Nico", 22, 58600,"Descritpion d'une deuxieme soiree sympa");
 
 
 
@@ -81,7 +81,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         listeSoiree.add(soiree13);
 
 
-
+        app.setListeSoiree(listeSoiree);
         MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this,listeSoiree, app);
         listView.setAdapter(adapter);
 

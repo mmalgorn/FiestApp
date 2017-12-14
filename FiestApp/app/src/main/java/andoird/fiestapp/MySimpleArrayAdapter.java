@@ -57,6 +57,9 @@ public class MySimpleArrayAdapter extends ArrayAdapter<SoireePourClient> {
             TextView textTitreSoiree = (TextView) rowView.findViewById(R.id.titre_soiree);
             TextView textLocalisation = (TextView) rowView.findViewById(R.id.localisation);
             TextView textHeure = (TextView) rowView.findViewById(R.id.heure);
+            TextView textIdSoiree = (TextView) rowView.findViewById(R.id.id_soiree);
+
+            textIdSoiree.setText(String.valueOf(soiree.id_soiree));
             textTitreSoiree.setText(soiree.titre_soiree);
             textLocalisation.setText(String.valueOf(soiree.localisation));
             textHeure.setText(String.valueOf(soiree.heure));

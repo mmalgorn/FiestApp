@@ -30,7 +30,7 @@ public class ListeDeSoireesPourClient {
 
     public SoireePourClient get(int index){
         return TabSoireesClient.get(index);
-    }
+    } //////INDEX A REVOIR
 
     public SoireePourClient get_match_by_ID(int ID){
         SoireePourClient res;

@@ -10,7 +10,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+
+
+
+        <activity android:name=".Activity_MainActivity2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity_soiree_detail">
+            <!--android:label="@string/title_activity_maps">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,8 +42,7 @@
         <activity android:name=".ActivityAmis" />
         <activity android:name=".ActivityReglages" />
         <activity android:name=".ActivitySoiree" />
-        <activity android:name=".activity_soiree_detail" />
-        <activity android:name=".Activity_MainActivity2"></activity>
+        <activity android:name=".MainActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

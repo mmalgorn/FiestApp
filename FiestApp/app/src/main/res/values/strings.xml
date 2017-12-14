@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FiestApp</string>
+    <string name="title_activity_maps">Map</string>
+
     <string name="facebook_app_id">569570153381219</string>
     <string name="fb_login_protocol_scheme">fb569570153381219</string>
 
