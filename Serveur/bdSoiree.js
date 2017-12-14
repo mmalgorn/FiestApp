@@ -74,7 +74,6 @@ Soiree.insertSoiree = function(soiree){
   var j=0;
   var part = {
     id : soireeToAdd.idCreateur,
-    ref:'User',
     status : "Preparation"
   };
   participants[j]=part;
@@ -88,7 +87,6 @@ Soiree.insertSoiree = function(soiree){
     if(soiree.participants[i]==','){
         var part = {
           id : cursor,
-          ref:'User',
           status : "Preparation"
         };
         participants[j]=part;
@@ -102,7 +100,6 @@ Soiree.insertSoiree = function(soiree){
     }
     var part = {
       id : cursor,
-      ref:'User',
       status : "Preparation"
     };
     participants[j]=part;
@@ -231,19 +228,18 @@ Soiree.updateStatusPart=function(block){
     var array = [];
     for(var j=0; j<jsonParts.length; j++){
       array[j]=jsonParts[j]
-      if(jsonParts[j].id.equals(block.idUser)){
+      if(JSON.stringify(jsonParts[j].id).equals(block.idUser)){
         array[j].status=block.status;
       }
-      else
-
+      else{}
     }
-
-
-    console.log(newStatus);
+    console.log("NOUVEAUX STATUS:");
+    console.log(array);
     var conditions = { _id: block.idSoiree }
-    , update = { $set: { participants: newStatus }}
+    , update = { $set: { participants:JSON.stringify(array) }}
     , options = { multi: true };
     Soiree.update(conditions, update, options, function(err) {
+      console.log("MISE A JOUR SOIREE");
       if(err){
         console.log("ERROR");
         console.log(err);
