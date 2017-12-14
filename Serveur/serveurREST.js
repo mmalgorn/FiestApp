@@ -43,27 +43,48 @@ exports.lancerServeur=function(){
 //INSCRIPTION USAGER
 // OK
   app.post('/AddUser', function(req, res){
+    console.log("ADD USER");
     User.insertUser(req.body)
     .then(function(user){
       //console.log(user);
-      res.status(200).send("Add User "+ user.prenom +" "+user.nom +" OK");
+      res.status(200).send({result : "OK"});
     })
     .catch(function(err){
-      res.status(500).send("Erreur lors de l'insertion \n"+err)
+      res.status(500).send({result : "NOK"});
     })
     .done();
   });
 
   app.post('/FindUser', function(req, res){
+    console.log("FIND USER");
+    console.log(req.body);
     User.findUserByName(req.body)
     .then(function(user){
-      res.status(200).send("Find User "+ user.prenom +" "+user.nom+" "+user.position);
+      console.log(user);
+      res.status(200).send(user);
     })
     .catch(function(err){
+      console.log(err);
       res.status(500).send("Erreur lors de la recherche: \n"+err)
     })
     .done();
   });
+
+  app.post('/FindUserById', function(req, res){
+    console.log("FIND USER");
+    console.log(req.body);
+    User.findUser(req.body)
+    .then(function(user){
+      console.log(user);
+      res.status(200).send(user);
+    })
+    .catch(function(err){
+      console.log(err);
+      res.status(500).send("Erreur lors de la recherche: \n"+err)
+    })
+    .done();
+  });
+
 
 // CREATION DE SOIREE
 // OK

@@ -15,11 +15,11 @@ var userSchema = new Schema({
 
 var User = mongoose.model('User',userSchema);
 
-User.findUser = function(id){
+User.findUser = function(user){
   var deferred = Q.defer();
 
   // Find a single department and return in
-  this.findOne({_id: id}, function(error, user){
+  this.findOne({_id: user.id}, function(error, user){
     if (error) {
       // Throw an error
       deferred.reject(new Error(error));
@@ -37,6 +37,7 @@ User.findUser = function(id){
 User.findUserByName = function(user){
   var deferred = Q.defer();
   // Find a single department and return in
+  console.log(user.prenom);
   this.findOne({nom: user.nom,prenom: user.prenom}, function(error, user){
     if (error) {
       deferred.reject(new Error(error));
