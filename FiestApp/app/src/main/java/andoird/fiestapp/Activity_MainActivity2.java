@@ -12,8 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.mathieu.fiestapp.Object.ParticipantSoiree;
-import com.example.mathieu.fiestapp.Object.Soiree;
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -31,6 +30,9 @@ import org.json.JSONException;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import andoird.fiestapp.Object.ParticipantSoiree;
+import andoird.fiestapp.Object.Soiree;
 
 import static android.view.View.*;
 
@@ -59,12 +61,13 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         ParticipantSoiree personne2=new ParticipantSoiree("sebastien","pas_parti");
         ParticipantSoiree personne3=new ParticipantSoiree("nicolas","pas_parti");
 
-        Soiree soiree1= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree");
-        Soiree soiree2= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree2");
-        Soiree soiree3= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree3");
-        Soiree soiree4= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree4");
-        Soiree soiree5= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree5");
-        Soiree soiree6= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree6");
+        int[] la_position={0,20};
+        Soiree soiree1= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree",la_position);
+        Soiree soiree2= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree2",la_position);
+        Soiree soiree3= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree3",la_position);
+        Soiree soiree4= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree4",la_position);
+        Soiree soiree5= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree5",la_position);
+        Soiree soiree6= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree6",la_position);
 
         soiree1.addParticipant(personne1);
         soiree1.addParticipant(personne2);
@@ -103,8 +106,18 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MyApplication app = (MyApplication) getApplicationContext();
-                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.id_soiree)).getText().toString();
-                int idSoireeADetailler = Integer.parseInt(sIdSoireeADetailler);
+                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.localisation)).getText().toString();
+
+
+                int idSoireeADetailler=0;
+                for(int a=0;a<app.listeSoirees.size();a++){
+                    int[] pos= app.listeSoirees.get(a).getPosition();
+                    String chaine=String.valueOf(pos[0])+String.valueOf(pos[1]);
+                    if(chaine.equals(sIdSoireeADetailler)){
+                        idSoireeADetailler=a;
+                    }
+                }
+                //idSoireeADetailler = Integer.parseInt(sIdSoireeADetailler);
                 app.laSoiree=app.listeSoirees.get(idSoireeADetailler);
                 Intent intent = new Intent(Activity_MainActivity2.this, activity_soiree_detail.class);
                 startActivity(intent);

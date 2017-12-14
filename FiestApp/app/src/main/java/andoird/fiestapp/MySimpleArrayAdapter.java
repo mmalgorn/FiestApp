@@ -9,9 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.mathieu.fiestapp.Object.Soiree;
 
 import java.util.List;
+
+import andoird.fiestapp.Object.Soiree;
 
 /**
  * Created by nicod on 12/12/2017.
@@ -59,7 +60,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter<Soiree> {
             TextView textHeure = (TextView) rowView.findViewById(R.id.heure);
 
             textTitreSoiree.setText(soiree.getNom_soiree());
-            textLocalisation.setText(String.valueOf(soiree.localisation[0])+String.valueOf(soiree.localisation[1]));
+            textLocalisation.setText(String.valueOf(soiree.getPosition()[0])+String.valueOf(soiree.getPosition()[1]));
             textHeure.setText(String.valueOf(soiree.getDate()));
         }
         return rowView;

@@ -3,9 +3,11 @@ package andoird.fiestapp;
 
 import android.app.Application;
 
-import com.example.mathieu.fiestapp.Object.Soiree;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import andoird.fiestapp.Object.Soiree;
 
 /**
  * Created by nicod on 12/12/2017.
@@ -16,7 +18,9 @@ public class MyApplication extends Application {
     public Soiree laSoiree;
 
 
-
+    public MyApplication(){
+        this.listeSoirees=new LinkedList();
+    }
 //    public List<Soiree> getListeSoiree(){return listeSoirees;}
 //
 //    public void setListeSoiree(List<Soiree> liste){
