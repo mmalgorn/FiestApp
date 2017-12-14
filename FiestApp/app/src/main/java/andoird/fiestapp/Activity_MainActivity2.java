@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mathieu.fiestapp.Object.ParticipantSoiree;
+import com.example.mathieu.fiestapp.Object.Soiree;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -52,48 +54,48 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
 
-        List<String> invitation= new LinkedList();
-        invitation.add("Sebastien");
-        invitation.add("jacky");
-        invitation.add("Nico");
-        invitation.add("Pedro");
-        invitation.add("Marco");
+
+        ParticipantSoiree personne1=new ParticipantSoiree("mathieu","pas_parti");
+        ParticipantSoiree personne2=new ParticipantSoiree("sebastien","pas_parti");
+        ParticipantSoiree personne3=new ParticipantSoiree("nicolas","pas_parti");
+
+        Soiree soiree1= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree");
+        Soiree soiree2= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree2");
+        Soiree soiree3= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree3");
+        Soiree soiree4= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree4");
+        Soiree soiree5= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree5");
+        Soiree soiree6= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree6");
+
+        soiree1.addParticipant(personne1);
+        soiree1.addParticipant(personne2);
+        soiree1.addParticipant(personne3);
+        soiree2.addParticipant(personne1);
+        soiree2.addParticipant(personne2);
+        soiree2.addParticipant(personne3);
+        soiree3.addParticipant(personne1);
+        soiree3.addParticipant(personne2);
+        soiree3.addParticipant(personne3);
+        soiree4.addParticipant(personne1);
+        soiree4.addParticipant(personne2);
+        soiree4.addParticipant(personne3);
+        soiree5.addParticipant(personne1);
+        soiree5.addParticipant(personne2);
+        soiree5.addParticipant(personne3);
+        soiree6.addParticipant(personne1);
+        soiree6.addParticipant(personne2);
+        soiree6.addParticipant(personne3);
 
 
 
-        SoireePourClient soiree1= new SoireePourClient(1,"Soiree de Mathieu", 16, 9061995,47100,"Descritpion d'une soiree sympa","mathieu",invitation);
-        SoireePourClient soiree2= new SoireePourClient(2,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree3= new SoireePourClient(3,"Soiree de Nico", 22, 9061995,58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree4= new SoireePourClient(4,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree5= new SoireePourClient(5,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree6= new SoireePourClient(6,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree7= new SoireePourClient(7,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree8= new SoireePourClient(8,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree9= new SoireePourClient(9,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree10= new SoireePourClient(10,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree11= new SoireePourClient(11,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree12= new SoireePourClient(12,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
-        SoireePourClient soiree13= new SoireePourClient(13,"Soiree de Nico", 22,9061995, 58600,"Descritpion d'une deuxieme soiree sympa","mathieu",invitation);
 
+        app.listeSoirees.add(soiree1);
+        app.listeSoirees.add(soiree2);
+        app.listeSoirees.add(soiree3);
+        app.listeSoirees.add(soiree4);
+        app.listeSoirees.add(soiree5);
+        app.listeSoirees.add(soiree6);
 
-
-        listeSoiree.add(soiree1);
-        listeSoiree.add(soiree2);
-        listeSoiree.add(soiree3);
-        listeSoiree.add(soiree4);
-        listeSoiree.add(soiree5);
-        listeSoiree.add(soiree6);
-        listeSoiree.add(soiree7);
-        listeSoiree.add(soiree8);
-        listeSoiree.add(soiree9);
-        listeSoiree.add(soiree10);
-        listeSoiree.add(soiree11);
-        listeSoiree.add(soiree12);
-        listeSoiree.add(soiree13);
-
-
-        app.setListeSoiree(listeSoiree);
-        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this,listeSoiree, app);
+        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, app.listeSoirees, app);
         listView.setAdapter(adapter);
 
         /*Le listener de quand on clique sur un item*/
@@ -103,7 +105,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
                 MyApplication app = (MyApplication) getApplicationContext();
                 String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.id_soiree)).getText().toString();
                 int idSoireeADetailler = Integer.parseInt(sIdSoireeADetailler);
-                app.setSoireeEnDetail(app.getListeSoiree().get(idSoireeADetailler));
+                app.laSoiree=app.listeSoirees.get(idSoireeADetailler);
                 Intent intent = new Intent(Activity_MainActivity2.this, activity_soiree_detail.class);
                 startActivity(intent);
             }

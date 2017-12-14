@@ -9,18 +9,22 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.example.mathieu.fiestapp.Object.Soiree;
+
+import java.util.List;
+
 /**
  * Created by nicod on 12/12/2017.
  */
 
-public class MySimpleArrayAdapter extends ArrayAdapter<SoireePourClient> {
+public class MySimpleArrayAdapter extends ArrayAdapter<Soiree> {
     private final Context context;
-    private final ListeDeSoireesPourClient liste;
+    private final List<Soiree> liste;
     private static RadioButton radioSellect;
     private final MyApplication app;
 
-    public MySimpleArrayAdapter(Context context, ListeDeSoireesPourClient liste, MyApplication app) {
-        super(context, R.layout.activity_soiree_item,liste.TabSoireesClient);
+    public MySimpleArrayAdapter(Context context, List<Soiree> liste, MyApplication app) {
+        super(context, R.layout.activity_soiree_item,liste);
         this.context = context;
         this.liste = liste;
         this.app = app;
@@ -33,14 +37,10 @@ public class MySimpleArrayAdapter extends ArrayAdapter<SoireePourClient> {
         return liste.size();
     }
     @Override
-    public SoireePourClient getItem(int position) {
+    public Soiree getItem(int position) {
         return liste.get(position);
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 
 
     @Override
@@ -52,17 +52,15 @@ public class MySimpleArrayAdapter extends ArrayAdapter<SoireePourClient> {
         if(position<liste.size()) {
             Log.d("test", "Get View : Position :"+position+" Size :"+liste.size());
 
-            SoireePourClient soiree = liste.get(position);
+            Soiree soiree = liste.get(position);
 
             TextView textTitreSoiree = (TextView) rowView.findViewById(R.id.titre_soiree);
             TextView textLocalisation = (TextView) rowView.findViewById(R.id.localisation);
             TextView textHeure = (TextView) rowView.findViewById(R.id.heure);
-            TextView textIdSoiree = (TextView) rowView.findViewById(R.id.id_soiree);
 
-            textIdSoiree.setText(String.valueOf(soiree.id_soiree));
-            textTitreSoiree.setText(soiree.titre_soiree);
-            textLocalisation.setText(String.valueOf(soiree.localisation));
-            textHeure.setText(String.valueOf(soiree.heure));
+            textTitreSoiree.setText(soiree.getNom_soiree());
+            textLocalisation.setText(String.valueOf(soiree.localisation[0])+String.valueOf(soiree.localisation[1]));
+            textHeure.setText(String.valueOf(soiree.getDate()));
         }
         return rowView;
     }

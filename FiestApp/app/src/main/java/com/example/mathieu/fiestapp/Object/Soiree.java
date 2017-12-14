@@ -15,9 +15,18 @@ public class Soiree {
     private int date;
     private int dateFin;
     private String nom_soiree;
+
     private ArrayList<ParticipantSoiree> participants;
 
-    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, String participants) {
+    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, ArrayList<ParticipantSoiree> participants) {
+        this.idCreateur = idCreateur;
+        this.date = date;
+        this.dateFin = dateFin;
+        this.nom_soiree = nom_soiree;
+        this.participants = participants;
+    }
+
+    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree) {
         this.idCreateur = idCreateur;
         this.date = date;
         this.dateFin = dateFin;
