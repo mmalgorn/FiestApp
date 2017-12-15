@@ -111,6 +111,7 @@ exports.lancerServeur=function(){
   // CREATION DE SOIREE
   // OK
   app.post('/AddSoiree', function(req, res){
+    console.log("ADD SOIREE");
     Soiree.insertSoiree(req.body)
     .then(function(soiree){
       //console.log(user);
@@ -150,6 +151,7 @@ exports.lancerServeur=function(){
 
   //AJOUT PARTICIPANT A UNE SOIREE
   app.post('/NewPart', function(req,res){
+    console.log("NEW PART");
     Soiree.updateParts(req.body,0)
     .then(function(soiree){
       res.status(200).send({result:"OK"});
@@ -162,6 +164,7 @@ exports.lancerServeur=function(){
 
   //RETRAIT PARTICIPANT D'UNE SOIREE
   app.post('/DeadFriend', function(req,res){
+    console.log("DEADFRIEND");
     Soiree.updateParts(req.body,1)
     .then(function(soiree){
       res.status(200).send({result:"OK"});

@@ -127,7 +127,7 @@ User.UpdateGPS=function(user){
   }
 
   console.log("Nouvelle position: "+[pos1,pos2]);
-  var conditions = { nom: user.nom }
+  var conditions = { _id: user.id }
   , update = { $set: { position: [pos1,pos2] }}
   , options = { multi: true };
     User.update(conditions, update, options, function(err) {
