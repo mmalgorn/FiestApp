@@ -8,14 +8,14 @@
         android:title="etat"
         app:showAsAction="always" />
     <item
-        android:id="@+id/soirees"
-        android:icon="@drawable/ic_whatshot_white_24dp"
-        android:title="soirees"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/amis"
         android:icon="@drawable/ic_people_white_24dp"
         android:title="amis"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/soirees"
+        android:icon="@drawable/ic_whatshot_white_24dp"
+        android:title="soirees"
         app:showAsAction="always" />
     <item
         android:id="@+id/notifications"
@@ -25,6 +25,6 @@
     <item
         android:id="@+id/ajouter_soiree"
         android:icon="@drawable/ic_add_white_24dp"
-        android:title="reglages"
+        android:title="Ajouter soiree"
         app:showAsAction="always" />
 </menu>

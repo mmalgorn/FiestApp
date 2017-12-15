@@ -65,7 +65,7 @@ public class NotificationIntentService extends IntentService {
                 app.getSoireeNotif().getNom_soiree()+" est sur le point de commencer",
                 "Prevenez vos amis que vous partez pour la soirée"
         );
-        Log.d(TAG,notif.getTitle()+"    :    "+NOTIFICATION_ID);
+       // Log.d(TAG,notif.getTitle()+"    :    "+NOTIFICATION_ID);
         app.Notifs.add(notif);
         builder.setContentTitle(notif.getTitle())
                 .setAutoCancel(true)

@@ -51,7 +51,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter<Soiree> {
         final View rowView = inflater.inflate(R.layout.activity_soiree_item, parent, false);
 
         if(position<liste.size()) {
-            Log.d("test", "Get View : Position :"+position+" Size :"+liste.size());
+          //  Log.d("test", "Get View : Position :"+position+" Size :"+liste.size());
 
             Soiree soiree = liste.get(position);
 

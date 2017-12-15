@@ -28,13 +28,13 @@ public class GpsService extends Service
 
         public LocationListener(String provider)
         {
-            Log.e(TAG, "LocationListener " + provider);
+         //   Log.e(TAG, "LocationListener " + provider);
             mLastLocation = new Location(provider);
             app = (MyApplication) MyApplication.getAppContext();
 
             User user = app.getMyUser();
             if(user!=null) {
-                Log.d(TAG, user.toString());
+           //     Log.d(TAG, user.toString());
                 Double[] pos = new Double[2];
                 pos[0] = mLastLocation.getLatitude();
                 pos[1] = mLastLocation.getLongitude();
@@ -58,14 +58,14 @@ public class GpsService extends Service
         @Override
         public void onLocationChanged(Location location)
         {
-            Log.e(TAG, "onLocationChanged: " + location);
+           // Log.e(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
             app = (MyApplication) MyApplication.getAppContext();
 
             User user = app.getMyUser();
 
             if(user != null) {
-                Log.d(TAG,"NON NULL");
+             //   Log.d(TAG,"NON NULL");
                 Double[] pos = new Double[2];
                 pos[0] = mLastLocation.getLatitude();
                 pos[1] = mLastLocation.getLongitude();
@@ -87,19 +87,19 @@ public class GpsService extends Service
         @Override
         public void onProviderDisabled(String provider)
         {
-            Log.e(TAG, "onProviderDisabled: " + provider);
+            //Log.e(TAG, "onProviderDisabled: " + provider);
         }
 
         @Override
         public void onProviderEnabled(String provider)
         {
-            Log.e(TAG, "onProviderEnabled: " + provider);
+            //Log.e(TAG, "onProviderEnabled: " + provider);
         }
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras)
         {
-            Log.e(TAG, "onStatusChanged: " + provider);
+            //Log.e(TAG, "onStatusChanged: " + provider);
         }
     }
 
@@ -117,7 +117,7 @@ public class GpsService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        Log.e(TAG, "onStartCommand");
+        //Log.e(TAG, "onStartCommand");
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
@@ -125,7 +125,7 @@ public class GpsService extends Service
     @Override
     public void onCreate()
     {
-        Log.e(TAG, "onCreate");
+        //Log.e(TAG, "onCreate");
         app = (MyApplication)getApplicationContext();
 
         initializeLocationManager();
@@ -152,7 +152,7 @@ public class GpsService extends Service
     @Override
     public void onDestroy()
     {
-        Log.e(TAG, "onDestroy");
+        //Log.e(TAG, "onDestroy");
         super.onDestroy();
         if (mLocationManager != null) {
             for (int i = 0; i < mLocationListeners.length; i++) {
@@ -166,7 +166,7 @@ public class GpsService extends Service
     }
 
     private void initializeLocationManager() {
-        Log.e(TAG, "initializeLocationManager");
+        //Log.e(TAG, "initializeLocationManager");
         if (mLocationManager == null) {
             mLocationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }
