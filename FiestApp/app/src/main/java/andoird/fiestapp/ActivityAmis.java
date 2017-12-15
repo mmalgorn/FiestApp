@@ -23,6 +23,7 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,11 @@ import org.w3c.dom.Text;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import andoird.fiestapp.Object.Soiree;
+import andoird.fiestapp.Object.User;
+import andoird.fiestapp.rest.Rest;
 
 public class ActivityAmis extends AppCompatActivity {
 
@@ -68,8 +74,6 @@ public class ActivityAmis extends AppCompatActivity {
                     app.amisCheck.add(TextNomAmi);
                     couleur.setBackgroundColor(0xFF669900);
                     Log.d("COUCOU", " ONAJOUTE");
-
-
                 }
                 else{
                     if(app.amisCheck.contains(TextNomAmi)){
@@ -80,6 +84,36 @@ public class ActivityAmis extends AppCompatActivity {
 
                     }
                 }
+                Rest rest = null;
+                JSONObject friend = new JSONObject();
+                String[] array = TextNomAmi.split(" ");
+                try {
+                    friend.put("nom",array[1]);
+                    friend.put("prenom",array[0]);
+                    friend.put("position",app.laSoiree.getPosition());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.d("INVITER AMI", friend.toString() );
+                try {
+                    rest = new Rest();
+                    Object ret = rest.execute("/AddUser",friend);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    rest = new Rest();
+                    User u = (User) rest.execute("/FindUser",friend).get();
+                    
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
