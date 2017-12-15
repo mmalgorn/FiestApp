@@ -60,7 +60,8 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         }
         try {
             JSONObject objMySoiree = new JSONObject();
-            objMySoiree.put("idUser", "5a33d555092592ae4cf42c66");
+
+            objMySoiree.put("idUser", app.myUser.getId());
 
             ListSoiree list = (ListSoiree) rest.execute("/MySoirees", objMySoiree).get();
 //            Log.d(TAG, list);
@@ -79,48 +80,6 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         }
         ListView listView = (ListView) findViewById(R.id.list);
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
-
-
-<<<<<<< HEAD
-//        ParticipantSoiree personne1=new ParticipantSoiree("mathieu","pas_parti");
-//        ParticipantSoiree personne2=new ParticipantSoiree("sebastien","pas_parti");
-//        ParticipantSoiree personne3=new ParticipantSoiree("nicolas","pas_parti");
-//
-//        int[] la_position={0,20};
-//        Soiree soiree1= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree",la_position);
-//        Soiree soiree2= new Soiree("15zefzefef15", 90619995, 10061995, "titre de la Soiree2",la_position);
-//        Soiree soiree3= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree3",la_position);
-//        Soiree soiree4= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree4",la_position);
-//        Soiree soiree5= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree5",la_position);
-//        Soiree soiree6= new Soiree("15zefzefef15", 90619995,  10061995, "titre de la Soiree6",la_position);
-//
-//        soiree1.addParticipant(personne1);
-//        soiree1.addParticipant(personne2);
-//        soiree1.addParticipant(personne3);
-//        soiree2.addParticipant(personne1);
-//        soiree2.addParticipant(personne2);
-//        soiree2.addParticipant(personne3);
-//        soiree3.addParticipant(personne1);
-//        soiree3.addParticipant(personne2);
-//        soiree3.addParticipant(personne3);
-//        soiree4.addParticipant(personne1);
-//        soiree4.addParticipant(personne2);
-//        soiree4.addParticipant(personne3);
-//        soiree5.addParticipant(personne1);
-//        soiree5.addParticipant(personne2);
-//        soiree5.addParticipant(personne3);
-//        soiree6.addParticipant(personne1);
-//        soiree6.addParticipant(personne2);
-//        soiree6.addParticipant(personne3);
-//
-//
-//        app.listeSoirees.add(soiree1);
-//        app.listeSoirees.add(soiree2);
-//        app.listeSoirees.add(soiree3);
-//        app.listeSoirees.add(soiree4);
-//        app.listeSoirees.add(soiree5);
-//        app.listeSoirees.add(soiree6);
-
 
         MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, app.listeSoirees, app);
         listView.setAdapter(adapter);
