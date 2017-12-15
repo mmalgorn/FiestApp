@@ -26,7 +26,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_goneMarginTop="4dp">
+                app:layout_goneMarginTop="4dp"
+                tools:checkedButton="@+id/pas_parti">
 
                 <RadioButton
                     android:id="@+id/pas_parti"
@@ -34,6 +35,7 @@
                     android:layout_height="68dp"
                     android:layout_marginTop="4dp"
                     android:background="@android:color/holo_orange_light"
+                    android:checked="true"
                     android:text="Pas parti de chez moi"
                     android:textAlignment="center" />
 
@@ -53,6 +55,7 @@
                     android:layout_height="68dp"
                     android:layout_marginTop="4dp"
                     android:background="@android:color/holo_orange_light"
+                    android:checked="false"
                     android:text="à la soirée"
                     android:textAlignment="center" />
 

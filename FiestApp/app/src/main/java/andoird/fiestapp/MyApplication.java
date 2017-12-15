@@ -17,9 +17,14 @@ public class MyApplication extends Application {
     public List<Soiree> listeSoirees;
     public Soiree laSoiree;
 
+    /*Pour nico*/
+    public String statut;
+    public int statut_id;
 
     public MyApplication(){
+
         this.listeSoirees=new LinkedList();
+        this.statut="false";
     }
 //    public List<Soiree> getListeSoiree(){return listeSoirees;}
 //

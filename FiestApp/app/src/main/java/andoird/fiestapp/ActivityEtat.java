@@ -5,12 +5,14 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 
 import com.facebook.login.LoginManager;
 
@@ -23,18 +25,38 @@ public class ActivityEtat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_etat);
+        RadioGroup groupe= (RadioGroup)findViewById(R.id.radioGroup);
+        MyApplication app = (MyApplication) getApplicationContext();
 
+        if(app.statut=="false"){groupe.check(R.id.pas_parti);
+        app.statut="true";}
+        else{groupe.check(app.statut_id);}
+
+        RadioGroup a=(RadioGroup)findViewById(R.id.radioGroup);
+        app.statut_id=a.getCheckedRadioButtonId();
 
         Button logout = (Button)findViewById(R.id.bouton_ok);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginManager.getInstance().logOut();
+                MyApplication app = (MyApplication) getApplicationContext();
+
+                RadioGroup a=(RadioGroup)findViewById(R.id.radioGroup);
+                if(a.getCheckedRadioButtonId()!= app.statut_id){
+                    app.statut_id=a.getCheckedRadioButtonId();
+                    /*ENVOI AU SERVEUR LE CHANGEMENT DE STATUT DU MEC*/
+                };
                 Intent login = new Intent(ActivityEtat.this, Activity_MainActivity2.class);
                 startActivity(login);
                 finish();
             }
         });
+
+
+
+
+
 
 
 
