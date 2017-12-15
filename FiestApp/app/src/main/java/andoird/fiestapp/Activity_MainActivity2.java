@@ -41,7 +41,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
 
         MyApplication app = (MyApplication) getApplicationContext();
 
-
+        NotificationEventReceiver.setupAlarm(getApplicationContext());
 
         ListView listView = (ListView) findViewById(R.id.list);
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
