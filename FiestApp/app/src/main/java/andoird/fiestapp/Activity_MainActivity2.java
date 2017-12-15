@@ -61,8 +61,8 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         }
         try {
             JSONObject objMySoiree = new JSONObject();
-
-            objMySoiree.put("idUser", app.myUser.getId());
+            Log.d(TAG, app.getMyUser().getId());
+            objMySoiree.put("idUser", app.getMyUser().getId());
 
 
             ListSoiree list = (ListSoiree) rest.execute("/MySoirees", objMySoiree).get();
