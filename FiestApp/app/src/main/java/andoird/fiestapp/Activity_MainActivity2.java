@@ -129,19 +129,6 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         });
 
 
-        //LoginButton loginButton2 = (LoginButton) findViewById(R.id.login_button_2);
-        //si on est pas connecté on retourne a la page d'avant
-
-//        loginButton2.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void OnClick(View v){
-//                Intent activite_a_lancer = new Intent(Activity_MainActivity2.this, MainActivity.class);
-//                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                startActivity(activite_a_lancer);
-//            }
-//
-//        });
-
 
         Button logout = (Button)findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
