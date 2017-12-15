@@ -35,6 +35,7 @@ import andoird.fiestapp.rest.Rest;
 public class activity_soiree_detail extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -69,16 +70,14 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
         TextView textDescription = (TextView)findViewById(R.id.description);
 
 
-        textLocalisation.setText(String.valueOf(app.laSoiree.getPosition()[0])+String.valueOf(app.laSoiree.getPosition()[1]));
-        textHeure.setText(String.valueOf(app.laSoiree.getDate()));
+        textLocalisation.setText(String.valueOf(app.laSoiree.getPosition()[0])+" , "+String.valueOf(app.laSoiree.getPosition()[1]));
+        textHeure.setText(String.valueOf("Debut de la soiree: "+app.laSoiree.getDate()));
         textDescription.setText(app.laSoiree.getNom_soiree());
-
-
-
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
         MyApplication app = (MyApplication) getApplicationContext();
 
@@ -89,26 +88,26 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
                 .zIndex(1.0f)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo_fiestapp))
         );
-        LatLng positionUser = new LatLng(app.laSoiree.getPosition()[0]+1,app.laSoiree.getPosition()[1]+2);
-        mMap.addMarker(new MarkerOptions()
-                .position(positionUser)
-                .title("Marqueur ")
-                .snippet("statut ")
-                .icon(BitmapDescriptorFactory.defaultMarker(60 ))
-                .zIndex(2.0f)
-        );
-        Log.d("TAG", String.valueOf(app.laSoiree.getParticipants().size()));
-
-        for(int i=0; i<10; i++){
-            LatLng positionUser2 = new LatLng(app.laSoiree.getPosition()[0]+i,app.laSoiree.getPosition()[1]+i);
-            mMap.addMarker(new MarkerOptions()
-                                .position(positionUser2)
-                                .title("Marqueur "+i)
-                                .snippet("statut "+i)
-                            .icon(BitmapDescriptorFactory.defaultMarker(12*i%360))
-            );
-        }
-
+//        LatLng positionUser = new LatLng(app.laSoiree.getPosition()[0]+1,app.laSoiree.getPosition()[1]+2);
+//        mMap.addMarker(new MarkerOptions()
+//                .position(positionUser)
+//                .title("Marqueur ")
+//                .snippet("statut ")
+//                .icon(BitmapDescriptorFactory.defaultMarker(60 ))
+//                .zIndex(2.0f)
+//        );
+//        Log.d("TAG", String.valueOf(app.laSoiree.getParticipants().size()));
+//
+//        for(int i=0; i<10; i++){
+//            LatLng positionUser2 = new LatLng(app.laSoiree.getPosition()[0]+i,app.laSoiree.getPosition()[1]+i);
+//            mMap.addMarker(new MarkerOptions()
+//                                .position(positionUser2)
+//                                .title("Marqueur "+i)
+//                                .snippet("statut "+i)
+//                            .icon(BitmapDescriptorFactory.defaultMarker(12*i%360))
+//            );
+//        }
+//
         mMap.moveCamera(CameraUpdateFactory.newLatLng(positionSoiree));
 
 //        Rest rest = null;

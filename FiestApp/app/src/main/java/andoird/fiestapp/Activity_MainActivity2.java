@@ -50,7 +50,6 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_liste_soiree);
 
         MyApplication app = (MyApplication) getApplicationContext();
-        ///User me = app.myUser;
 
         NotificationEventReceiver.setupAlarm(getApplicationContext());
         Rest rest = null;

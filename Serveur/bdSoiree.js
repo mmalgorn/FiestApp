@@ -121,7 +121,8 @@ Soiree.insertSoiree = function(soiree){
     status : "Preparation"
   };
   participants[j]=part;
-  if(soiree.participants != null &&soiree.participants.length>0){
+  j++;
+  if(soiree.participants != null && soiree.participants.length>0){
   //Recuperation et ajout des participants (IDs) passes dans la requete
   var taille = soiree.participants.length;
   var cursor ="";

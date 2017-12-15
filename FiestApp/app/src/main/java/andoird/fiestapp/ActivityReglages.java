@@ -3,6 +3,7 @@ package andoird.fiestapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import andoird.fiestapp.Object.Soiree;
+import andoird.fiestapp.rest.Rest;
 
 public class ActivityReglages extends AppCompatActivity {
 
@@ -19,6 +24,7 @@ public class ActivityReglages extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reglages);
+        final MyApplication app = (MyApplication) getApplicationContext();
 
         Button textDatedebut =  (Button)findViewById(R.id.creation_invitation);
         textDatedebut.setOnClickListener(new View.OnClickListener() {
@@ -30,13 +36,23 @@ public class ActivityReglages extends AppCompatActivity {
                 EditText date_fin = (EditText)findViewById(R.id.date_fin);
                 EditText nom_soiree = (EditText)findViewById(R.id.nom_soiree);
 
-                EditText position_latitude = (EditText)findViewById(R.id.latitude);
-                EditText position_longitude = (EditText)findViewById(R.id.longitude);
-
-                int[] position_creation={Integer.parseInt(position_latitude.getText().toString()),Integer.parseInt(position_longitude.getText().toString())};
-
-                /*Place pour prévenir le serveur que l'on créé un match*/
-
+                JSONObject soireeACreer = new JSONObject();
+                try {
+                    soireeACreer.put("idCreateur",app.getMyUser().getId());
+                    soireeACreer.put("position",app.getMyUser().getPosition());
+                    soireeACreer.put("date",textDebut.getText().toString());
+                    soireeACreer.put("dateFin",date_fin.getText().toString());
+                    soireeACreer.put("nom",nom_soiree.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.d("CREATION SOIREE", soireeACreer.toString() );
+                try {
+                    Rest rest = new Rest();
+                    Object ret = rest.execute("/AddSoiree",soireeACreer);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 //on redirige vers la liste d'amis à selectionner
                 Intent activite_a_lancer = new Intent(ActivityReglages.this, ActivityAmis.class);
