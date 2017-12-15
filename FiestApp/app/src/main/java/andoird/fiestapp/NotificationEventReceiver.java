@@ -10,11 +10,15 @@ import android.util.Log;
 import java.util.Calendar;
 import java.util.Date;
 
+import andoird.fiestapp.Object.ListSoiree;
+
 public class NotificationEventReceiver extends WakefulBroadcastReceiver {
 
     private static final String ACTION_START_NOTIFICATION_SERVICE = "ACTION_START_NOTIFICATION_SERVICE";
     private static final String ACTION_DELETE_NOTIFICATION = "ACTION_DELETE_NOTIFICATION";
     private static final int NOTIFICATIONS_INTERVAL_IN_MINUTES = 1;
+    private static final String TAG = "NOTIFICATION";
+    MyApplication app;
 
     public static void setupAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -31,8 +35,21 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
         Intent serviceIntent = null;
         if (ACTION_START_NOTIFICATION_SERVICE.equals(action)) {
             Log.i(getClass().getSimpleName(), "onReceive from alarm, starting notification service");
+            app = (MyApplication) MyApplication.getAppContext();
+            ListSoiree s = app.getListeSoirees();
+            long date = new Date().getTime();
+            Log.d(TAG, String.valueOf(date));
+            for(int i=0;i<s.getListSoiree().size();i++){
+                if(!s.getListSoiree().get(i).getIsNotif()){
+                    if(s.getListSoiree().get(i).getDate()<date){
 
-            serviceIntent = NotificationIntentService.createIntentStartNotificationService(context);
+                        app.setSoireeNotif(s.getListSoiree().get(i));
+                        serviceIntent = NotificationIntentService.createIntentStartNotificationService(context);
+                        app.soireeNotif.setIsNotif(true);
+                    }
+                }
+            }
+
         } else if (ACTION_DELETE_NOTIFICATION.equals(action)) {
             Log.i(getClass().getSimpleName(), "onReceive delete notification action, starting notification service to handle delete");
             serviceIntent = NotificationIntentService.createIntentDeleteNotification(context);

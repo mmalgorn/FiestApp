@@ -5,9 +5,12 @@ import android.app.Application;
 import android.content.Context;
 
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import andoird.fiestapp.Object.ListSoiree;
+import andoird.fiestapp.Object.Notification;
 import andoird.fiestapp.Object.Soiree;
 import andoird.fiestapp.Object.User;
 
@@ -17,13 +20,15 @@ import andoird.fiestapp.Object.User;
 
 public class MyApplication extends Application {
     private static Context context;
-    public List<Soiree> listeSoirees;
+    public ListSoiree listeSoirees;
     public Soiree laSoiree;
     public User myUser ;
     public Double lat;
     public Double lon;
     public List<String> amis;
     public List<String> amisCheck;
+    public Soiree soireeNotif;
+    public ArrayList<Notification> Notifs;
 
     public void onCreate(){
         super.onCreate();
@@ -41,7 +46,7 @@ public class MyApplication extends Application {
 
     public MyApplication(){
 
-        this.listeSoirees=new LinkedList();
+        this.listeSoirees=new ListSoiree();
         this.statut="false";
         this.laSoiree=null;
         this.amis=new LinkedList();
@@ -65,6 +70,12 @@ public class MyApplication extends Application {
     public User getMyUser(){return this.myUser;}
 
     public void setMyUser(User myUser){this.myUser=myUser;}
+
+    public ListSoiree getListeSoirees(){return listeSoirees;}
+
+    public void setSoireeNotif(Soiree soireeNotif){this.soireeNotif=soireeNotif;}
+
+    public Soiree getSoireeNotif(){return soireeNotif;}
 
     public void setLat(double lat) {
         this.lat = lat;
