@@ -102,7 +102,7 @@ public class ActivityReglages extends AppCompatActivity {
                 try {
                     rest = new Rest();
                     s.put("idCreateur",app.getMyUser().getId());
-                    s.put("date",textDebut.getText());
+                    s.put("date",dateDebut.getText());
                     s.put("nom_soiree",nom_soiree.getText());
                     Soiree mySoiree = (Soiree) rest.execute("/GetSoiree",s).get();
                     Log.d("RECUPERATION SOIREE", mySoiree.getId().toString());
