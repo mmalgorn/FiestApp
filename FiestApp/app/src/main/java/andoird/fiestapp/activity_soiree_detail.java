@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
+import andoird.fiestapp.Object.MapMarqueurUser;
+import andoird.fiestapp.Object.Soiree;
+import andoird.fiestapp.Object.User;
+import andoird.fiestapp.rest.Rest;
 
 public class activity_soiree_detail extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -52,11 +64,39 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        Rest rest = null;
+        try {
+            rest = new Rest();
+            JSONObject obj1 = new JSONObject();
+
+
+            Soiree s = (Soiree) rest.execute("/GetSoiree", obj1).get();
+            if (s != null) {
+                int length = s.getParticipants().size();
+
+                for(int i=0; i< length; i++){
+                    rest = new Rest();
+                    User u = (User) rest.execute("/FindUserById", s.getParticipants().get(i).getId()).get();
+                    MapMarqueurUser monMarqueur = new MapMarqueurUser(u.getPosition(),u.getPrenom(),s.getParticipants().get(i).getStatus());
+                    LatLng positionUser = new LatLng(monMarqueur.getPosition()[0], monMarqueur.getPosition()[1]);
+                    mMap.addMarker(new MarkerOptions().position(positionUser).title(monMarqueur.getPrenom()+": "+monMarqueur.getStatut()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(positionUser));
+                }
+            } else {
+                int[] posS = new int[2];
+                s = new Soiree("5a3317814c18cb19cde88c84", 78, 78, "TestSoire", posS);
+            }
+        }
+        catch(InterruptedException e){
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(45.386482, -71.93042700000001);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("UN PD VIT ICI ET NOUS FAIT A BOUFFER TOUS LES JOURS"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        
     }
 
 
