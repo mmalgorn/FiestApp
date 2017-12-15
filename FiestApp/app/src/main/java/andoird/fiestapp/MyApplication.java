@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class MyApplication extends Application {
     public List<String> amisCheck;
     public Soiree soireeNotif;
     public ArrayList<Notification> Notifs = new ArrayList<Notification>();
+    public LatLng latLng;
 
     public void onCreate(){
         super.onCreate();
