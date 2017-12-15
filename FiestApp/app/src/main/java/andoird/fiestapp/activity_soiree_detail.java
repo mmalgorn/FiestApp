@@ -16,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -78,6 +79,18 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        MyApplication app = (MyApplication) getApplicationContext();
+
+//        LatLng positionSoiree = new LatLng(app.laSoiree.getPosition()[0],app.laSoiree.getPosition()[1]);
+        LatLng positionSoiree = new LatLng(40,-70);
+        mMap.addMarker(new MarkerOptions()
+                .position(positionSoiree).title("C'est ICI la soiree?")
+                .zIndex(1.0f)
+                .icon(BitmapDescriptorFactory.fromAsset("@res.drawable.logo_fiestapp.png"))
+        );
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(positionSoiree));
+
         Rest rest = null;
         try {
             rest = new Rest();
@@ -93,8 +106,26 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
                     User u = (User) rest.execute("/FindUserById", s.getParticipants().get(i).getId()).get();
                     MapMarqueurUser monMarqueur = new MapMarqueurUser(u.getPosition(),u.getPrenom(),s.getParticipants().get(i).getStatus());
                     LatLng positionUser = new LatLng(monMarqueur.getPosition()[0], monMarqueur.getPosition()[1]);
-                    mMap.addMarker(new MarkerOptions().position(positionUser).title(monMarqueur.getPrenom()+": "+monMarqueur.getStatut()));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(positionUser));
+                    if(s.getIdCreateur().equals(u.getId())){
+                        mMap.addMarker(new MarkerOptions()
+                                .position(positionUser)
+                                .title(monMarqueur.getPrenom())
+                                .snippet(monMarqueur.getStatut())
+                                .flat(true)
+                                .zIndex(2.0f)
+                        );
+
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(positionUser));
+                    }
+                    else{
+                        mMap.addMarker(new MarkerOptions()
+                                .position(positionUser)
+                                .title(monMarqueur.getPrenom())
+                                .snippet(monMarqueur.getStatut())
+                                .icon(BitmapDescriptorFactory.defaultMarker(12 * i % 360))
+                        );
+
+                    }
                 }
             } else {
                 int[] posS = new int[2];
@@ -108,8 +139,6 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        // Add a marker in Sydney and move the camera
     }
 
 
