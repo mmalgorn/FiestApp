@@ -22,6 +22,8 @@ import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+
 import andoird.fiestapp.Object.Soiree;
 import andoird.fiestapp.rest.Rest;
 
@@ -61,10 +63,11 @@ public class ActivityReglages extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                EditText textDebut = (EditText)findViewById(R.id.date_debut);
-                EditText date_fin = (EditText)findViewById(R.id.date_fin);
+                EditText dateDebut = (EditText)findViewById(R.id.date_debut);
+                EditText dateFin = (EditText)findViewById(R.id.date_fin);
                 EditText nom_soiree = (EditText)findViewById(R.id.nom_soiree);
                 Log.d("CREATION SOIREE","je suis au point 1" );
+                Rest rest = null;
                 JSONObject soireeACreer = new JSONObject();
                 LatLng lgtd = app.latLng;
                 double lat = lgtd.latitude;
@@ -73,8 +76,8 @@ public class ActivityReglages extends AppCompatActivity {
                 try {
                     soireeACreer.put("idCreateur",app.getMyUser().getId());
                     soireeACreer.put("position",position);
-                    soireeACreer.put("date",textDebut.getText());
-                    soireeACreer.put("dateFin",date_fin.getText());
+                    soireeACreer.put("date",dateDebut.getText());
+                    soireeACreer.put("dateFin",dateFin.getText());
                     soireeACreer.put("nom_soiree",nom_soiree.getText());
                     soireeACreer.put("participants","[]");
                 } catch (JSONException e) {
@@ -82,7 +85,7 @@ public class ActivityReglages extends AppCompatActivity {
                 }
                 Log.d("CREATION SOIREE", soireeACreer.toString() );
                 try {
-                    Rest rest = new Rest();
+                    rest = new Rest();
                     Object ret = rest.execute("/AddSoiree",soireeACreer);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -91,6 +94,26 @@ public class ActivityReglages extends AppCompatActivity {
                 Intent activite_a_lancer = new Intent(ActivityReglages.this, ActivityAmis.class);
                 activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(activite_a_lancer);
+
+                JSONObject s = new JSONObject();
+
+                try {
+                    rest = new Rest();
+                    s.put("idCreateur",app.getMyUser().getId());
+                    s.put("date",textDebut.getText());
+                    s.put("nom_soiree",nom_soiree.getText());
+                    Soiree mySoiree = (Soiree) rest.execute("/GetSoiree",s).get();
+                    Log.d("RECUPERATION SOIREE", mySoiree.getId().toString());
+                    app.laSoiree=mySoiree;
+                    Log.d("RECUPERATION SOIREE", app.laSoiree.toString() );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }
