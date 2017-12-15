@@ -54,21 +54,23 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         }
         try {
             JSONObject objMySoiree = new JSONObject();
-            objMySoiree.put("idUser","5a33d555092592ae4cf42c66");
+            objMySoiree.put("idUser", "5a33d555092592ae4cf42c66");
 
-            ListSoiree list =(ListSoiree) rest.execute("/MySoirees",objMySoiree).get();
-            for(int i=0;i<list.getListSoiree().size();i++){
-                Log.d(TAG,list.getListSoiree().get(i).toString());
-                app.listeSoirees.add(list.getListSoiree().get(i));
+            ListSoiree list = (ListSoiree) rest.execute("/MySoirees", objMySoiree).get();
+//            Log.d(TAG, list);
+            if (list != null) {
+                for (int i = 0; i < list.getListSoiree().size(); i++) {
+                    Log.d(TAG, list.getListSoiree().get(i).toString());
+                    app.listeSoirees.add(list.getListSoiree().get(i));
+                }
             }
-        } catch (JSONException e) {
+        } catch(JSONException e){
             e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch(InterruptedException e){
             e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch(ExecutionException e){
             e.printStackTrace();
         }
-
         ListView listView = (ListView) findViewById(R.id.list);
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
 
