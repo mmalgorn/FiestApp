@@ -81,7 +81,7 @@ public class ActivityReglages extends AppCompatActivity {
                     soireeACreer.put("date",dateDebut.getText());
                     soireeACreer.put("dateFin",dateFin.getText());
                     soireeACreer.put("nom_soiree",nom_soiree.getText());
-                    soireeACreer.put("participants","[]");
+                    soireeACreer.put("participants","");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
