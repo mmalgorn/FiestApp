@@ -19,28 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import andoird.fiestapp.Object.ParticipantSoiree;
 import andoird.fiestapp.Object.Soiree;
-
-import static android.view.View.*;
 
 
 public class Activity_MainActivity2 extends AppCompatActivity {
@@ -58,6 +40,8 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_liste_soiree);
 
         MyApplication app = (MyApplication) getApplicationContext();
+
+
 
         ListView listView = (ListView) findViewById(R.id.list);
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
@@ -95,8 +79,6 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         soiree6.addParticipant(personne3);
 
 
-
-
         app.listeSoirees.add(soiree1);
         app.listeSoirees.add(soiree2);
         app.listeSoirees.add(soiree3);
@@ -112,13 +94,15 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MyApplication app = (MyApplication) getApplicationContext();
-                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.localisation)).getText().toString();
-
+                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.nom_ami)).getText().toString();
+                Log.d("HeyHOWWWWWWW",sIdSoireeADetailler);
 
                 int idSoireeADetailler=0;
                 for(int a=0;a<app.listeSoirees.size();a++){
-                    Double[] pos= app.listeSoirees.get(a).getPosition();
-                    String chaine=String.valueOf(pos[0])+String.valueOf(pos[1]);
+  //                  Double[] pos= app.listeSoirees.get(a).getPosition();
+//                    String chaine=String.valueOf(pos[0])+String.valueOf(pos[1]);
+                    String chaine= app.listeSoirees.get(a).getNom_soiree();
+
                     if(chaine.equals(sIdSoireeADetailler)){
                         idSoireeADetailler=a;
                     }
@@ -130,19 +114,6 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             }
         });
 
-
-        //LoginButton loginButton2 = (LoginButton) findViewById(R.id.login_button_2);
-        //si on est pas connecté on retourne a la page d'avant
-
-//        loginButton2.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void OnClick(View v){
-//                Intent activite_a_lancer = new Intent(Activity_MainActivity2.this, MainActivity.class);
-//                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                startActivity(activite_a_lancer);
-//            }
-//
-//        });
 
 
         Button logout = (Button)findViewById(R.id.logout);

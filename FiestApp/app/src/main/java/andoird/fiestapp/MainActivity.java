@@ -50,6 +50,12 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.LinkedList;
+import java.util.List;
+
+
 import andoird.fiestapp.Object.User;
 import andoird.fiestapp.rest.Rest;
 
@@ -61,12 +67,7 @@ public class MainActivity extends AppCompatActivity {
     Button facebook = null;
     private CallbackManager callbackManager;
     public static final String TAG = "MainActivity";
-    private FusedLocationProviderClient mFusedLocationClient;
 
-    private LocationRequest mLocationRequest;
-
-    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
-    private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
 
     @Override
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 } ;
                 MyApplication app = ((MyApplication)getApplicationContext());
                 app.setMyUser(user);
-
+                if(user!=null)
                 Log.d(TAG,"After set User" + user.toString());
 
             } catch (JSONException e) {
@@ -205,19 +206,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onCancel() {
                         Log.d(TAG, "Cancel");
-//                        Intent activite_a_lancer = new Intent(MainActivity.this, MainActivity.class);
-//                        activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                        startActivity(activite_a_lancer);
-
                     }
 
                     // If an error occurs, then call onError//
                     @Override
                     public void onError(FacebookException exception) {
                         Log.d(TAG, exception.toString());
-//                        Intent activite_a_lancer = new Intent(MainActivity.this, MainActivity.class);
-//                        activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                        startActivity(activite_a_lancer);
                     }
                 });
         Log.d(TAG, "BeforeLogin recup" + AccessToken.getCurrentAccessToken());
@@ -231,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             //}
             new GraphRequest(
                     AccessToken.getCurrentAccessToken(),
-                    "/" + Profile.getCurrentProfile().getId() + "/taggable_friends?limit=500",
+                    "/" + Profile.getCurrentProfile().getId() + "/taggable_friends?limit=50",
                     null,
                     HttpMethod.GET,
                     new GraphRequest.Callback() {
@@ -242,9 +236,15 @@ public class MainActivity extends AppCompatActivity {
                                 try {
                                     JSONArray amis = response.getJSONObject().getJSONArray("data");
                                     Log.d(TAG, "nb Amis" + amis.length());
+                                    List<String> liste_a_afficher=new LinkedList();
                                     for (int i = 0; i < amis.length(); i++) {
-                                        Log.d(TAG, amis.get(i).toString());
+                                        // Log.d(TAG, amis.get(i).toString()); //ON RECUPERE LA LISTE ICI
+                                        Log.d(TAG, ((JSONObject) amis.get(i)).getString("name")); //ON RECUPERE LA LISTE ICI
+                                        liste_a_afficher.add(((JSONObject) amis.get(i)).getString("name"));
+
                                     }
+                                    MyApplication app = (MyApplication) getApplicationContext();
+                                    app.setAmis(liste_a_afficher);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

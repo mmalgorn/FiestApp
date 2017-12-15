@@ -22,7 +22,8 @@ public class MyApplication extends Application {
     public User myUser ;
     public Double lat;
     public Double lon;
-
+    public List<String> amis;
+    public List<String> amisCheck;
 
     public void onCreate(){
         super.onCreate();
@@ -33,9 +34,27 @@ public class MyApplication extends Application {
     }
 
 
+
+    /*Pour nico*/
+    public String statut;
+    public int statut_id;
+
     public MyApplication(){
+
         this.listeSoirees=new LinkedList();
-       // this.myUser = new User("test","test",new Double[2]);
+        this.statut="false";
+        this.laSoiree=null;
+        this.amis=new LinkedList();
+        this.amisCheck=new LinkedList();
+
+    }
+
+    public void setAmis(List<String> liste){
+        this.amis=liste;
+    }
+
+    public List<String> getAmis(){
+        return amis;
     }
 //    public List<Soiree> getListeSoiree(){return listeSoirees;}
 //

@@ -7,7 +7,7 @@
     tools:context="andoird.fiestapp.ActivitySoirees">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/couleur"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
@@ -18,13 +18,13 @@
         app:srcCompat="@android:color/holo_blue_bright" />
 
     <TextView
-        android:id="@+id/titre_soiree"
+        android:id="@+id/nom_ami"
         android:layout_width="146dp"
         android:layout_height="30dp"
         android:text="Titre de la soirée"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/couleur"
         android:layout_marginTop="8dp" />
 
     <TextView
@@ -35,10 +35,10 @@
         android:layout_marginLeft="0dp"
         android:text="Heure"
         android:textAlignment="textEnd"
-        app:layout_constraintLeft_toRightOf="@+id/titre_soiree"
+        app:layout_constraintLeft_toRightOf="@+id/nom_ami"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintRight_toRightOf="@+id/couleur"
+        app:layout_constraintTop_toTopOf="@+id/couleur"
         android:layout_marginTop="8dp" />
 
     <TextView
@@ -50,6 +50,6 @@
         android:layout_marginTop="8dp"
         android:text="Localisation"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titre_soiree" />
+        app:layout_constraintTop_toBottomOf="@+id/nom_ami" />
 
 </android.support.constraint.ConstraintLayout>
