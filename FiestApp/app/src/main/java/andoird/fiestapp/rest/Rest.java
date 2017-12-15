@@ -133,7 +133,7 @@ public class Rest extends AsyncTask {
                 for(int i=0;i<apiResult.length();i++){
                     Double[] pos = new Double[2];
                     pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getDouble(0);
-                    pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getDouble(1);
+                    pos[1] = apiResult.getJSONObject(i).getJSONArray("position").getDouble(1);
                     ArrayList<ParticipantSoiree> listP = new ArrayList<ParticipantSoiree>();
                     ParticipantSoiree ps;
                     JSONArray partJSON = new JSONArray(apiResult.getJSONObject(i).getString("participants"));

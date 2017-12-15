@@ -52,6 +52,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         MyApplication app = (MyApplication) getApplicationContext();
         ///User me = app.myUser;
 
+        NotificationEventReceiver.setupAlarm(getApplicationContext());
         Rest rest = null;
         try {
             rest = new Rest();
@@ -62,6 +63,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             JSONObject objMySoiree = new JSONObject();
             Log.d(TAG, app.getMyUser().getId());
             objMySoiree.put("idUser", app.getMyUser().getId());
+
 
             ListSoiree list = (ListSoiree) rest.execute("/MySoirees", objMySoiree).get();
 //            Log.d(TAG, list);
