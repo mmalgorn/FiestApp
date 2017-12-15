@@ -9,11 +9,16 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
+import andoird.fiestapp.Object.Notification;
+import andoird.fiestapp.Object.Soiree;
+
 public class NotificationIntentService extends IntentService {
 
-    private static final int NOTIFICATION_ID = 1;
+    private static final String TAG = "NOTIFICATION";
+    private int NOTIFICATION_ID = 1;
     private static final String ACTION_START = "ACTION_START";
     private static final String ACTION_DELETE = "ACTION_DELETE";
+    private Soiree soiree;
 
     public NotificationIntentService() {
         super(NotificationIntentService.class.getSimpleName());
@@ -55,10 +60,17 @@ public class NotificationIntentService extends IntentService {
         // Do something. For example, fetch fresh data from backend to create a rich notification?
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle("Scheduled Notification")
+        MyApplication app = (MyApplication) getApplicationContext();
+        Notification notif = new Notification(
+                app.getSoireeNotif().getNom_soiree()+" est sur le point de commencer",
+                "Prevenez vos amis que vous partez pour la soirée"
+        );
+        Log.d(TAG,notif.getTitle()+"    :    "+NOTIFICATION_ID);
+        app.Notifs.add(notif);
+        builder.setContentTitle(notif.getTitle())
                 .setAutoCancel(true)
                 .setColor(getResources().getColor(R.color.colorAccent))
-                .setContentText("This notification has been triggered by Notification Service")
+                .setContentText(notif.getContent())
                 .setSmallIcon(R.drawable.logo_fiestapp);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
@@ -70,5 +82,6 @@ public class NotificationIntentService extends IntentService {
 
         final NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(NOTIFICATION_ID, builder.build());
+        NOTIFICATION_ID++;
     }
 }

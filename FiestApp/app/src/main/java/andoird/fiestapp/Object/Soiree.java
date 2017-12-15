@@ -13,14 +13,15 @@ import java.util.Arrays;
 
 public class Soiree {
     private String idCreateur;
-    private int date;
-    private int dateFin;
+    private long date;
+    private long dateFin;
     private String nom_soiree;
     private String id;
     private ArrayList<ParticipantSoiree> participants;
     private Double[] position;
+    private Boolean isNotif;
 
-    public Soiree(String id,String idCreateur, int date, int dateFin, String nom_soiree, Double[] position,ArrayList<ParticipantSoiree> participants) {
+    public Soiree(String id,String idCreateur, long date, long dateFin, String nom_soiree, Double[] position,ArrayList<ParticipantSoiree> participants) {
         this.id=id;
         this.idCreateur = idCreateur;
         this.date = date;
@@ -28,26 +29,30 @@ public class Soiree {
         this.nom_soiree = nom_soiree;
         this.participants = participants;
         this.position = position;
+        this.isNotif = false;
     }
 
 
-    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, Double[] position) {
+    public Soiree(String idCreateur, long date, long dateFin, String nom_soiree, Double[] position) {
         this.idCreateur = idCreateur;
         this.date = date;
         this.dateFin = dateFin;
         this.nom_soiree = nom_soiree;
         this.participants = new ArrayList<ParticipantSoiree>();
         this.position = position;
+        this.isNotif = false;
     }
 
-    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, ArrayList<ParticipantSoiree> participants, Double[] position) {
+    public Soiree(String idCreateur, long date, long dateFin, String nom_soiree, ArrayList<ParticipantSoiree> participants, Double[] position) {
         this.idCreateur = idCreateur;
         this.date = date;
         this.dateFin = dateFin;
         this.nom_soiree = nom_soiree;
         this.participants = participants;
         this.position = position;
+        this.isNotif = false;
     }
+
 
     public void addParticipant(ParticipantSoiree participantSoiree){
         boolean isPresent = false;
@@ -77,19 +82,19 @@ public class Soiree {
         this.idCreateur = idCreateur;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
-    public int getDateFin() {
+    public long getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(int dateFin) {
+    public void setDateFin(long dateFin) {
         this.dateFin = dateFin;
     }
 
@@ -120,6 +125,10 @@ public class Soiree {
     public String getId(){return this.id;}
 
     public void setId(String id){this.id = id;}
+
+    public void setIsNotif(boolean isNotif){this.isNotif=isNotif;};
+
+    public boolean getIsNotif(){return isNotif;}
 
     @Override
     public String toString() {

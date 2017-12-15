@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class ListSoiree {
     ArrayList<Soiree> listSoiree;
 
+
     public ListSoiree(ArrayList<Soiree> listSoiree) {
         this.listSoiree = listSoiree;
     }

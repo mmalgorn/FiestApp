@@ -51,8 +51,8 @@ public class Rest extends AsyncTask {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
             System.setProperty("http.keepAlive", "false");
         }
-        this.path="http://10.0.2.2:3000";
-//        this.path = "http://192.168.196.1:3000";
+        //this.path="http://10.0.2.2:3000";
+        this.path = "http://192.168.196.1:3000";
         Object retour = null;
         switch (objects[0].toString()){
             case "/FindUser":
@@ -148,8 +148,8 @@ public class Rest extends AsyncTask {
                     Soiree s = new Soiree(
                           apiResult.getJSONObject(i).getString("_id"),
                           apiResult.getJSONObject(i).getString("idCreateur"),
-                          apiResult.getJSONObject(i).getInt("date"),
-                          apiResult.getJSONObject(i).getInt("datefin"),
+                          apiResult.getJSONObject(i).getLong("date"),
+                          apiResult.getJSONObject(i).getLong("datefin"),
                           apiResult.getJSONObject(i).getString("nom_soiree"),
                           pos,
                           listP
@@ -383,8 +383,8 @@ public class Rest extends AsyncTask {
                 Soiree soiree = new Soiree(
                         apiResult.getString("_id"),
                         apiResult.getString("idCreateur"),
-                        apiResult.getInt("date"),
-                        apiResult.getInt("datefin"),
+                        apiResult.getLong("date"),
+                        apiResult.getLong("datefin"),
                         apiResult.getString("nom_soiree"),
                         position,
                         part

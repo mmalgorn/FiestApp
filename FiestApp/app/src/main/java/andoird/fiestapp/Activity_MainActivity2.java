@@ -69,7 +69,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             if (list != null) {
                 for (int i = 0; i < list.getListSoiree().size(); i++) {
                     Log.d(TAG, list.getListSoiree().get(i).toString());
-                    app.listeSoirees.add(list.getListSoiree().get(i));
+                    app.listeSoirees.getListSoiree().add(list.getListSoiree().get(i));
                 }
             }
         } catch(JSONException e){
@@ -82,7 +82,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
 
-        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, app.listeSoirees, app);
+        MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, app.listeSoirees.getListSoiree(), app);
         listView.setAdapter(adapter);
 
         /*Le listener de quand on clique sur un item*/
@@ -94,17 +94,17 @@ public class Activity_MainActivity2 extends AppCompatActivity {
                 Log.d("HeyHOWWWWWWW",sIdSoireeADetailler);
 
                 int idSoireeADetailler=0;
-                for(int a=0;a<app.listeSoirees.size();a++){
+                for(int a=0;a<app.listeSoirees.getListSoiree().size();a++){
   //                  Double[] pos= app.listeSoirees.get(a).getPosition();
 //                    String chaine=String.valueOf(pos[0])+String.valueOf(pos[1]);
-                    String chaine= app.listeSoirees.get(a).getNom_soiree();
+                    String chaine= app.listeSoirees.getListSoiree().get(a).getNom_soiree();
 
                     if(chaine.equals(sIdSoireeADetailler)){
                         idSoireeADetailler=a;
                     }
                 }
                 //idSoireeADetailler = Integer.parseInt(sIdSoireeADetailler);
-                app.laSoiree=app.listeSoirees.get(idSoireeADetailler);
+                app.laSoiree=app.listeSoirees.getListSoiree().get(idSoireeADetailler);
                 Intent intent = new Intent(Activity_MainActivity2.this, activity_soiree_detail.class);
                 startActivity(intent);
             }
