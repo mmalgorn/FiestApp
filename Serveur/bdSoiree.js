@@ -12,6 +12,22 @@ Array.prototype.remove = function(from, to) {
   return this.push.apply(this, rest);
 };
 
+function filterArray(test_array) {
+    var index = -1,
+        arr_length = test_array ? test_array.length : 0,
+        resIndex = -1,
+        result = [];
+
+    while (++index < arr_length) {
+        var value = test_array[index];
+
+        if (value) {
+            result[++resIndex] = value;
+        }
+    }
+
+    return result;
+}
 
 var soireeSchema = new Schema({
 
@@ -273,8 +289,13 @@ Soiree.updateParts=function(block, addRemove){
         }
         else{}
       }
-      array[j+1]="{id:"+block.idUser+",status:'Preparation'}";
+      var newPart = {
+        id:block.idUser,
+        status:"Preparation"
+      }
+      array[j+1]=newPart;
     }
+    array = filterArray(array);
 
     console.log("NOUVEAUX PARTICIPANTS:");
     console.log(array);

@@ -137,6 +137,7 @@ User.UpdateGPS=function(user){
       deferred.reject(new Error(err));
     }
     else{
+      deferred.resolve("ok");
       console.log("NO ERROR");
     }
   });
