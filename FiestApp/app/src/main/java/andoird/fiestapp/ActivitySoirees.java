@@ -16,6 +16,7 @@ public class ActivitySoirees extends AppCompatActivity {
         setContentView(R.layout.activity_liste_soiree);
 
 
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
@@ -72,48 +73,6 @@ public class ActivitySoirees extends AppCompatActivity {
                 });
 
 
-
-
-
-    }
-
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //ajoute les entrées de menu_test à l'ActionBar
-        getMenuInflater().inflate(R.menu.barre_menu, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent activite_a_lancer;
-        switch (item.getItemId()){
-            case R.id.etat:
-                activite_a_lancer = new Intent(ActivitySoirees.this, ActivityEtat.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.soirees:
-                activite_a_lancer = new Intent(ActivitySoirees.this, Activity_MainActivity2.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.notifications:
-                activite_a_lancer = new Intent(ActivitySoirees.this, ActivityNotifications.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.amis:
-                activite_a_lancer = new Intent(ActivitySoirees.this, ActivityAmis.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.ajouter_soiree:
-                activite_a_lancer = new Intent(ActivitySoirees.this, ActivityReglages.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        
     }
 }

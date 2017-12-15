@@ -5,17 +5,17 @@ package andoird.fiestapp.Object;
  */
 
 public class MapMarqueurUser {
-    private int[] position;
+    private Double[] position;
     private String prenom;
     private String statut;
 
-    public MapMarqueurUser(int[] pos, String prenom, String statut){
+    public MapMarqueurUser(Double[] pos, String prenom, String statut){
         this.position=pos;
         this.prenom=prenom;
         this.statut=statut;
     }
 
-    public int[] getPosition() {
+    public Double[] getPosition() {
         return position;
     }
 
@@ -27,7 +27,7 @@ public class MapMarqueurUser {
         return statut;
     }
 
-    public void setPosition(int[] position) {
+    public void setPosition(Double[] position) {
         this.position = position;
     }
 
