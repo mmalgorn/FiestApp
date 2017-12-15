@@ -59,6 +59,20 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
             }
         });
 
+
+
+
+        TextView textLocalisation = (TextView)findViewById(R.id.localisation);
+        TextView textHeure = (TextView)findViewById(R.id.heure);
+        TextView textDescription = (TextView)findViewById(R.id.description);
+
+
+        textLocalisation.setText(String.valueOf(app.laSoiree.getPosition()[0])+String.valueOf(app.laSoiree.getPosition()[1]));
+        textHeure.setText(String.valueOf(app.laSoiree.getDate()));
+        textDescription.setText(app.laSoiree.getNom_soiree());
+
+
+
     }
 
     @Override
@@ -96,7 +110,6 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
         }
 
         // Add a marker in Sydney and move the camera
-        
     }
 
 

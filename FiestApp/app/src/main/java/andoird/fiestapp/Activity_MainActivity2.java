@@ -1,5 +1,9 @@
 package andoird.fiestapp;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +37,7 @@ import java.util.List;
 
 import andoird.fiestapp.Object.ParticipantSoiree;
 import andoird.fiestapp.Object.Soiree;
+import andoird.fiestapp.Object.SoireeNotification;
 
 import static android.view.View.*;
 
@@ -52,6 +57,8 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_liste_soiree);
 
         MyApplication app = (MyApplication) getApplicationContext();
+
+
 
         ListView listView = (ListView) findViewById(R.id.list);
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
@@ -89,8 +96,6 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         soiree6.addParticipant(personne3);
 
 
-
-
         app.listeSoirees.add(soiree1);
         app.listeSoirees.add(soiree2);
         app.listeSoirees.add(soiree3);
@@ -106,13 +111,12 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MyApplication app = (MyApplication) getApplicationContext();
-                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.localisation)).getText().toString();
+                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.titre_soiree)).getText().toString();
 
 
                 int idSoireeADetailler=0;
                 for(int a=0;a<app.listeSoirees.size();a++){
-                    int[] pos= app.listeSoirees.get(a).getPosition();
-                    String chaine=String.valueOf(pos[0])+String.valueOf(pos[1]);
+                    String chaine= app.listeSoirees.get(a).getNom_soiree();
                     if(chaine.equals(sIdSoireeADetailler)){
                         idSoireeADetailler=a;
                     }
@@ -150,6 +154,11 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             }
         });
 
+
+//        SoireeNotification notif1 = new SoireeNotification();
+//        SoireeNotification notif2 = new SoireeNotification();
+//        notif1.addNotificationContest(this,"notif contest");
+//        notif2.addNotificationSet(this,"notif Set");
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
