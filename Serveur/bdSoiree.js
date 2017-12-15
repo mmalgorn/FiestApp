@@ -109,7 +109,7 @@ Soiree.insertSoiree = function(soiree){
   var soireeToAdd = new Soiree({
     date : soiree.date,
     datefin : soiree.dateFin,
-    nom_soiree : soiree.nom,
+    nom_soiree : soiree.nom_soiree,
     idCreateur : soiree.idCreateur,
     position :[pos1,pos2]
   });

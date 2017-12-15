@@ -34,7 +34,6 @@ public class ActivityReglages extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reglages);
         final MyApplication app = (MyApplication) getApplicationContext();
-        LatLng latLng;
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
@@ -65,14 +64,19 @@ public class ActivityReglages extends AppCompatActivity {
                 EditText textDebut = (EditText)findViewById(R.id.date_debut);
                 EditText date_fin = (EditText)findViewById(R.id.date_fin);
                 EditText nom_soiree = (EditText)findViewById(R.id.nom_soiree);
-
+                Log.d("CREATION SOIREE","je suis au point 1" );
                 JSONObject soireeACreer = new JSONObject();
+                LatLng lgtd = app.latLng;
+                double lat = lgtd.latitude;
+                double lng = lgtd.longitude;
+                String position = (lat+","+lng);
                 try {
                     soireeACreer.put("idCreateur",app.getMyUser().getId());
-                    soireeACreer.put("position",app.getMyUser().getPosition());
-                    soireeACreer.put("date",textDebut.getText().toString());
-                    soireeACreer.put("dateFin",date_fin.getText().toString());
-                    soireeACreer.put("nom",nom_soiree.getText().toString());
+                    soireeACreer.put("position",position);
+                    soireeACreer.put("date",textDebut.getText());
+                    soireeACreer.put("dateFin",date_fin.getText());
+                    soireeACreer.put("nom_soiree",nom_soiree.getText());
+                    soireeACreer.put("participants","[]");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -83,7 +87,6 @@ public class ActivityReglages extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 //on redirige vers la liste d'amis à selectionner
                 Intent activite_a_lancer = new Intent(ActivityReglages.this, ActivityAmis.class);
                 activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
