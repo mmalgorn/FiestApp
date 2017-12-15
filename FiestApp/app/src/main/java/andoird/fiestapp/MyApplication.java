@@ -16,7 +16,7 @@ import andoird.fiestapp.Object.Soiree;
 public class MyApplication extends Application {
     public List<Soiree> listeSoirees;
     public Soiree laSoiree;
-
+    public List<String> amis;
     /*Pour nico*/
     public String statut;
     public int statut_id;
@@ -25,6 +25,16 @@ public class MyApplication extends Application {
 
         this.listeSoirees=new LinkedList();
         this.statut="false";
+        this.laSoiree=null;
+        this.amis=new LinkedList();
+    }
+
+    public void setAmis(List<String> liste){
+        this.amis=liste;
+    }
+
+    public List<String> getAmis(){
+        return amis;
     }
 //    public List<Soiree> getListeSoiree(){return listeSoirees;}
 //

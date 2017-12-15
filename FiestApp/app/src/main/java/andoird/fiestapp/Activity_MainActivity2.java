@@ -1,13 +1,8 @@
 package andoird.fiestapp;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,29 +12,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import andoird.fiestapp.Object.ParticipantSoiree;
 import andoird.fiestapp.Object.Soiree;
-import andoird.fiestapp.Object.SoireeNotification;
-
-import static android.view.View.*;
 
 
 public class Activity_MainActivity2 extends AppCompatActivity {
@@ -111,7 +87,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MyApplication app = (MyApplication) getApplicationContext();
-                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.titre_soiree)).getText().toString();
+                String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.nom_ami)).getText().toString();
 
 
                 int idSoireeADetailler=0;
@@ -141,11 +117,6 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             }
         });
 
-
-//        SoireeNotification notif1 = new SoireeNotification();
-//        SoireeNotification notif2 = new SoireeNotification();
-//        notif1.addNotificationContest(this,"notif contest");
-//        notif2.addNotificationSet(this,"notif Set");
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
