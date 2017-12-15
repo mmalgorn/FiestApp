@@ -127,9 +127,6 @@ exports.lancerServeur=function(){
     app.post('/GetSoiree', function(req, res){
       Soiree.findSoireeByName(req.body)
       .then(function(soiree){
-        // var newSoiree = soiree;
-        // newSoiree.participants = JSON.parse(soiree.participants);
-        // res.status(200).send(newSoiree);
         res.status(200).send(soiree);
       })
       .catch(function(err){
