@@ -14,6 +14,7 @@ import andoird.fiestapp.Object.Soiree;
 
 public class NotificationIntentService extends IntentService {
 
+    private static final String TAG = "NOTIFICATION";
     private int NOTIFICATION_ID = 1;
     private static final String ACTION_START = "ACTION_START";
     private static final String ACTION_DELETE = "ACTION_DELETE";
@@ -64,6 +65,7 @@ public class NotificationIntentService extends IntentService {
                 app.getSoireeNotif().getNom_soiree()+" est sur le point de commencer",
                 "Prevenez vos amis que vous partez pour la soirée"
         );
+        Log.d(TAG,notif.getTitle()+"    :    "+NOTIFICATION_ID);
         app.Notifs.add(notif);
         builder.setContentTitle(notif.getTitle())
                 .setAutoCancel(true)
