@@ -17,6 +17,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +34,7 @@ public class ActivityReglages extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reglages);
         final MyApplication app = (MyApplication) getApplicationContext();
+        LatLng latLng;
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
@@ -41,7 +44,8 @@ public class ActivityReglages extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
-                place.getLatLng();
+                MyApplication app = (MyApplication) getApplicationContext();
+                app.latLng=place.getLatLng();
             }
 
             @Override
