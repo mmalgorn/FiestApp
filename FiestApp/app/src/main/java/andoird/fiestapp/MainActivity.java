@@ -86,6 +86,21 @@ public class MainActivity extends AppCompatActivity{
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_friends");
 
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.example.mathieu.fiestapp",
+                    PackageManager.GET_SIGNATURES);
+            for (android.content.pm.Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
+
         LoginManager.getInstance().registerCallback(callbackManager,
 
                 // If the login attempt is successful, then call onSuccess and pass the LoginResult//

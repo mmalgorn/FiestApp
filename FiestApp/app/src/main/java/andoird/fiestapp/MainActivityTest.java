@@ -225,7 +225,6 @@ public class MainActivityTest extends AppCompatActivity implements OnMapReadyCal
             Log.d(TAG, String.valueOf(list.getListSoiree().size()));
             for(int i=0;i<list.getListSoiree().size();i++){
                 Log.d(TAG,list.getListSoiree().get(i).toString());
-
             }
 
 /*            User user = (User) rest.execute("/FindUser",obj).get();
