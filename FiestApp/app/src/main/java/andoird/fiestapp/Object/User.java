@@ -14,16 +14,16 @@ public class User {
     private String id;
     private String nom;
     private String prenom;
-    private int[] position;
+    private Double[] position;
 
-    public User(String id,String nom, String prenom, int[] position) {
+    public User(String id,String nom, String prenom, Double[] position) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.position = position;
     }
 
-    public User(String nom, String prenom, int[] pos) {
+    public User(String nom, String prenom, Double[] pos) {
         this.nom=nom;
         this.prenom=prenom;
         this.position=pos;
@@ -45,11 +45,11 @@ public class User {
         this.prenom = prenom;
     }
 
-    public int[] getPosition() {
+    public Double[] getPosition() {
         return position;
     }
 
-    public void setPosition(int[] position) {
+    public void setPosition(Double[] position) {
         this.position = position;
     }
 
