@@ -18,9 +18,9 @@ public class Soiree {
     private String nom_soiree;
     private String id;
     private ArrayList<ParticipantSoiree> participants;
-    private int[] position;
+    private Double[] position;
 
-    public Soiree(String id,String idCreateur, int date, int dateFin, String nom_soiree, int[] position,ArrayList<ParticipantSoiree> participants) {
+    public Soiree(String id,String idCreateur, int date, int dateFin, String nom_soiree, Double[] position,ArrayList<ParticipantSoiree> participants) {
         this.id=id;
         this.idCreateur = idCreateur;
         this.date = date;
@@ -31,7 +31,7 @@ public class Soiree {
     }
 
 
-    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, int[] position) {
+    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, Double[] position) {
         this.idCreateur = idCreateur;
         this.date = date;
         this.dateFin = dateFin;
@@ -40,7 +40,7 @@ public class Soiree {
         this.position = position;
     }
 
-    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, ArrayList<ParticipantSoiree> participants, int[] position) {
+    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, ArrayList<ParticipantSoiree> participants, Double[] position) {
         this.idCreateur = idCreateur;
         this.date = date;
         this.dateFin = dateFin;
@@ -109,11 +109,11 @@ public class Soiree {
         this.participants = participants;
     }
 
-    public int[] getPosition() {
+    public Double[] getPosition() {
         return position;
     }
 
-    public void setPosition(int[] position) {
+    public void setPosition(Double[] position) {
         this.position = position;
     }
 

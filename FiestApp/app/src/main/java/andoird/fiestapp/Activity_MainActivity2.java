@@ -1,6 +1,12 @@
 package andoird.fiestapp;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +46,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        checkLocationPermission();
         setContentView(R.layout.activity_liste_soiree);
 
         MyApplication app = (MyApplication) getApplicationContext();
@@ -75,6 +81,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         ListeDeSoireesPourClient listeSoiree = new ListeDeSoireesPourClient();
 
 
+<<<<<<< HEAD
 //        ParticipantSoiree personne1=new ParticipantSoiree("mathieu","pas_parti");
 //        ParticipantSoiree personne2=new ParticipantSoiree("sebastien","pas_parti");
 //        ParticipantSoiree personne3=new ParticipantSoiree("nicolas","pas_parti");
@@ -114,6 +121,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
 //        app.listeSoirees.add(soiree5);
 //        app.listeSoirees.add(soiree6);
 
+
         MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, app.listeSoirees, app);
         listView.setAdapter(adapter);
 
@@ -127,7 +135,10 @@ public class Activity_MainActivity2 extends AppCompatActivity {
 
                 int idSoireeADetailler=0;
                 for(int a=0;a<app.listeSoirees.size();a++){
+  //                  Double[] pos= app.listeSoirees.get(a).getPosition();
+//                    String chaine=String.valueOf(pos[0])+String.valueOf(pos[1]);
                     String chaine= app.listeSoirees.get(a).getNom_soiree();
+
                     if(chaine.equals(sIdSoireeADetailler)){
                         idSoireeADetailler=a;
                     }
@@ -192,6 +203,83 @@ public class Activity_MainActivity2 extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("Location")
+                        .setMessage("Permission")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(Activity_MainActivity2.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            Intent intent = new Intent(this, GpsService.class);
+            startService(intent);
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        Intent intent = new Intent(this, GpsService.class);
+                        startService(intent);
+                        //Request location updates:
+                        //  locationManager.requestLocationUpdates(provider, 400, 1, this);
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+        }
+    }
+
 
 
 }

@@ -131,9 +131,9 @@ public class Rest extends AsyncTask {
             try {
                 Log.d(TAG,"SIZE API RESULT"+apiResult.length());
                 for(int i=0;i<apiResult.length();i++){
-                    int[] pos = new int[2];
-                    pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getInt(0);
-                    pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getInt(1);
+                    Double[] pos = new Double[2];
+                    pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getDouble(0);
+                    pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getDouble(1);
                     ArrayList<ParticipantSoiree> listP = new ArrayList<ParticipantSoiree>();
                     ParticipantSoiree ps;
                     JSONArray partJSON = new JSONArray(apiResult.getJSONObject(i).getString("participants"));
@@ -376,9 +376,9 @@ public class Rest extends AsyncTask {
                             partJSON.getJSONObject(i).getString("status"));
                     part.add(ps);
                 }
-                int[] position = new int[2];
-                position[0] = apiResult.getJSONArray("position").getInt(0);
-                position[1] = apiResult.getJSONArray("position").getInt(1);
+                Double[] position = new Double[2];
+                position[0] = apiResult.getJSONArray("position").getDouble(0);
+                position[1] = apiResult.getJSONArray("position").getDouble(1);
                 Log.d(TAG, partJSON.toString());
                 Soiree soiree = new Soiree(
                         apiResult.getString("_id"),
@@ -458,9 +458,9 @@ public class Rest extends AsyncTask {
         if(response!=null) {
             JSONObject apiResult = response.getBody();
             try {
-                int[] position = new int[2];
-                position[0] = apiResult.getJSONArray("position").getJSONArray(0).getInt(0);
-                position[1] = apiResult.getJSONArray("position").getJSONArray(1).getInt(0);
+                Double[] position = new Double[2];
+                position[0] = apiResult.getJSONArray("position").getJSONArray(0).getDouble(0);
+                position[1] = apiResult.getJSONArray("position").getJSONArray(1).getDouble(0);
                 User user = new User(apiResult.getString("_id"), apiResult.getString("nom"), apiResult.getString("prenom"), position);
                 Log.d(TAG, apiResult.toString());
                 return user;
@@ -489,9 +489,9 @@ public class Rest extends AsyncTask {
 
         JSONObject apiResult = response.getBody();
         try {
-            int[] position = new int[2];
-            position[0] = apiResult.getJSONArray("position").getJSONArray(0).getInt(0);
-            position[1] = apiResult.getJSONArray("position").getJSONArray(1).getInt(0);
+            Double[] position = new Double[2];
+            position[0] = apiResult.getJSONArray("position").getJSONArray(0).getDouble(0);
+            position[1] = apiResult.getJSONArray("position").getJSONArray(1).getDouble(0);
             User user = new User(apiResult.getString("_id"),apiResult.getString("nom"),apiResult.getString("prenom"),position);
             Log.d(TAG,apiResult.toString());
             return user;
