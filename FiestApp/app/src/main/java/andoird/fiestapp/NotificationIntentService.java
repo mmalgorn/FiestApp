@@ -14,7 +14,7 @@ import andoird.fiestapp.Object.Soiree;
 
 public class NotificationIntentService extends IntentService {
 
-    private static final int NOTIFICATION_ID = 1;
+    private int NOTIFICATION_ID = 1;
     private static final String ACTION_START = "ACTION_START";
     private static final String ACTION_DELETE = "ACTION_DELETE";
     private Soiree soiree;
@@ -80,5 +80,6 @@ public class NotificationIntentService extends IntentService {
 
         final NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(NOTIFICATION_ID, builder.build());
+        NOTIFICATION_ID++;
     }
 }

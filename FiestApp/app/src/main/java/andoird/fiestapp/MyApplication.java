@@ -28,7 +28,7 @@ public class MyApplication extends Application {
     public List<String> amis;
     public List<String> amisCheck;
     public Soiree soireeNotif;
-    public ArrayList<Notification> Notifs;
+    public ArrayList<Notification> Notifs = new ArrayList<Notification>();
 
     public void onCreate(){
         super.onCreate();
