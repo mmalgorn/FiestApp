@@ -47,15 +47,30 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
             }
         });
 
+
+
+
+        TextView textLocalisation = (TextView)findViewById(R.id.localisation);
+        TextView textHeure = (TextView)findViewById(R.id.heure);
+        TextView textDescription = (TextView)findViewById(R.id.description);
+
+
+        textLocalisation.setText(String.valueOf(app.laSoiree.getPosition()[0])+String.valueOf(app.laSoiree.getPosition()[1]));
+        textHeure.setText(String.valueOf(app.laSoiree.getDate()));
+        textDescription.setText(app.laSoiree.getNom_soiree());
+
+
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        MyApplication app = (MyApplication) getApplicationContext();
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(45.386482, -71.93042700000001);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("UN PD VIT ICI ET NOUS FAIT A BOUFFER TOUS LES JOURS"));
+        LatLng sydney = new LatLng(app.laSoiree.getPosition()[0], app.laSoiree.getPosition()[1]);
+        mMap.addMarker(new MarkerOptions().position(sydney).title(app.laSoiree.getNom_soiree()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
