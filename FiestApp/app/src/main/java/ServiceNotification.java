@@ -9,8 +9,8 @@ import android.support.annotation.Nullable;
 public class ServiceNotification extends IntentService {
 
 
-    public ServiceNotification(String name) {
-        super(name);
+    public ServiceNotification() {
+        super("nom au pif");
     }
 
     @Override

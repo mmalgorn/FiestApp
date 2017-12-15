@@ -96,8 +96,6 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         soiree6.addParticipant(personne3);
 
 
-
-
         app.listeSoirees.add(soiree1);
         app.listeSoirees.add(soiree2);
         app.listeSoirees.add(soiree3);
