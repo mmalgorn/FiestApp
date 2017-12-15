@@ -17,6 +17,8 @@ public class MyApplication extends Application {
     public List<Soiree> listeSoirees;
     public Soiree laSoiree;
     public List<String> amis;
+    public List<String> amisCheck;
+
     /*Pour nico*/
     public String statut;
     public int statut_id;
@@ -27,6 +29,8 @@ public class MyApplication extends Application {
         this.statut="false";
         this.laSoiree=null;
         this.amis=new LinkedList();
+        this.amisCheck=new LinkedList();
+
     }
 
     public void setAmis(List<String> liste){

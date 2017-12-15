@@ -3,6 +3,7 @@ package andoird.fiestapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,7 +89,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
 
                 MyApplication app = (MyApplication) getApplicationContext();
                 String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.nom_ami)).getText().toString();
-
+                Log.d("HeyHOWWWWWWW",sIdSoireeADetailler);
 
                 int idSoireeADetailler=0;
                 for(int a=0;a<app.listeSoirees.size();a++){
