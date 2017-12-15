@@ -121,7 +121,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
 
                 MyApplication app = (MyApplication) getApplicationContext();
                 String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.nom_ami)).getText().toString();
-
+                Log.d("HeyHOWWWWWWW",sIdSoireeADetailler);
 
                 int idSoireeADetailler=0;
                 for(int a=0;a<app.listeSoirees.size();a++){
