@@ -50,8 +50,8 @@ public class Rest extends AsyncTask {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
             System.setProperty("http.keepAlive", "false");
         }
-//        this.path="http://10.0.2.2:3000";
-        this.path = "http://192.168.196.1:3000";
+        this.path="http://10.0.2.2:3000";
+//        this.path = "http://192.168.196.1:3000";
         Object retour = null;
         switch (objects[0].toString()){
             case "/FindUser":
