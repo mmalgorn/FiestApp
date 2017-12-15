@@ -16,11 +16,12 @@ public class Soiree {
     private int date;
     private int dateFin;
     private String nom_soiree;
-
+    private String id;
     private ArrayList<ParticipantSoiree> participants;
     private int[] position;
 
-    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, int[] position,ArrayList<ParticipantSoiree> participants) {
+    public Soiree(String id,String idCreateur, int date, int dateFin, String nom_soiree, int[] position,ArrayList<ParticipantSoiree> participants) {
+        this.id=id;
         this.idCreateur = idCreateur;
         this.date = date;
         this.dateFin = dateFin;
@@ -36,6 +37,15 @@ public class Soiree {
         this.dateFin = dateFin;
         this.nom_soiree = nom_soiree;
         this.participants = new ArrayList<ParticipantSoiree>();
+        this.position = position;
+    }
+
+    public Soiree(String idCreateur, int date, int dateFin, String nom_soiree, ArrayList<ParticipantSoiree> participants, int[] position) {
+        this.idCreateur = idCreateur;
+        this.date = date;
+        this.dateFin = dateFin;
+        this.nom_soiree = nom_soiree;
+        this.participants = participants;
         this.position = position;
     }
 
@@ -107,9 +117,14 @@ public class Soiree {
         this.position = position;
     }
 
+    public String getId(){return this.id;}
+
+    public void setId(String id){this.id = id;}
+
     @Override
     public String toString() {
         return "Soiree{" +
+                "id='" + id +'\'' +
                 "idCreateur='" + idCreateur + '\'' +
                 ", date=" + date +
                 ", dateFin=" + dateFin +
@@ -126,18 +141,25 @@ public class Soiree {
         if(this.participants.size()>0) {
             part = "[";
             for (int i = 0; i < this.participants.size(); i++) {
+                part+= "{\"id\":\"";
                 part+=this.participants.get(i).getId();
+                part+= "\",\"status\":\"";
+                part+=this.participants.get(i).getStatus();
+                part+="\"}";
                 if(i!=this.participants.size()-1){
                     part+=",";
                 }
             }
+            part+="]";
         }
         try {
+            obj.put("id",this.getId());
             obj.put("idCreateur",this.getIdCreateur());
             obj.put("nom_soiree",this.getNom_soiree());
             obj.put("date",this.getDate());
             obj.put("dateFin",this.getDateFin());
             obj.put("participants",part);
+            obj.put("position", this.position[0]+","+this.position[1]);
 
         } catch (JSONException e) {
             e.printStackTrace();

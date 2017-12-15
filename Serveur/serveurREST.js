@@ -39,7 +39,6 @@ exports.lancerServeur=function(){
     console.log("Serveur en ecoute sur http://%s:%s", host, port);
   });
 
-
   //INSCRIPTION USAGER
   // OK
   app.post('/AddUser', function(req, res){
@@ -78,6 +77,9 @@ exports.lancerServeur=function(){
   app.post('/GetSoiree', function(req, res){
     Soiree.findSoireeByName(req.body)
     .then(function(soiree){
+      // var newSoiree = soiree;
+      // newSoiree.participants = JSON.parse(soiree.participants);
+      // res.status(200).send(newSoiree);
       res.status(200).send(soiree);
     })
     .catch(function(err){
@@ -108,6 +110,7 @@ exports.lancerServeur=function(){
   // CREATION DE SOIREE
   // OK
   app.post('/AddSoiree', function(req, res){
+    console.log("ADD SOIREE");
     Soiree.insertSoiree(req.body)
     .then(function(soiree){
       //console.log(user);
@@ -146,8 +149,10 @@ exports.lancerServeur=function(){
   });
 
   //AJOUT PARTICIPANT A UNE SOIREE
+  //OK
   app.post('/NewPart', function(req,res){
-    Soiree.addPart(req.body)
+    console.log("NEW PART");
+    Soiree.updateParts(req.body,0)
     .then(function(soiree){
       res.status(200).send({result:"OK"});
     })
@@ -158,8 +163,10 @@ exports.lancerServeur=function(){
   });
 
   //RETRAIT PARTICIPANT D'UNE SOIREE
+  //OK
   app.post('/DeadFriend', function(req,res){
-    Soiree.removePart(req.body)
+    console.log("DEADFRIEND");
+    Soiree.updateParts(req.body,1)
     .then(function(soiree){
       res.status(200).send({result:"OK"});
     })
@@ -170,6 +177,7 @@ exports.lancerServeur=function(){
   });
 
   //ACTUALISATION STATUT PARTICIPANT D'UNE SOIREE
+  //OK
   app.post('/UpdateStatus', function(req,res){
     Soiree.updateStatusPart(req.body)
     .then(function(soiree){
