@@ -126,9 +126,9 @@ public class Rest extends AsyncTask {
         if(response!=null) {
             JSONArray apiResult = response.getBody();
             ListSoiree list = new ListSoiree();
-            Log.d(TAG,apiResult.toString());
+          //  Log.d(TAG,apiResult.toString());
             try {
-                Log.d(TAG,"SIZE API RESULT"+apiResult.length());
+             //   Log.d(TAG,"SIZE API RESULT"+apiResult.length());
                 for(int i=0;i<apiResult.length();i++){
                     Double[] pos = new Double[2];
                     pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getDouble(0);
@@ -153,11 +153,11 @@ public class Rest extends AsyncTask {
                           pos,
                           listP
                   );
-                    Log.d(TAG,"SOIREE "+s.toString());
+                //    Log.d(TAG,"SOIREE "+s.toString());
                     list.addSoiree(s);
-                    Log.d(TAG,list.getListSoiree().get(i).toString());
+                //    Log.d(TAG,list.getListSoiree().get(i).toString());
                 }
-                Log.d(TAG,"mySoiree"+ list.toString());
+               // Log.d(TAG,"mySoiree"+ list.toString());
                 return list;
             } catch (JSONException e) {
                 e.printStackTrace();

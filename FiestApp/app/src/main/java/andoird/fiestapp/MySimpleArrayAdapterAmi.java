@@ -51,7 +51,7 @@ public class MySimpleArrayAdapterAmi extends ArrayAdapter<String> {
         final View rowView = inflater.inflate(R.layout.activity_ami_item, parent, false);
 
         if(position<liste.size()) {
-            Log.d("test", "Get View : Position :"+position+" Size :"+liste.size());
+           // Log.d("test", "Get View : Position :"+position+" Size :"+liste.size());
 
             String ami = liste.get(position);
 

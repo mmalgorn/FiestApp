@@ -36,6 +36,7 @@ public class MyApplication extends Application {
     public void onCreate(){
         super.onCreate();
         MyApplication.context = getApplicationContext();
+        this.listeSoirees=new ListSoiree();
     }
     public static Context getAppContext() {
         return MyApplication.context;
@@ -49,7 +50,7 @@ public class MyApplication extends Application {
 
     public MyApplication(){
 
-        this.listeSoirees=new ListSoiree();
+
         this.statut="false";
         this.laSoiree=null;
         this.amis=new LinkedList();
@@ -77,6 +78,10 @@ public class MyApplication extends Application {
     public ListSoiree getListeSoirees(){return listeSoirees;}
 
     public void setSoireeNotif(Soiree soireeNotif){this.soireeNotif=soireeNotif;}
+
+    public void addSoire(Soiree s){
+        listeSoirees.addSoiree(s);
+    }
 
     public Soiree getSoireeNotif(){return soireeNotif;}
 

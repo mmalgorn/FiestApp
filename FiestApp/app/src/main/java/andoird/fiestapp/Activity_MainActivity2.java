@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -60,7 +62,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
         }
         try {
             JSONObject objMySoiree = new JSONObject();
-            Log.d(TAG, app.getMyUser().getId());
+            //Log.d(TAG, app.getMyUser().getId());
             objMySoiree.put("idUser", app.getMyUser().getId());
 
 
@@ -68,8 +70,8 @@ public class Activity_MainActivity2 extends AppCompatActivity {
 //            Log.d(TAG, list);
             if (list != null) {
                 for (int i = 0; i < list.getListSoiree().size(); i++) {
-                    Log.d(TAG, list.getListSoiree().get(i).toString());
-                    app.listeSoirees.getListSoiree().add(list.getListSoiree().get(i));
+              //      Log.d(TAG, list.getListSoiree().toString());
+                    app.listeSoirees.addSoiree(list.getListSoiree().get(i));
                 }
             }
         } catch(JSONException e){
@@ -91,7 +93,7 @@ public class Activity_MainActivity2 extends AppCompatActivity {
 
                 MyApplication app = (MyApplication) getApplicationContext();
                 String sIdSoireeADetailler = ((TextView) view.findViewById(R.id.nom_ami)).getText().toString();
-                Log.d("HeyHOWWWWWWW",sIdSoireeADetailler);
+                //Log.d("HeyHOWWWWWWW",sIdSoireeADetailler);
 
                 int idSoireeADetailler=0;
                 for(int a=0;a<app.listeSoirees.getListSoiree().size();a++){
@@ -123,46 +125,64 @@ public class Activity_MainActivity2 extends AppCompatActivity {
             }
         });
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setSelectedItemId(R.id.soirees);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Intent activite_a_lancer;
+                        switch (item.getItemId()) {
+                            case R.id.etat:
+                              /*  item.setVisibility(View.VISIBLE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.GONE);*/
+                                activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityEtat.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.soirees:
+                               /* textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.VISIBLE);
+                                textMusic.setVisibility(View.GONE);*/
+                                activite_a_lancer = new Intent(Activity_MainActivity2.this, Activity_MainActivity2.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.amis:
+                           /*     textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);*/
+                                activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityAmis.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.notifications:
+                                /*textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);*/
+                                activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityNotifications.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.ajouter_soiree:
+                           /*     textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);*/
+                                activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityReglages.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //ajoute les entrées de menu_test à l'ActionBar
-        getMenuInflater().inflate(R.menu.barre_menu, menu);
-        return true;
-    }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent activite_a_lancer;
-        switch (item.getItemId()){
-            case R.id.etat:
-                activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityEtat.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.soirees:
-                activite_a_lancer = new Intent(Activity_MainActivity2.this, Activity_MainActivity2.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.notifications:
-                activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityNotifications.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.amis:
-                activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityAmis.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.ajouter_soiree:
-                activite_a_lancer = new Intent(Activity_MainActivity2.this, ActivityReglages.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 

@@ -34,17 +34,17 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
         String action = intent.getAction();
         Intent serviceIntent = null;
         if (ACTION_START_NOTIFICATION_SERVICE.equals(action)) {
-            Log.i(getClass().getSimpleName(), "onReceive from alarm, starting notification service");
+            //Log.i(getClass().getSimpleName(), "onReceive from alarm, starting notification service");
             app = (MyApplication) MyApplication.getAppContext();
             ListSoiree s = app.getListeSoirees();
             long date = new Date().getTime();
-            Log.d(TAG, String.valueOf(date));
-            Log.d(TAG, String.valueOf(s.getListSoiree().size()));
+          //  Log.d(TAG, String.valueOf(date));
+          //  Log.d(TAG, String.valueOf(s.getListSoiree().size()));
             for(int i=0;i<s.getListSoiree().size();i++){
                 if(!s.getListSoiree().get(i).getIsNotif()){
-                    Log.d(TAG,"BEFORE IF");
+            //        Log.d(TAG,"BEFORE IF");
                     if(s.getListSoiree().get(i).getDate()<date){
-                        Log.d(TAG,"IN IF");
+              //          Log.d(TAG,"IN IF");
                         app.setSoireeNotif(s.getListSoiree().get(i));
                         serviceIntent = NotificationIntentService.createIntentStartNotificationService(context);
                         app.soireeNotif.setIsNotif(true);

@@ -1,5 +1,7 @@
 package andoird.fiestapp.Object;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -35,12 +37,15 @@ public class ListSoiree {
 
     public void addSoiree(Soiree soiree){
         boolean isPresent = false;
+        Log.d("LISTSOIREE", String.valueOf(listSoiree.size()));
         for (int i = 0;i<listSoiree.size();i++){
+            Log.d("LISTSOIRE",""+listSoiree.get(i).getId().equals(soiree.getId()));
             if(listSoiree.get(i).getId().equals(soiree.getId())){
                 isPresent = true;
             }
         }
         if(!isPresent){
+            Log.d("LISTSOIRE","ADD SOIREE");
             listSoiree.add(soiree);
         }
     }

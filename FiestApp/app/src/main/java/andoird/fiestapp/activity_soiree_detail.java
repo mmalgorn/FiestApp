@@ -2,6 +2,8 @@ package andoird.fiestapp;
 
 import android.content.Intent;
 import android.nfc.Tag;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -62,6 +64,61 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
             }
         });
 
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setSelectedItemId(R.id.soirees);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Intent activite_a_lancer;
+                        switch (item.getItemId()) {
+                            case R.id.etat:
+                              /*  item.setVisibility(View.VISIBLE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.GONE);*/
+                                activite_a_lancer = new Intent(activity_soiree_detail.this, ActivityEtat.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.soirees:
+                               /* textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.VISIBLE);
+                                textMusic.setVisibility(View.GONE);*/
+                                activite_a_lancer = new Intent(activity_soiree_detail.this, Activity_MainActivity2.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.amis:
+                           /*     textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);*/
+                                activite_a_lancer = new Intent(activity_soiree_detail.this, ActivityAmis.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.notifications:
+                                /*textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);*/
+                                activite_a_lancer = new Intent(activity_soiree_detail.this, ActivityNotifications.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.ajouter_soiree:
+                           /*     textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);*/
+                                activite_a_lancer = new Intent(activity_soiree_detail.this, ActivityReglages.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                        }
+                        return false;
+                    }
+                });
 
 
 

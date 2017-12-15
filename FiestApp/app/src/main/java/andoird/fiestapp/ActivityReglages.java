@@ -1,6 +1,8 @@
 package andoird.fiestapp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -90,44 +92,63 @@ public class ActivityReglages extends AppCompatActivity {
                 startActivity(activite_a_lancer);
             }
         });
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setSelectedItemId(R.id.ajouter_soiree);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Intent activite_a_lancer;
+                        switch (item.getItemId()) {
+                            case R.id.etat:
+                              /*  item.setVisibility(View.VISIBLE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.GONE);*/
+                                activite_a_lancer = new Intent(ActivityReglages.this, ActivityEtat.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.soirees:
+                               /* textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.VISIBLE);
+                                textMusic.setVisibility(View.GONE);*/
+                                activite_a_lancer = new Intent(ActivityReglages.this, Activity_MainActivity2.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.amis:
+                           /*     textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);*/
+                                activite_a_lancer = new Intent(ActivityReglages.this, ActivityAmis.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.notifications:
+                                /*textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);*/
+                                activite_a_lancer = new Intent(ActivityReglages.this, ActivityNotifications.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                            case R.id.ajouter_soiree:
+                           /*     textFavorites.setVisibility(View.GONE);
+                                textSchedules.setVisibility(View.GONE);
+                                textMusic.setVisibility(View.VISIBLE);*/
+                                activite_a_lancer = new Intent(ActivityReglages.this, ActivityReglages.class);
+                                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(activite_a_lancer);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //ajoute les entrées de menu_test à l'ActionBar
-        getMenuInflater().inflate(R.menu.barre_menu, menu);
-        return true;
-    }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent activite_a_lancer;
-        switch (item.getItemId()){
-            case R.id.etat:
-                activite_a_lancer = new Intent(ActivityReglages.this, ActivityEtat.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.soirees:
-                activite_a_lancer = new Intent(ActivityReglages.this, Activity_MainActivity2.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.notifications:
-                activite_a_lancer = new Intent(ActivityReglages.this, ActivityNotifications.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.amis:
-                activite_a_lancer = new Intent(ActivityReglages.this, ActivityAmis.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-            case R.id.ajouter_soiree:
-                activite_a_lancer = new Intent(ActivityReglages.this, ActivityReglages.class);
-                activite_a_lancer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(activite_a_lancer);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
