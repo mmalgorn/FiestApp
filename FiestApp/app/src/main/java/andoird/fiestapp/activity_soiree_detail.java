@@ -1,6 +1,7 @@
 package andoird.fiestapp;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -81,64 +82,83 @@ public class activity_soiree_detail extends AppCompatActivity implements OnMapRe
         mMap = googleMap;
         MyApplication app = (MyApplication) getApplicationContext();
 
-//        LatLng positionSoiree = new LatLng(app.laSoiree.getPosition()[0],app.laSoiree.getPosition()[1]);
-        LatLng positionSoiree = new LatLng(40,-70);
+        LatLng positionSoiree = new LatLng(app.laSoiree.getPosition()[0],app.laSoiree.getPosition()[1]);
+
         mMap.addMarker(new MarkerOptions()
-                .position(positionSoiree).title("C'est ICI la soiree?")
+                .position(positionSoiree).title("Soiree")
                 .zIndex(1.0f)
-                .icon(BitmapDescriptorFactory.fromAsset("@res.drawable.logo_fiestapp.png"))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.logo_fiestapp))
         );
+        LatLng positionUser = new LatLng(app.laSoiree.getPosition()[0]+1,app.laSoiree.getPosition()[1]+2);
+        mMap.addMarker(new MarkerOptions()
+                .position(positionUser)
+                .title("Marqueur ")
+                .snippet("statut ")
+                .icon(BitmapDescriptorFactory.defaultMarker(60 ))
+                .zIndex(2.0f)
+        );
+        Log.d("TAG", String.valueOf(app.laSoiree.getParticipants().size()));
+
+        for(int i=0; i<10; i++){
+            LatLng positionUser2 = new LatLng(app.laSoiree.getPosition()[0]+i,app.laSoiree.getPosition()[1]+i);
+            mMap.addMarker(new MarkerOptions()
+                                .position(positionUser2)
+                                .title("Marqueur "+i)
+                                .snippet("statut "+i)
+                            .icon(BitmapDescriptorFactory.defaultMarker(12*i%360))
+            );
+        }
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(positionSoiree));
 
-        Rest rest = null;
-        try {
-            rest = new Rest();
-            JSONObject obj1 = new JSONObject();
-
-
-            Soiree s = (Soiree) rest.execute("/GetSoiree", obj1).get();
-            if (s != null) {
-                int length = s.getParticipants().size();
-
-                for(int i=0; i< length; i++){
-                    rest = new Rest();
-                    User u = (User) rest.execute("/FindUserById", s.getParticipants().get(i).getId()).get();
-                    MapMarqueurUser monMarqueur = new MapMarqueurUser(u.getPosition(),u.getPrenom(),s.getParticipants().get(i).getStatus());
-                    LatLng positionUser = new LatLng(monMarqueur.getPosition()[0], monMarqueur.getPosition()[1]);
-                    if(s.getIdCreateur().equals(u.getId())){
-                        mMap.addMarker(new MarkerOptions()
-                                .position(positionUser)
-                                .title(monMarqueur.getPrenom())
-                                .snippet(monMarqueur.getStatut())
-                                .flat(true)
-                                .zIndex(2.0f)
-                        );
-
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(positionUser));
-                    }
-                    else{
-                        mMap.addMarker(new MarkerOptions()
-                                .position(positionUser)
-                                .title(monMarqueur.getPrenom())
-                                .snippet(monMarqueur.getStatut())
-                                .icon(BitmapDescriptorFactory.defaultMarker(12 * i % 360))
-                        );
-
-                    }
-                }
-            } else {
-                int[] posS = new int[2];
-                s = new Soiree("5a3317814c18cb19cde88c84", 78, 78, "TestSoire", posS);
-            }
-        }
-        catch(InterruptedException e){
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        Rest rest = null;
+//        try {
+//            rest = new Rest();
+//            JSONObject obj1 = new JSONObject();
+//
+//
+//            Soiree s = (Soiree) rest.execute("/GetSoiree", obj1).get();
+//            if (s != null) {
+//                int length = s.getParticipants().size();
+//
+//                for(int i=0; i< length; i++){
+//                    rest = new Rest();
+//                    User u = (User) rest.execute("/FindUserById", s.getParticipants().get(i).getId()).get();
+//                    MapMarqueurUser monMarqueur = new MapMarqueurUser(u.getPosition(),u.getPrenom(),s.getParticipants().get(i).getStatus());
+//                    LatLng positionUser2 = new LatLng(monMarqueur.getPosition()[0], monMarqueur.getPosition()[1]);
+//                    if(s.getIdCreateur().equals(u.getId())){
+//                        mMap.addMarker(new MarkerOptions()
+//                                .position(positionUser2)
+//                                .title(monMarqueur.getPrenom())
+//                                .snippet(monMarqueur.getStatut())
+//                                .flat(true)
+//                                .zIndex(2.0f)
+//                        );
+//
+//                        mMap.moveCamera(CameraUpdateFactory.newLatLng(positionUser));
+//                    }
+//                    else{
+//                        mMap.addMarker(new MarkerOptions()
+//                                .position(positionUser)
+//                                .title(monMarqueur.getPrenom())
+//                                .snippet(monMarqueur.getStatut())
+//                                .icon(BitmapDescriptorFactory.defaultMarker(12 * i % 360))
+//                        );
+//
+//                    }
+//                }
+//            } else {
+//                int[] posS = new int[2];
+//                s = new Soiree("5a3317814c18cb19cde88c84", 78, 78, "TestSoire", posS);
+//            }
+//        }
+//        catch(InterruptedException e){
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
