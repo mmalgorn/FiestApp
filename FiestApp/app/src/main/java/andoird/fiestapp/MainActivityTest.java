@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import andoird.fiestapp.Object.Soiree;
 import andoird.fiestapp.Object.User;
 import andoird.fiestapp.rest.Rest;
 import com.facebook.AccessToken;
@@ -207,18 +208,21 @@ public class MainActivityTest extends AppCompatActivity implements OnMapReadyCal
         }
         JSONObject obj = new JSONObject();
         try {
-            obj.put("nom", "Mathieu");
-            obj.put("prenom","Malgorn");
+            obj.put("prenom", "Mathieu");
+            obj.put("nom","Malgorn");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
             User user = (User) rest.execute("/FindUser",obj).get();
-            Log.d(TAG, user.toString());
-            obj.put("id",user.getId());
+            if(user!=null) {
+                Log.d(TAG, user.toString());
+                obj.put("id",user.getId());
+            }
             rest = new Rest();
             user = (User) rest.execute("/FindUserById",obj).get();
+            if(user!=null)
             Log.d(TAG,user.toString());
             int[] pos = new int[2];
             pos[0] = 35;
@@ -228,14 +232,68 @@ public class MainActivityTest extends AppCompatActivity implements OnMapReadyCal
             Log.d(TAG,usertoAdd.toJSONObject().toString());
             Object ret = rest.execute("/AddUser",usertoAdd.toJSONObject());
 
+            rest = new Rest();
             JSONObject obj1 = new JSONObject();
             obj1.put("nom_soiree","test");
             obj1.put("date","10");
             obj1.put("idCreateur","5a32e3eee94a48ff1c722f5b");
-            rest.execute("/GetSoiree",obj1);
+            Soiree s =(Soiree) rest.execute("/GetSoiree",obj1).get();
+            if(s!=null) {
+                Log.d(TAG,"SOIREE OK");
+                Log.d(TAG, s.toString());
+                s.setDate(25);
+            }else{
+                int[] posS = new int[2];
+                s = new Soiree("5a3317814c18cb19cde88c84",78,78,"TestSoire",posS);
+            }
+            rest = new Rest();
+            Log.d(TAG,s.toJSONObject().toString());
+            ret = rest.execute("/AddSoiree",s.toJSONObject());
+            Log.d(TAG,s.toJSONObject().toString());
 
+            JSONObject objStatus = new JSONObject();
+            objStatus.put("idSoiree",s.getId());
+            objStatus.put("idUser","5a3317814c18cb19cde88c84");
+            objStatus.put("status","CHIL");
 
+            /*rest = new Rest();
+            ret = rest.execute("/UpdateStatus",objStatus);
+            Log.d(TAG,"Update status "+ret.toString());
+
+            int[] upPos = new int[2];
+            JSONObject objPos = new JSONObject();
+            objPos.put("id","5a3317814c18cb19cde88c84");
+            objPos.put("position", upPos[0]+","+upPos[1]);
+            rest = new Rest();
+            ret = rest.execute("/UpdatePosition",objPos);
+            Log.d(TAG,"Update Position "+ret.toString());
+*/
+            JSONObject objDead = new JSONObject();
+            objDead.put("idUser","5a3317814c18cb19cde88c84");
+            objDead.put("idSoiree",s.getId());
+
+            rest = new Rest();
+            ret = rest.execute("/DeadFriend",objDead);
+            Log.d(TAG,"DeadFriend : ");
             Log.d(TAG,ret.toString());
+
+            rest = new Rest();
+            ret = rest.execute("/NewPart",objDead);
+            Log.d(TAG,"NewPart : ");
+            Log.d(TAG,ret.toString());
+
+
+
+            JSONObject objRem = new JSONObject();
+            objRem.put("idCreateur","5a3317814c18cb19cde88c84");
+            objRem.put("date",78);
+            objRem.put("nom","TestSoire");
+
+            rest = new Rest();
+            ret = rest.execute("/FinSoiree",objRem);
+            Log.d(TAG,ret.toString());
+
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
