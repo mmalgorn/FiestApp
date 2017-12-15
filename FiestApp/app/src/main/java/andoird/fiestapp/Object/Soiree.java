@@ -56,7 +56,7 @@ public class Soiree {
                 isPresent = true;
             }
         }
-        if(isPresent) {
+        if(!isPresent) {
             this.participants.add(participantSoiree);
         }
     }

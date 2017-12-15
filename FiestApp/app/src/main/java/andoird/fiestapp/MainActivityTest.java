@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import andoird.fiestapp.Object.ListSoiree;
 import andoird.fiestapp.Object.Soiree;
 import andoird.fiestapp.Object.User;
 import andoird.fiestapp.rest.Rest;
@@ -215,7 +216,19 @@ public class MainActivityTest extends AppCompatActivity implements OnMapReadyCal
         }
 
         try {
-            User user = (User) rest.execute("/FindUser",obj).get();
+            JSONObject objMySoiree = new JSONObject();
+            objMySoiree.put("idUser","5a32e3eee94a48ff1c722f5b");
+
+            rest = new Rest();
+            ListSoiree list =(ListSoiree) rest.execute("/MySoirees",objMySoiree).get();
+            Log.d(TAG,list.toString());
+            Log.d(TAG, String.valueOf(list.getListSoiree().size()));
+            for(int i=0;i<list.getListSoiree().size();i++){
+                Log.d(TAG,list.getListSoiree().get(i).toString());
+
+            }
+
+/*            User user = (User) rest.execute("/FindUser",obj).get();
             if(user!=null) {
                 Log.d(TAG, user.toString());
                 obj.put("id",user.getId());
@@ -256,7 +269,7 @@ public class MainActivityTest extends AppCompatActivity implements OnMapReadyCal
             objStatus.put("idUser","5a3317814c18cb19cde88c84");
             objStatus.put("status","CHIL");
 
-            /*rest = new Rest();
+            rest = new Rest();
             ret = rest.execute("/UpdateStatus",objStatus);
             Log.d(TAG,"Update status "+ret.toString());
 
@@ -267,7 +280,7 @@ public class MainActivityTest extends AppCompatActivity implements OnMapReadyCal
             rest = new Rest();
             ret = rest.execute("/UpdatePosition",objPos);
             Log.d(TAG,"Update Position "+ret.toString());
-*/
+
             JSONObject objDead = new JSONObject();
             objDead.put("idUser","5a3317814c18cb19cde88c84");
             objDead.put("idSoiree",s.getId());
@@ -297,8 +310,12 @@ public class MainActivityTest extends AppCompatActivity implements OnMapReadyCal
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            e.printStackTrace();*/
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
     }

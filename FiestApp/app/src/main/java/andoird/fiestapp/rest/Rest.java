@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ArrayList;
 
+import andoird.fiestapp.Object.ListSoiree;
 import andoird.fiestapp.Object.ParticipantSoiree;
 import andoird.fiestapp.Object.Soiree;
 import andoird.fiestapp.Object.User;
@@ -92,7 +93,10 @@ public class Rest extends AsyncTask {
                 this.path+=objects[0].toString();
                 retour = UpdatePart((JSONObject) objects[1]);
                 break;
-
+            case "/MySoirees" :
+                this.path+=objects[0].toString();
+                retour = mySoirees((JSONObject) objects[1]);
+                break;
         }
 // later we authenticate
 
@@ -100,6 +104,70 @@ public class Rest extends AsyncTask {
 
 //        webb.delete("/session").asVoid();
         return retour;
+    }
+
+    private Object mySoirees(JSONObject obj) {
+        Webb webb = Webb.create();
+        Response<JSONArray> response = null;
+        try {
+            response = webb
+                    .post(this.path)
+                    .param("idUser", obj.get("idUser").toString())
+
+                    .ensureSuccess()
+                    .asJsonArray();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (WebbException e){
+            e.printStackTrace();
+        }
+
+        if(response!=null) {
+            JSONArray apiResult = response.getBody();
+            ListSoiree list = new ListSoiree();
+            Log.d(TAG,apiResult.toString());
+            try {
+                Log.d(TAG,"SIZE API RESULT"+apiResult.length());
+                for(int i=0;i<apiResult.length();i++){
+                    int[] pos = new int[2];
+                    pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getInt(0);
+                    pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getInt(1);
+                    ArrayList<ParticipantSoiree> listP = new ArrayList<ParticipantSoiree>();
+                    ParticipantSoiree ps;
+                    JSONArray partJSON = new JSONArray(apiResult.getJSONObject(i).getString("participants"));
+
+                    for (int j = 0; j < partJSON.length(); j++) {
+                        ps = new ParticipantSoiree(
+                                partJSON.getJSONObject(j).getString("id"),
+                                partJSON.getJSONObject(j).getString("status"));
+                        listP.add(ps);
+                    }
+
+                    Soiree s = new Soiree(
+                          apiResult.getJSONObject(i).getString("_id"),
+                          apiResult.getJSONObject(i).getString("idCreateur"),
+                          apiResult.getJSONObject(i).getInt("date"),
+                          apiResult.getJSONObject(i).getInt("datefin"),
+                          apiResult.getJSONObject(i).getString("nom_soiree"),
+                          pos,
+                          listP
+                  );
+                    Log.d(TAG,"SOIREE "+s.toString());
+                    list.addSoiree(s);
+                    Log.d(TAG,list.getListSoiree().get(i).toString());
+                }
+                Log.d(TAG,"mySoiree"+ list.toString());
+                return list;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        Log.d(TAG, "Erreur Modify Status");
+        return null;
+
+
+
     }
 
     private Object UpdatePart(JSONObject obj) {
@@ -308,7 +376,7 @@ public class Rest extends AsyncTask {
                 }
                 int[] position = new int[2];
                 position[0] = apiResult.getJSONArray("position").getInt(0);
-                position[1] = apiResult.getJSONArray("position").getInt(0);
+                position[1] = apiResult.getJSONArray("position").getInt(1);
                 Log.d(TAG, partJSON.toString());
                 Soiree soiree = new Soiree(
                         apiResult.getString("_id"),

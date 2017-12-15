@@ -193,6 +193,7 @@ exports.lancerServeur=function(){
     });
 
     app.post('/MySoirees',function(req,res){
+      console.log("MY SOIREES");
       Soiree.findSoireesOuPresent(req.body.idUser)
       .then(function(soirees){
         // console.log("ON PARCOURT LES SOIREES");
