@@ -17,7 +17,6 @@ function filterArray(test_array) {
         arr_length = test_array ? test_array.length : 0,
         resIndex = -1,
         result = [];
-
     while (++index < arr_length) {
         var value = test_array[index];
 
@@ -25,12 +24,10 @@ function filterArray(test_array) {
             result[++resIndex] = value;
         }
     }
-
     return result;
 }
 
 var soireeSchema = new Schema({
-
   idCreateur : {type : ObjectId, ref:'User'},
   date : Number,
   datefin : Number,
@@ -94,7 +91,6 @@ Soiree.findSoireesOuPresent = function(id){
 Soiree.insertSoiree = function(soiree){
   console.log("INSERT SOIREE");
   var deferred = Q.defer();
-
   var taille = soiree.position.length;
   var pos = true;
   var pos1 ="";
@@ -117,7 +113,6 @@ Soiree.insertSoiree = function(soiree){
     idCreateur : soiree.idCreateur,
     position :[pos1,pos2]
   });
-
   var participants = [];
   //Ajout du createur dans les participants
   var j=0;
@@ -126,8 +121,6 @@ Soiree.insertSoiree = function(soiree){
     status : "Preparation"
   };
   participants[j]=part;
-
-
   if(soiree.participants != null &&soiree.participants.length>0){
   //Recuperation et ajout des participants (IDs) passes dans la requete
   var taille = soiree.participants.length;
@@ -139,7 +132,6 @@ Soiree.insertSoiree = function(soiree){
           status : "Preparation"
         };
         participants[j]=part;
-
         j++;
         cursor = "";
       }
@@ -153,15 +145,12 @@ Soiree.insertSoiree = function(soiree){
     };
     participants[j]=part;
   }
-
   var stringParts = JSON.stringify(participants);
   console.log("PARTICIPANTS A AJOUTER:");
   console.log(stringParts);
   soireeToAdd.participants = stringParts;
-
   console.log("soiree a ajouter: ");
   console.log(soireeToAdd);
-
   Soiree.findSoireeByName(soireeToAdd)
   .then(function(soiree){
     if(soiree==null){
@@ -193,7 +182,6 @@ Soiree.removeSoiree = function(soiree){
   console.log("TRYING TO DELETE A SOIREE");
   var deferred = Q.defer();
   console.log(soiree);
-
   Soiree.findOneAndRemove({nom_soiree: soiree.nom, date: soiree.date, idCreateur:soiree.idCreateur}, function(error, soiree){
     if (error) {
       console.log("ERROR");
@@ -222,12 +210,10 @@ Soiree.updateStatusPart=function(block){
     console.log("SOIREE TROUVEE:");
     console.log(soiree);
     console.log('\n');
-
     var jsonParts = JSON.parse(soiree.participants);
     console.log("Participants soiree: ");
     console.log(jsonParts);
     console.log('\n');
-
     var array = [];
     for(var j=0; j<jsonParts.length; j++){
       array[j]=jsonParts[j]
@@ -310,7 +296,6 @@ Soiree.updateParts=function(block, addRemove){
       array[j+1]=newPart;
     }
     array = filterArray(array);
-
     console.log("NOUVEAUX PARTICIPANTS:");
     console.log(array);
     var stringParts=JSON.stringify(array);

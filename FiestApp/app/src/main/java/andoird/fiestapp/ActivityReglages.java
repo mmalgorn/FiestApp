@@ -29,11 +29,11 @@ public class ActivityReglages extends AppCompatActivity {
                 EditText textDebut = (EditText)findViewById(R.id.date_debut);
                 EditText date_fin = (EditText)findViewById(R.id.date_fin);
                 EditText nom_soiree = (EditText)findViewById(R.id.nom_soiree);
+
                 EditText position_latitude = (EditText)findViewById(R.id.latitude);
                 EditText position_longitude = (EditText)findViewById(R.id.longitude);
 
                 int[] position_creation={Integer.parseInt(position_latitude.getText().toString()),Integer.parseInt(position_longitude.getText().toString())};
-
 
                 /*Place pour prévenir le serveur que l'on créé un match*/
 
