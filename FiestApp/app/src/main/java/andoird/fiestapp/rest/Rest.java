@@ -47,11 +47,10 @@ public class Rest extends AsyncTask {
         // create the client (one-time, can be used from different threads
         //webb.setBaseUri(SyncPreferences.REST_ENDPOINT);
         //webb.setDefaultHeader(Webb.HDR_USER_AGENT, Const.UA);
-        this.path="http://localhost:3000";
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
             System.setProperty("http.keepAlive", "false");
         }
-        //this.path="http://10.0.2.2:3000";
+//        this.path="http://10.0.2.2:3000";
         this.path = "http://192.168.196.1:3000";
         Object retour = null;
         switch (objects[0].toString()){
