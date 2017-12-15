@@ -75,6 +75,22 @@ Soiree.findSoireeByName = function(soiree){
   return deferred.promise;
 }
 
+Soiree.findSoireesOuPresent = function(id){
+  var deferred = Q.defer();
+  var cursor = 0;
+  var _id = id;
+  this.find({}, function(error, soirees){
+    if (error) {
+      // Throw an error
+      deferred.reject(new Error(error));
+    }
+    else {
+      deferred.resolve(soirees);
+    };
+  });
+  return deferred.promise;
+};
+
 Soiree.insertSoiree = function(soiree){
   console.log("INSERT SOIREE");
   var deferred = Q.defer();
@@ -250,7 +266,7 @@ Soiree.updateStatusPart=function(block){
 
 Soiree.updateParts=function(block, addRemove){
   //block comprend: idSoiree, idUser, status
-  console.log("MISE A JOURDES PARTICIPANTS");
+  console.log("MISE A JOUR DES PARTICIPANTS");
   console.log("block de modification:");
   console.log(block);
   console.log('\n');
@@ -261,12 +277,10 @@ Soiree.updateParts=function(block, addRemove){
     console.log("SOIREE TROUVEE:");
     console.log(soiree);
     console.log('\n');
-
     var jsonParts = JSON.parse(soiree.participants);
     console.log("Participants soiree: ");
     console.log(jsonParts);
     console.log('\n');
-
     var array = [];
     if(addRemove==1){
     for(var j=0; j<jsonParts.length; j++){
@@ -322,5 +336,4 @@ Soiree.updateParts=function(block, addRemove){
   .done();
   return deferred.promise;
 }
-
 module.exports = Soiree;
