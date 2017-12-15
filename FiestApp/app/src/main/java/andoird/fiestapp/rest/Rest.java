@@ -47,10 +47,12 @@ public class Rest extends AsyncTask {
         // create the client (one-time, can be used from different threads
         //webb.setBaseUri(SyncPreferences.REST_ENDPOINT);
         //webb.setDefaultHeader(Webb.HDR_USER_AGENT, Const.UA);
+        this.path="http://localhost:3000";
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
             System.setProperty("http.keepAlive", "false");
         }
-        this.path = "http://192.168.196.1:3000";
+        this.path="http://10.0.2.2:3000";
+//        this.path = "http://192.168.196.1:3000";
         Object retour = null;
         switch (objects[0].toString()){
             case "/FindUser":
@@ -131,7 +133,7 @@ public class Rest extends AsyncTask {
                 for(int i=0;i<apiResult.length();i++){
                     Double[] pos = new Double[2];
                     pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getDouble(0);
-                    pos[0] = apiResult.getJSONObject(i).getJSONArray("position").getDouble(1);
+                    pos[1] = apiResult.getJSONObject(i).getJSONArray("position").getDouble(1);
                     ArrayList<ParticipantSoiree> listP = new ArrayList<ParticipantSoiree>();
                     ParticipantSoiree ps;
                     JSONArray partJSON = new JSONArray(apiResult.getJSONObject(i).getString("participants"));
